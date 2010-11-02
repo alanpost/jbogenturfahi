@@ -2,4 +2,5 @@
  (category parsing)
  (doc-from-wiki)
  (license "ISC")
+ (test-depends test)
  (synopsis "lo lojbo ke pe'a jajgau ratcu ke'e genturfa'i"))
