@@ -17,10 +17,18 @@
 ;;;; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;;;;
 
-((author "\".alyn.post.\" <alyn.post@lodockikumazvati.org>")
- (category parsing)
- (doc-from-wiki)
- (license "ISC")
- (needs utf8 genturfahi)
- (test-depends test)
- (synopsis "lo lojbo ke pe'a jajgau ratcu ke'e genturfa'i"))
+(module jbogenturfahi
+  (jbogenturfahi-version
+   jbogenturfahi-version-major
+   jbogenturfahi-version-minor
+   jbogenturfahi-version-patch)
+
+(import chicken)
+(import scheme)
+
+(require-library utf8)
+(require-library genturfahi)
+
+(import utf8 genturfahi)
+
+(include "version.scm"))

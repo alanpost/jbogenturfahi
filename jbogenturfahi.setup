@@ -17,10 +17,37 @@
 ;;;; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;;;;
 
-((author "\".alyn.post.\" <alyn.post@lodockikumazvati.org>")
- (category parsing)
- (doc-from-wiki)
- (license "ISC")
- (needs utf8 genturfahi)
- (test-depends test)
- (synopsis "lo lojbo ke pe'a jajgau ratcu ke'e genturfa'i"))
+(include "version.scm")
+(include "conf.scm")
+
+; dynamic library
+(compile -s
+         -O2
+         -d1
+         -o ,(dynld-name "jbogenturfahi")
+         -j jbogenturfahi
+         chicken-egg.scm)
+(compile -s -O2 -d1 jbogenturfahi.import.scm)
+
+; static library
+(compile -c
+         -O2
+         -d1
+         -o "jbogenturfahi.o"
+         "chicken-egg.scm"
+         -unit jbogenturfahi)
+
+; jbogenturfahi executable
+;
+
+(install-extension
+  ; lo cmene vi pagbu
+  'jbogenturfahi
+
+  ; lo datnyvei vi pagbu
+  `("jbogenturfahi.o"
+    ,(dynld-name "jbogenturfahi")
+    ,(dynld-name "jbogenturfahi.import"))
+
+  ; lo se ckaji vi pagbu
+  `((version trunk)))
