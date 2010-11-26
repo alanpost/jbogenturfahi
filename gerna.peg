@@ -211,7 +211,7 @@ fore-operands <- mex-2+
 
 ; Right recursive version.
 rp-expression <- operand rp-expression-tail
-rp-expression-tail <- rp-expression operator rp-expression-tail / ()
+rp-expression-tail <- (rp-expression operator rp-expression-tail)?
 
 ;; operator <- operator-1 (joik-jek operator-1 / joik stag? KE-clause free* operator KEhE-clause? free*)*
 
