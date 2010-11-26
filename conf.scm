@@ -19,3 +19,5 @@
 
 (define (dynld-name fn)
   (make-pathname #f fn ##sys#load-dynamic-extension))
+
+(define jbogenturfahi-cscflags  `(-O2 -d1))
