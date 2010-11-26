@@ -1150,421 +1150,421 @@ ZOhU-post <- post-clause
 ZOhU-no-SA-handling <- pre-clause ZOhU post-clause
 
 
-;************************
-; MORPHOLOGY INTERFACE
-; This section handles the interface with the morphology. If you are not
-; interested in this particular implementation of the morphology, you can
-; ignore everything below this point and consider the above as the full
-; formal grammar with terminals BRIVLA, CMENE, CMAVO, any-word,
-; A, BAI, ..., ZOhU, zoi-open, zoi-word, zoi-close, spaces, dot-star and EOF.
-;************************
-
-; inner-word (the stuff inside BRIVLA=( ... ), for example) is an
-; evenly nested, arbitrary length sequence of foo=( ... ) tags with
-; stuff inside them.  Gotta snarf it all.
-inner-word <- space-char (!equals-char !space-char .)+ equals-char open-paren inner-word close-paren inner-word? / inner-word2
-inner-word2 <- !close-paren-char . inner-word2 / !close-paren-char . &space-char
-space-char <- ' '
-equals-char <- '='
-close-paren-char <- ')'
-open-paren <- "( "
-close-paren <- " ) "
-
-;         any single lexable Lojban words 
-any-word <- any-word-pre inner-word close-paren spaces?
-
-spaces <- (spaces-pre inner-word close-paren)*
-spaces-pre <- " spaces=( " / " initialSpaces=( "
-
-dot-star <- .*
-EOF <- !.
-
-zoi-open <- any-word-pre inner-word &{ myAssign( new String(innerWordSEP2.toString()) ) } close-paren
-
-zoi-word <- spaces? zoi-printable-pre inner-word &{ ! myCompare( startString, innerWordSEP3 ) } close-paren
-
-zoi-close <- spaces? any-word-pre inner-word &{ myCompare( startString, innerWordSEP3 ) } close-paren spaces?
-
-zoi-printable-pre <- any-word-pre / non-Lojban-word-pre
-
-any-word-pre <- CMAVO-word-pre / CMENE-word-pre / BRIVLA-word-pre
-
-known-cmavo-pre <- A-word-pre / BAI-word-pre / BAhE-word-pre / BE-word-pre / BEI-word-pre / BEhO-word-pre / BIhE-word-pre / BIhI-word-pre / BO-word-pre / BOI-word-pre / BU-word-pre / BY-word-pre / CAI-word-pre / CAhA-word-pre / CEI-word-pre / CEhE-word-pre / CO-word-pre / COI-word-pre / CU-word-pre / CUhE-word-pre / DAhO-word-pre / DOI-word-pre / DOhU-word-pre / FA-word-pre / FAhA-word-pre / FAhO-word-pre / FEhE-word-pre / FEhU-word-pre / FIhO-word-pre / FOI-word-pre / FUhA-word-pre / FUhE-word-pre / FUhO-word-pre / GA-word-pre / GAhO-word-pre / GEhU-word-pre / GI-word-pre / GIhA-word-pre / GOI-word-pre / GOhA-word-pre / GUhA-word-pre / I-word-pre / JA-word-pre / JAI-word-pre / JOI-word-pre / JOhI-word-pre / KE-word-pre / KEI-word-pre / KEhE-word-pre / KI-word-pre / KOhA-word-pre / KU-word-pre / KUhE-word-pre / KUhO-word-pre / LA-word-pre / LAU-word-pre / LAhE-word-pre / LE-word-pre / LEhU-word-pre / LI-word-pre / LIhU-word-pre / LOhO-word-pre / LOhU-word-pre / LU-word-pre / LUhU-word-pre / MAI-word-pre / MAhO-word-pre / ME-word-pre / MEhU-word-pre / MOI-word-pre / MOhE-word-pre / MOhI-word-pre / NA-word-pre / NAI-word-pre / NAhE-word-pre / NAhU-word-pre / NIhE-word-pre / NIhO-word-pre / NOI-word-pre / NU-word-pre / NUhA-word-pre / NUhI-word-pre / NUhU-word-pre / PA-word-pre / PEhE-word-pre / PEhO-word-pre / PU-word-pre / RAhO-word-pre / ROI-word-pre / SA-word-pre / SE-word-pre / SEI-word-pre / SEhU-word-pre / SI-word-pre / SOI-word-pre / SU-word-pre / TAhE-word-pre / TEI-word-pre / TEhU-word-pre / TO-word-pre / TOI-word-pre / TUhE-word-pre / TUhU-word-pre / UI-word-pre / VA-word-pre / VAU-word-pre / VEI-word-pre / VEhA-word-pre / VEhO-word-pre / VIhA-word-pre / VUhO-word-pre / VUhU-word-pre / XI-word-pre / ZAhO-word-pre / ZEI-word-pre / ZEhA-word-pre / ZI-word-pre / ZIhE-word-pre / ZO-word-pre / ZOI-word-pre / ZOhU-word-pre
-
-non-Lojban-word-pre <- " nonLojbanWord=( "
-
-CMAVO-word-pre <- " CMAVO=( " 
-CMAVO <- CMAVO-word-pre inner-word close-paren
-
-BRIVLA-word-pre <- " BRIVLA=( " 
-BRIVLA <- BRIVLA-word-pre inner-word close-paren
-
-CMENE-word-pre <- " CMENE=( " 
-CMENE <- CMENE-word-pre inner-word close-paren
-
-A <- A-word-pre inner-word close-paren close-paren
-A-word-pre <- " CMAVO=(  A=( "
-
-BAI <- BAI-word-pre inner-word close-paren close-paren
-BAI-word-pre <- " CMAVO=(  BAI=( "
-
-BAhE <- BAhE-word-pre inner-word close-paren close-paren
-BAhE-word-pre <- " CMAVO=(  BAhE=( "
-
-BE <- BE-word-pre inner-word close-paren close-paren
-BE-word-pre <- " CMAVO=(  BE=( "
-
-BEI <- BEI-word-pre inner-word close-paren close-paren
-BEI-word-pre <- " CMAVO=(  BEI=( "
-
-BEhO <- BEhO-word-pre inner-word close-paren close-paren
-BEhO-word-pre <- " CMAVO=(  BEhO=( "
-
-BIhE <- BIhE-word-pre inner-word close-paren close-paren
-BIhE-word-pre <- " CMAVO=(  BIhE=( "
-
-BIhI <- BIhI-word-pre inner-word close-paren close-paren
-BIhI-word-pre <- " CMAVO=(  BIhI=( "
-
-BO <- BO-word-pre inner-word close-paren close-paren
-BO-word-pre <- " CMAVO=(  BO=( "
-
-BOI <- BOI-word-pre inner-word close-paren close-paren
-BOI-word-pre <- " CMAVO=(  BOI=( "
-
-BU <- BU-word-pre inner-word close-paren close-paren
-BU-word-pre <- " CMAVO=(  BU=( "
-
-BY <- BY-word-pre inner-word close-paren close-paren
-BY-word-pre <- " CMAVO=(  BY=( "
-
-CAhA <- CAhA-word-pre inner-word close-paren close-paren
-CAhA-word-pre <- " CMAVO=(  CAhA=( "
-
-CAI <- CAI-word-pre inner-word close-paren close-paren
-CAI-word-pre <- " CMAVO=(  CAI=( "
-
-CEI <- CEI-word-pre inner-word close-paren close-paren
-CEI-word-pre <- " CMAVO=(  CEI=( "
-
-CEhE <- CEhE-word-pre inner-word close-paren close-paren
-CEhE-word-pre <- " CMAVO=(  CEhE=( "
-
-CO <- CO-word-pre inner-word close-paren close-paren
-CO-word-pre <- " CMAVO=(  CO=( "
-
-COI <- COI-word-pre inner-word close-paren close-paren
-COI-word-pre <- " CMAVO=(  COI=( "
-
-CU <- CU-word-pre inner-word close-paren close-paren
-CU-word-pre <- " CMAVO=(  CU=( "
-
-CUhE <- CUhE-word-pre inner-word close-paren close-paren
-CUhE-word-pre <- " CMAVO=(  CUhE=( "
-
-DAhO <- DAhO-word-pre inner-word close-paren close-paren
-DAhO-word-pre <- " CMAVO=(  DAhO=( "
-
-DOI <- DOI-word-pre inner-word close-paren close-paren
-DOI-word-pre <- " CMAVO=(  DOI=( "
-
-DOhU <- DOhU-word-pre inner-word close-paren close-paren
-DOhU-word-pre <- " CMAVO=(  DOhU=( "
-
-FA <- FA-word-pre inner-word close-paren close-paren
-FA-word-pre <- " CMAVO=(  FA=( "
-
-FAhA <- FAhA-word-pre inner-word close-paren close-paren
-FAhA-word-pre <- " CMAVO=(  FAhA=( "
-
-FAhO <- FAhO-word-pre inner-word close-paren close-paren
-FAhO-word-pre <- " CMAVO=(  FAhO=( "
-
-FEhE <- FEhE-word-pre inner-word close-paren close-paren
-FEhE-word-pre <- " CMAVO=(  FEhE=( "
-
-FEhU <- FEhU-word-pre inner-word close-paren close-paren
-FEhU-word-pre <- " CMAVO=(  FEhU=( "
-
-FIhO <- FIhO-word-pre inner-word close-paren close-paren
-FIhO-word-pre <- " CMAVO=(  FIhO=( "
-
-FOI <- FOI-word-pre inner-word close-paren close-paren
-FOI-word-pre <- " CMAVO=(  FOI=( "
-
-FUhA <- FUhA-word-pre inner-word close-paren close-paren
-FUhA-word-pre <- " CMAVO=(  FUhA=( "
-
-FUhE <- FUhE-word-pre inner-word close-paren close-paren
-FUhE-word-pre <- " CMAVO=(  FUhE=( "
-
-FUhO <- FUhO-word-pre inner-word close-paren close-paren
-FUhO-word-pre <- " CMAVO=(  FUhO=( "
-
-GA <- GA-word-pre inner-word close-paren close-paren
-GA-word-pre <- " CMAVO=(  GA=( "
-
-GAhO <- GAhO-word-pre inner-word close-paren close-paren
-GAhO-word-pre <- " CMAVO=(  GAhO=( "
-
-GEhU <- GEhU-word-pre inner-word close-paren close-paren
-GEhU-word-pre <- " CMAVO=(  GEhU=( "
-
-GI <- GI-word-pre inner-word close-paren close-paren
-GI-word-pre <- " CMAVO=(  GI=( "
-
-GIhA <- GIhA-word-pre inner-word close-paren close-paren
-GIhA-word-pre <- " CMAVO=(  GIhA=( "
-
-GOI <- GOI-word-pre inner-word close-paren close-paren
-GOI-word-pre <- " CMAVO=(  GOI=( "
-
-GOhA <- GOhA-word-pre inner-word close-paren close-paren
-GOhA-word-pre <- " CMAVO=(  GOhA=( "
-
-GUhA <- GUhA-word-pre inner-word close-paren close-paren
-GUhA-word-pre <- " CMAVO=(  GUhA=( "
-
-I <- I-word-pre inner-word close-paren close-paren
-I-word-pre <- " CMAVO=(  I=( "
-
-JA <- JA-word-pre inner-word close-paren close-paren
-JA-word-pre <- " CMAVO=(  JA=( "
-
-JAI <- JAI-word-pre inner-word close-paren close-paren
-JAI-word-pre <- " CMAVO=(  JAI=( "
-
-JOhI <- JOhI-word-pre inner-word close-paren close-paren
-JOhI-word-pre <- " CMAVO=(  JOhI=( "
-
-JOI <- JOI-word-pre inner-word close-paren close-paren
-JOI-word-pre <- " CMAVO=(  JOI=( "
-
-KE <- KE-word-pre inner-word close-paren close-paren
-KE-word-pre <- " CMAVO=(  KE=( "
-
-KEhE <- KEhE-word-pre inner-word close-paren close-paren
-KEhE-word-pre <- " CMAVO=(  KEhE=( "
-
-KEI <- KEI-word-pre inner-word close-paren close-paren
-KEI-word-pre <- " CMAVO=(  KEI=( "
-
-KI <- KI-word-pre inner-word close-paren close-paren
-KI-word-pre <- " CMAVO=(  KI=( "
-
-KOhA <- KOhA-word-pre inner-word close-paren close-paren
-KOhA-word-pre <- " CMAVO=(  KOhA=( "
-
-KU <- KU-word-pre inner-word close-paren close-paren
-KU-word-pre <- " CMAVO=(  KU=( "
-
-KUhE <- KUhE-word-pre inner-word close-paren close-paren
-KUhE-word-pre <- " CMAVO=(  KUhE=( "
-
-KUhO <- KUhO-word-pre inner-word close-paren close-paren
-KUhO-word-pre <- " CMAVO=(  KUhO=( "
-
-LA <- LA-word-pre inner-word close-paren close-paren
-LA-word-pre <- " CMAVO=(  LA=( "
-
-LAU <- LAU-word-pre inner-word close-paren close-paren
-LAU-word-pre <- " CMAVO=(  LAU=( "
-
-LAhE <- LAhE-word-pre inner-word close-paren close-paren
-LAhE-word-pre <- " CMAVO=(  LAhE=( "
-
-LE <- LE-word-pre inner-word close-paren close-paren
-LE-word-pre <- " CMAVO=(  LE=( "
-
-LEhU <- LEhU-word-pre inner-word close-paren close-paren
-LEhU-word-pre <- " CMAVO=(  LEhU=( "
-
-LI <- LI-word-pre inner-word close-paren close-paren
-LI-word-pre <- " CMAVO=(  LI=( "
-
-LIhU <- LIhU-word-pre inner-word close-paren close-paren
-LIhU-word-pre <- " CMAVO=(  LIhU=( "
-
-LOhO <- LOhO-word-pre inner-word close-paren close-paren
-LOhO-word-pre <- " CMAVO=(  LOhO=( "
-
-LOhU <- LOhU-word-pre inner-word close-paren close-paren
-LOhU-word-pre <- " CMAVO=(  LOhU=( "
-
-LU <- LU-word-pre inner-word close-paren close-paren
-LU-word-pre <- " CMAVO=(  LU=( "
-
-LUhU <- LUhU-word-pre inner-word close-paren close-paren
-LUhU-word-pre <- " CMAVO=(  LUhU=( "
-
-MAhO <- MAhO-word-pre inner-word close-paren close-paren
-MAhO-word-pre <- " CMAVO=(  MAhO=( "
-
-MAI <- MAI-word-pre inner-word close-paren close-paren
-MAI-word-pre <- " CMAVO=(  MAI=( "
-
-ME <- ME-word-pre inner-word close-paren close-paren
-ME-word-pre <- " CMAVO=(  ME=( "
-
-MEhU <- MEhU-word-pre inner-word close-paren close-paren
-MEhU-word-pre <- " CMAVO=(  MEhU=( "
-
-MOhE <- MOhE-word-pre inner-word close-paren close-paren
-MOhE-word-pre <- " CMAVO=(  MOhE=( "
-
-MOhI <- MOhI-word-pre inner-word close-paren close-paren
-MOhI-word-pre <- " CMAVO=(  MOhI=( "
-
-MOI <- MOI-word-pre inner-word close-paren close-paren
-MOI-word-pre <- " CMAVO=(  MOI=( "
-
-NA <- NA-word-pre inner-word close-paren close-paren
-NA-word-pre <- " CMAVO=(  NA=( "
-
-NAI <- NAI-word-pre inner-word close-paren close-paren
-NAI-word-pre <- " CMAVO=(  NAI=( "
-
-NAhE <- NAhE-word-pre inner-word close-paren close-paren
-NAhE-word-pre <- " CMAVO=(  NAhE=( "
-
-NAhU <- NAhU-word-pre inner-word close-paren close-paren
-NAhU-word-pre <- " CMAVO=(  NAhU=( "
-
-NIhE <- NIhE-word-pre inner-word close-paren close-paren
-NIhE-word-pre <- " CMAVO=(  NIhE=( "
-
-NIhO <- NIhO-word-pre inner-word close-paren close-paren
-NIhO-word-pre <- " CMAVO=(  NIhO=( "
-
-NOI <- NOI-word-pre inner-word close-paren close-paren
-NOI-word-pre <- " CMAVO=(  NOI=( "
-
-NU <- NU-word-pre inner-word close-paren close-paren
-NU-word-pre <- " CMAVO=(  NU=( "
-
-NUhA <- NUhA-word-pre inner-word close-paren close-paren
-NUhA-word-pre <- " CMAVO=(  NUhA=( "
-
-NUhI <- NUhI-word-pre inner-word close-paren close-paren
-NUhI-word-pre <- " CMAVO=(  NUhI=( "
-
-NUhU <- NUhU-word-pre inner-word close-paren close-paren
-NUhU-word-pre <- " CMAVO=(  NUhU=( "
-
-PA <- PA-word-pre inner-word close-paren close-paren
-PA-word-pre <- " CMAVO=(  PA=( "
-
-PEhE <- PEhE-word-pre inner-word close-paren close-paren
-PEhE-word-pre <- " CMAVO=(  PEhE=( "
-
-PEhO <- PEhO-word-pre inner-word close-paren close-paren
-PEhO-word-pre <- " CMAVO=(  PEhO=( "
-
-PU <- PU-word-pre inner-word close-paren close-paren
-PU-word-pre <- " CMAVO=(  PU=( "
-
-RAhO <- RAhO-word-pre inner-word close-paren close-paren
-RAhO-word-pre <- " CMAVO=(  RAhO=( "
-
-ROI <- ROI-word-pre inner-word close-paren close-paren
-ROI-word-pre <- " CMAVO=(  ROI=( "
-
-SA <- SA-word-pre inner-word close-paren close-paren
-SA-word-pre <- " CMAVO=(  SA=( "
-
-SE <- SE-word-pre inner-word close-paren close-paren
-SE-word-pre <- " CMAVO=(  SE=( "
-
-SEI <- SEI-word-pre inner-word close-paren close-paren
-SEI-word-pre <- " CMAVO=(  SEI=( "
-
-SEhU <- SEhU-word-pre inner-word close-paren close-paren
-SEhU-word-pre <- " CMAVO=(  SEhU=( "
-
-SI <- SI-word-pre inner-word close-paren close-paren
-SI-word-pre <- " CMAVO=(  SI=( "
-
-SOI <- SOI-word-pre inner-word close-paren close-paren
-SOI-word-pre <- " CMAVO=(  SOI=( "
-
-SU <- SU-word-pre inner-word close-paren close-paren
-SU-word-pre <- " CMAVO=(  SU=( "
-
-TAhE <- TAhE-word-pre inner-word close-paren close-paren
-TAhE-word-pre <- " CMAVO=(  TAhE=( "
-
-TEhU <- TEhU-word-pre inner-word close-paren close-paren
-TEhU-word-pre <- " CMAVO=(  TEhU=( "
-
-TEI <- TEI-word-pre inner-word close-paren close-paren
-TEI-word-pre <- " CMAVO=(  TEI=( "
-
-TO <- TO-word-pre inner-word close-paren close-paren
-TO-word-pre <- " CMAVO=(  TO=( "
-
-TOI <- TOI-word-pre inner-word close-paren close-paren
-TOI-word-pre <- " CMAVO=(  TOI=( "
-
-TUhE <- TUhE-word-pre inner-word close-paren close-paren
-TUhE-word-pre <- " CMAVO=(  TUhE=( "
-
-TUhU <- TUhU-word-pre inner-word close-paren close-paren
-TUhU-word-pre <- " CMAVO=(  TUhU=( "
-
-UI <- UI-word-pre inner-word close-paren close-paren
-UI-word-pre <- " CMAVO=(  UI=( "
-
-VA <- VA-word-pre inner-word close-paren close-paren
-VA-word-pre <- " CMAVO=(  VA=( "
-
-VAU <- VAU-word-pre inner-word close-paren close-paren
-VAU-word-pre <- " CMAVO=(  VAU=( "
-
-VEI <- VEI-word-pre inner-word close-paren close-paren
-VEI-word-pre <- " CMAVO=(  VEI=( "
-
-VEhO <- VEhO-word-pre inner-word close-paren close-paren
-VEhO-word-pre <- " CMAVO=(  VEhO=( "
-
-VUhU <- VUhU-word-pre inner-word close-paren close-paren
-VUhU-word-pre <- " CMAVO=(  VUhU=( "
-
-VEhA <- VEhA-word-pre inner-word close-paren close-paren
-VEhA-word-pre <- " CMAVO=(  VEhA=( "
-
-VIhA <- VIhA-word-pre inner-word close-paren close-paren
-VIhA-word-pre <- " CMAVO=(  VIhA=( "
-
-VUhO <- VUhO-word-pre inner-word close-paren close-paren
-VUhO-word-pre <- " CMAVO=(  VUhO=( "
-
-XI <- XI-word-pre inner-word close-paren close-paren
-XI-word-pre <- " CMAVO=(  XI=( "
-
-; Y <- Y-word-pre inner-word close-paren close-paren
-; Y-word-pre <- " CMAVO=(  Y=( "
-
-ZAhO <- ZAhO-word-pre inner-word close-paren close-paren
-ZAhO-word-pre <- " CMAVO=(  ZAhO=( "
-
-ZEhA <- ZEhA-word-pre inner-word close-paren close-paren
-ZEhA-word-pre <- " CMAVO=(  ZEhA=( "
-
-ZEI <- ZEI-word-pre inner-word close-paren close-paren
-ZEI-word-pre <- " CMAVO=(  ZEI=( "
-
-ZI <- ZI-word-pre inner-word close-paren close-paren
-ZI-word-pre <- " CMAVO=(  ZI=( "
-
-ZIhE <- ZIhE-word-pre inner-word close-paren close-paren
-ZIhE-word-pre <- " CMAVO=(  ZIhE=( "
-
-ZO <- ZO-word-pre inner-word close-paren close-paren
-ZO-word-pre <- " CMAVO=(  ZO=( "
-
-ZOI <- ZOI-word-pre inner-word close-paren close-paren
-ZOI-word-pre <- " CMAVO=(  ZOI=( "
-
-ZOhU <- ZOhU-word-pre inner-word close-paren close-paren
-ZOhU-word-pre <- " CMAVO=(  ZOhU=( "
-
+;;************************
+;; MORPHOLOGY INTERFACE
+;; This section handles the interface with the morphology. If you are not
+;; interested in this particular implementation of the morphology, you can
+;; ignore everything below this point and consider the above as the full
+;; formal grammar with terminals BRIVLA, CMENE, CMAVO, any-word,
+;; A, BAI, ..., ZOhU, zoi-open, zoi-word, zoi-close, spaces, dot-star and EOF.
+;;************************
+;
+;; inner-word (the stuff inside BRIVLA=( ... ), for example) is an
+;; evenly nested, arbitrary length sequence of foo=( ... ) tags with
+;; stuff inside them.  Gotta snarf it all.
+;inner-word <- space-char (!equals-char !space-char .)+ equals-char open-paren inner-word close-paren inner-word? / inner-word2
+;inner-word2 <- !close-paren-char . inner-word2 / !close-paren-char . &space-char
+;space-char <- ' '
+;equals-char <- '='
+;close-paren-char <- ')'
+;open-paren <- "( "
+;close-paren <- " ) "
+;
+;;         any single lexable Lojban words 
+;any-word <- any-word-pre inner-word close-paren spaces?
+;
+;spaces <- (spaces-pre inner-word close-paren)*
+;spaces-pre <- " spaces=( " / " initialSpaces=( "
+;
+;dot-star <- .*
+;EOF <- !.
+;
+;zoi-open <- any-word-pre inner-word &{ myAssign( new String(innerWordSEP2.toString()) ) } close-paren
+;
+;zoi-word <- spaces? zoi-printable-pre inner-word &{ ! myCompare( startString, innerWordSEP3 ) } close-paren
+;
+;zoi-close <- spaces? any-word-pre inner-word &{ myCompare( startString, innerWordSEP3 ) } close-paren spaces?
+;
+;zoi-printable-pre <- any-word-pre / non-Lojban-word-pre
+;
+;any-word-pre <- CMAVO-word-pre / CMENE-word-pre / BRIVLA-word-pre
+;
+;known-cmavo-pre <- A-word-pre / BAI-word-pre / BAhE-word-pre / BE-word-pre / BEI-word-pre / BEhO-word-pre / BIhE-word-pre / BIhI-word-pre / BO-word-pre / BOI-word-pre / BU-word-pre / BY-word-pre / CAI-word-pre / CAhA-word-pre / CEI-word-pre / CEhE-word-pre / CO-word-pre / COI-word-pre / CU-word-pre / CUhE-word-pre / DAhO-word-pre / DOI-word-pre / DOhU-word-pre / FA-word-pre / FAhA-word-pre / FAhO-word-pre / FEhE-word-pre / FEhU-word-pre / FIhO-word-pre / FOI-word-pre / FUhA-word-pre / FUhE-word-pre / FUhO-word-pre / GA-word-pre / GAhO-word-pre / GEhU-word-pre / GI-word-pre / GIhA-word-pre / GOI-word-pre / GOhA-word-pre / GUhA-word-pre / I-word-pre / JA-word-pre / JAI-word-pre / JOI-word-pre / JOhI-word-pre / KE-word-pre / KEI-word-pre / KEhE-word-pre / KI-word-pre / KOhA-word-pre / KU-word-pre / KUhE-word-pre / KUhO-word-pre / LA-word-pre / LAU-word-pre / LAhE-word-pre / LE-word-pre / LEhU-word-pre / LI-word-pre / LIhU-word-pre / LOhO-word-pre / LOhU-word-pre / LU-word-pre / LUhU-word-pre / MAI-word-pre / MAhO-word-pre / ME-word-pre / MEhU-word-pre / MOI-word-pre / MOhE-word-pre / MOhI-word-pre / NA-word-pre / NAI-word-pre / NAhE-word-pre / NAhU-word-pre / NIhE-word-pre / NIhO-word-pre / NOI-word-pre / NU-word-pre / NUhA-word-pre / NUhI-word-pre / NUhU-word-pre / PA-word-pre / PEhE-word-pre / PEhO-word-pre / PU-word-pre / RAhO-word-pre / ROI-word-pre / SA-word-pre / SE-word-pre / SEI-word-pre / SEhU-word-pre / SI-word-pre / SOI-word-pre / SU-word-pre / TAhE-word-pre / TEI-word-pre / TEhU-word-pre / TO-word-pre / TOI-word-pre / TUhE-word-pre / TUhU-word-pre / UI-word-pre / VA-word-pre / VAU-word-pre / VEI-word-pre / VEhA-word-pre / VEhO-word-pre / VIhA-word-pre / VUhO-word-pre / VUhU-word-pre / XI-word-pre / ZAhO-word-pre / ZEI-word-pre / ZEhA-word-pre / ZI-word-pre / ZIhE-word-pre / ZO-word-pre / ZOI-word-pre / ZOhU-word-pre
+;
+;non-Lojban-word-pre <- " nonLojbanWord=( "
+;
+;CMAVO-word-pre <- " CMAVO=( " 
+;CMAVO <- CMAVO-word-pre inner-word close-paren
+;
+;BRIVLA-word-pre <- " BRIVLA=( " 
+;BRIVLA <- BRIVLA-word-pre inner-word close-paren
+;
+;CMENE-word-pre <- " CMENE=( " 
+;CMENE <- CMENE-word-pre inner-word close-paren
+;
+;A <- A-word-pre inner-word close-paren close-paren
+;A-word-pre <- " CMAVO=(  A=( "
+;
+;BAI <- BAI-word-pre inner-word close-paren close-paren
+;BAI-word-pre <- " CMAVO=(  BAI=( "
+;
+;BAhE <- BAhE-word-pre inner-word close-paren close-paren
+;BAhE-word-pre <- " CMAVO=(  BAhE=( "
+;
+;BE <- BE-word-pre inner-word close-paren close-paren
+;BE-word-pre <- " CMAVO=(  BE=( "
+;
+;BEI <- BEI-word-pre inner-word close-paren close-paren
+;BEI-word-pre <- " CMAVO=(  BEI=( "
+;
+;BEhO <- BEhO-word-pre inner-word close-paren close-paren
+;BEhO-word-pre <- " CMAVO=(  BEhO=( "
+;
+;BIhE <- BIhE-word-pre inner-word close-paren close-paren
+;BIhE-word-pre <- " CMAVO=(  BIhE=( "
+;
+;BIhI <- BIhI-word-pre inner-word close-paren close-paren
+;BIhI-word-pre <- " CMAVO=(  BIhI=( "
+;
+;BO <- BO-word-pre inner-word close-paren close-paren
+;BO-word-pre <- " CMAVO=(  BO=( "
+;
+;BOI <- BOI-word-pre inner-word close-paren close-paren
+;BOI-word-pre <- " CMAVO=(  BOI=( "
+;
+;BU <- BU-word-pre inner-word close-paren close-paren
+;BU-word-pre <- " CMAVO=(  BU=( "
+;
+;BY <- BY-word-pre inner-word close-paren close-paren
+;BY-word-pre <- " CMAVO=(  BY=( "
+;
+;CAhA <- CAhA-word-pre inner-word close-paren close-paren
+;CAhA-word-pre <- " CMAVO=(  CAhA=( "
+;
+;CAI <- CAI-word-pre inner-word close-paren close-paren
+;CAI-word-pre <- " CMAVO=(  CAI=( "
+;
+;CEI <- CEI-word-pre inner-word close-paren close-paren
+;CEI-word-pre <- " CMAVO=(  CEI=( "
+;
+;CEhE <- CEhE-word-pre inner-word close-paren close-paren
+;CEhE-word-pre <- " CMAVO=(  CEhE=( "
+;
+;CO <- CO-word-pre inner-word close-paren close-paren
+;CO-word-pre <- " CMAVO=(  CO=( "
+;
+;COI <- COI-word-pre inner-word close-paren close-paren
+;COI-word-pre <- " CMAVO=(  COI=( "
+;
+;CU <- CU-word-pre inner-word close-paren close-paren
+;CU-word-pre <- " CMAVO=(  CU=( "
+;
+;CUhE <- CUhE-word-pre inner-word close-paren close-paren
+;CUhE-word-pre <- " CMAVO=(  CUhE=( "
+;
+;DAhO <- DAhO-word-pre inner-word close-paren close-paren
+;DAhO-word-pre <- " CMAVO=(  DAhO=( "
+;
+;DOI <- DOI-word-pre inner-word close-paren close-paren
+;DOI-word-pre <- " CMAVO=(  DOI=( "
+;
+;DOhU <- DOhU-word-pre inner-word close-paren close-paren
+;DOhU-word-pre <- " CMAVO=(  DOhU=( "
+;
+;FA <- FA-word-pre inner-word close-paren close-paren
+;FA-word-pre <- " CMAVO=(  FA=( "
+;
+;FAhA <- FAhA-word-pre inner-word close-paren close-paren
+;FAhA-word-pre <- " CMAVO=(  FAhA=( "
+;
+;FAhO <- FAhO-word-pre inner-word close-paren close-paren
+;FAhO-word-pre <- " CMAVO=(  FAhO=( "
+;
+;FEhE <- FEhE-word-pre inner-word close-paren close-paren
+;FEhE-word-pre <- " CMAVO=(  FEhE=( "
+;
+;FEhU <- FEhU-word-pre inner-word close-paren close-paren
+;FEhU-word-pre <- " CMAVO=(  FEhU=( "
+;
+;FIhO <- FIhO-word-pre inner-word close-paren close-paren
+;FIhO-word-pre <- " CMAVO=(  FIhO=( "
+;
+;FOI <- FOI-word-pre inner-word close-paren close-paren
+;FOI-word-pre <- " CMAVO=(  FOI=( "
+;
+;FUhA <- FUhA-word-pre inner-word close-paren close-paren
+;FUhA-word-pre <- " CMAVO=(  FUhA=( "
+;
+;FUhE <- FUhE-word-pre inner-word close-paren close-paren
+;FUhE-word-pre <- " CMAVO=(  FUhE=( "
+;
+;FUhO <- FUhO-word-pre inner-word close-paren close-paren
+;FUhO-word-pre <- " CMAVO=(  FUhO=( "
+;
+;GA <- GA-word-pre inner-word close-paren close-paren
+;GA-word-pre <- " CMAVO=(  GA=( "
+;
+;GAhO <- GAhO-word-pre inner-word close-paren close-paren
+;GAhO-word-pre <- " CMAVO=(  GAhO=( "
+;
+;GEhU <- GEhU-word-pre inner-word close-paren close-paren
+;GEhU-word-pre <- " CMAVO=(  GEhU=( "
+;
+;GI <- GI-word-pre inner-word close-paren close-paren
+;GI-word-pre <- " CMAVO=(  GI=( "
+;
+;GIhA <- GIhA-word-pre inner-word close-paren close-paren
+;GIhA-word-pre <- " CMAVO=(  GIhA=( "
+;
+;GOI <- GOI-word-pre inner-word close-paren close-paren
+;GOI-word-pre <- " CMAVO=(  GOI=( "
+;
+;GOhA <- GOhA-word-pre inner-word close-paren close-paren
+;GOhA-word-pre <- " CMAVO=(  GOhA=( "
+;
+;GUhA <- GUhA-word-pre inner-word close-paren close-paren
+;GUhA-word-pre <- " CMAVO=(  GUhA=( "
+;
+;I <- I-word-pre inner-word close-paren close-paren
+;I-word-pre <- " CMAVO=(  I=( "
+;
+;JA <- JA-word-pre inner-word close-paren close-paren
+;JA-word-pre <- " CMAVO=(  JA=( "
+;
+;JAI <- JAI-word-pre inner-word close-paren close-paren
+;JAI-word-pre <- " CMAVO=(  JAI=( "
+;
+;JOhI <- JOhI-word-pre inner-word close-paren close-paren
+;JOhI-word-pre <- " CMAVO=(  JOhI=( "
+;
+;JOI <- JOI-word-pre inner-word close-paren close-paren
+;JOI-word-pre <- " CMAVO=(  JOI=( "
+;
+;KE <- KE-word-pre inner-word close-paren close-paren
+;KE-word-pre <- " CMAVO=(  KE=( "
+;
+;KEhE <- KEhE-word-pre inner-word close-paren close-paren
+;KEhE-word-pre <- " CMAVO=(  KEhE=( "
+;
+;KEI <- KEI-word-pre inner-word close-paren close-paren
+;KEI-word-pre <- " CMAVO=(  KEI=( "
+;
+;KI <- KI-word-pre inner-word close-paren close-paren
+;KI-word-pre <- " CMAVO=(  KI=( "
+;
+;KOhA <- KOhA-word-pre inner-word close-paren close-paren
+;KOhA-word-pre <- " CMAVO=(  KOhA=( "
+;
+;KU <- KU-word-pre inner-word close-paren close-paren
+;KU-word-pre <- " CMAVO=(  KU=( "
+;
+;KUhE <- KUhE-word-pre inner-word close-paren close-paren
+;KUhE-word-pre <- " CMAVO=(  KUhE=( "
+;
+;KUhO <- KUhO-word-pre inner-word close-paren close-paren
+;KUhO-word-pre <- " CMAVO=(  KUhO=( "
+;
+;LA <- LA-word-pre inner-word close-paren close-paren
+;LA-word-pre <- " CMAVO=(  LA=( "
+;
+;LAU <- LAU-word-pre inner-word close-paren close-paren
+;LAU-word-pre <- " CMAVO=(  LAU=( "
+;
+;LAhE <- LAhE-word-pre inner-word close-paren close-paren
+;LAhE-word-pre <- " CMAVO=(  LAhE=( "
+;
+;LE <- LE-word-pre inner-word close-paren close-paren
+;LE-word-pre <- " CMAVO=(  LE=( "
+;
+;LEhU <- LEhU-word-pre inner-word close-paren close-paren
+;LEhU-word-pre <- " CMAVO=(  LEhU=( "
+;
+;LI <- LI-word-pre inner-word close-paren close-paren
+;LI-word-pre <- " CMAVO=(  LI=( "
+;
+;LIhU <- LIhU-word-pre inner-word close-paren close-paren
+;LIhU-word-pre <- " CMAVO=(  LIhU=( "
+;
+;LOhO <- LOhO-word-pre inner-word close-paren close-paren
+;LOhO-word-pre <- " CMAVO=(  LOhO=( "
+;
+;LOhU <- LOhU-word-pre inner-word close-paren close-paren
+;LOhU-word-pre <- " CMAVO=(  LOhU=( "
+;
+;LU <- LU-word-pre inner-word close-paren close-paren
+;LU-word-pre <- " CMAVO=(  LU=( "
+;
+;LUhU <- LUhU-word-pre inner-word close-paren close-paren
+;LUhU-word-pre <- " CMAVO=(  LUhU=( "
+;
+;MAhO <- MAhO-word-pre inner-word close-paren close-paren
+;MAhO-word-pre <- " CMAVO=(  MAhO=( "
+;
+;MAI <- MAI-word-pre inner-word close-paren close-paren
+;MAI-word-pre <- " CMAVO=(  MAI=( "
+;
+;ME <- ME-word-pre inner-word close-paren close-paren
+;ME-word-pre <- " CMAVO=(  ME=( "
+;
+;MEhU <- MEhU-word-pre inner-word close-paren close-paren
+;MEhU-word-pre <- " CMAVO=(  MEhU=( "
+;
+;MOhE <- MOhE-word-pre inner-word close-paren close-paren
+;MOhE-word-pre <- " CMAVO=(  MOhE=( "
+;
+;MOhI <- MOhI-word-pre inner-word close-paren close-paren
+;MOhI-word-pre <- " CMAVO=(  MOhI=( "
+;
+;MOI <- MOI-word-pre inner-word close-paren close-paren
+;MOI-word-pre <- " CMAVO=(  MOI=( "
+;
+;NA <- NA-word-pre inner-word close-paren close-paren
+;NA-word-pre <- " CMAVO=(  NA=( "
+;
+;NAI <- NAI-word-pre inner-word close-paren close-paren
+;NAI-word-pre <- " CMAVO=(  NAI=( "
+;
+;NAhE <- NAhE-word-pre inner-word close-paren close-paren
+;NAhE-word-pre <- " CMAVO=(  NAhE=( "
+;
+;NAhU <- NAhU-word-pre inner-word close-paren close-paren
+;NAhU-word-pre <- " CMAVO=(  NAhU=( "
+;
+;NIhE <- NIhE-word-pre inner-word close-paren close-paren
+;NIhE-word-pre <- " CMAVO=(  NIhE=( "
+;
+;NIhO <- NIhO-word-pre inner-word close-paren close-paren
+;NIhO-word-pre <- " CMAVO=(  NIhO=( "
+;
+;NOI <- NOI-word-pre inner-word close-paren close-paren
+;NOI-word-pre <- " CMAVO=(  NOI=( "
+;
+;NU <- NU-word-pre inner-word close-paren close-paren
+;NU-word-pre <- " CMAVO=(  NU=( "
+;
+;NUhA <- NUhA-word-pre inner-word close-paren close-paren
+;NUhA-word-pre <- " CMAVO=(  NUhA=( "
+;
+;NUhI <- NUhI-word-pre inner-word close-paren close-paren
+;NUhI-word-pre <- " CMAVO=(  NUhI=( "
+;
+;NUhU <- NUhU-word-pre inner-word close-paren close-paren
+;NUhU-word-pre <- " CMAVO=(  NUhU=( "
+;
+;PA <- PA-word-pre inner-word close-paren close-paren
+;PA-word-pre <- " CMAVO=(  PA=( "
+;
+;PEhE <- PEhE-word-pre inner-word close-paren close-paren
+;PEhE-word-pre <- " CMAVO=(  PEhE=( "
+;
+;PEhO <- PEhO-word-pre inner-word close-paren close-paren
+;PEhO-word-pre <- " CMAVO=(  PEhO=( "
+;
+;PU <- PU-word-pre inner-word close-paren close-paren
+;PU-word-pre <- " CMAVO=(  PU=( "
+;
+;RAhO <- RAhO-word-pre inner-word close-paren close-paren
+;RAhO-word-pre <- " CMAVO=(  RAhO=( "
+;
+;ROI <- ROI-word-pre inner-word close-paren close-paren
+;ROI-word-pre <- " CMAVO=(  ROI=( "
+;
+;SA <- SA-word-pre inner-word close-paren close-paren
+;SA-word-pre <- " CMAVO=(  SA=( "
+;
+;SE <- SE-word-pre inner-word close-paren close-paren
+;SE-word-pre <- " CMAVO=(  SE=( "
+;
+;SEI <- SEI-word-pre inner-word close-paren close-paren
+;SEI-word-pre <- " CMAVO=(  SEI=( "
+;
+;SEhU <- SEhU-word-pre inner-word close-paren close-paren
+;SEhU-word-pre <- " CMAVO=(  SEhU=( "
+;
+;SI <- SI-word-pre inner-word close-paren close-paren
+;SI-word-pre <- " CMAVO=(  SI=( "
+;
+;SOI <- SOI-word-pre inner-word close-paren close-paren
+;SOI-word-pre <- " CMAVO=(  SOI=( "
+;
+;SU <- SU-word-pre inner-word close-paren close-paren
+;SU-word-pre <- " CMAVO=(  SU=( "
+;
+;TAhE <- TAhE-word-pre inner-word close-paren close-paren
+;TAhE-word-pre <- " CMAVO=(  TAhE=( "
+;
+;TEhU <- TEhU-word-pre inner-word close-paren close-paren
+;TEhU-word-pre <- " CMAVO=(  TEhU=( "
+;
+;TEI <- TEI-word-pre inner-word close-paren close-paren
+;TEI-word-pre <- " CMAVO=(  TEI=( "
+;
+;TO <- TO-word-pre inner-word close-paren close-paren
+;TO-word-pre <- " CMAVO=(  TO=( "
+;
+;TOI <- TOI-word-pre inner-word close-paren close-paren
+;TOI-word-pre <- " CMAVO=(  TOI=( "
+;
+;TUhE <- TUhE-word-pre inner-word close-paren close-paren
+;TUhE-word-pre <- " CMAVO=(  TUhE=( "
+;
+;TUhU <- TUhU-word-pre inner-word close-paren close-paren
+;TUhU-word-pre <- " CMAVO=(  TUhU=( "
+;
+;UI <- UI-word-pre inner-word close-paren close-paren
+;UI-word-pre <- " CMAVO=(  UI=( "
+;
+;VA <- VA-word-pre inner-word close-paren close-paren
+;VA-word-pre <- " CMAVO=(  VA=( "
+;
+;VAU <- VAU-word-pre inner-word close-paren close-paren
+;VAU-word-pre <- " CMAVO=(  VAU=( "
+;
+;VEI <- VEI-word-pre inner-word close-paren close-paren
+;VEI-word-pre <- " CMAVO=(  VEI=( "
+;
+;VEhO <- VEhO-word-pre inner-word close-paren close-paren
+;VEhO-word-pre <- " CMAVO=(  VEhO=( "
+;
+;VUhU <- VUhU-word-pre inner-word close-paren close-paren
+;VUhU-word-pre <- " CMAVO=(  VUhU=( "
+;
+;VEhA <- VEhA-word-pre inner-word close-paren close-paren
+;VEhA-word-pre <- " CMAVO=(  VEhA=( "
+;
+;VIhA <- VIhA-word-pre inner-word close-paren close-paren
+;VIhA-word-pre <- " CMAVO=(  VIhA=( "
+;
+;VUhO <- VUhO-word-pre inner-word close-paren close-paren
+;VUhO-word-pre <- " CMAVO=(  VUhO=( "
+;
+;XI <- XI-word-pre inner-word close-paren close-paren
+;XI-word-pre <- " CMAVO=(  XI=( "
+;
+;; Y <- Y-word-pre inner-word close-paren close-paren
+;; Y-word-pre <- " CMAVO=(  Y=( "
+;
+;ZAhO <- ZAhO-word-pre inner-word close-paren close-paren
+;ZAhO-word-pre <- " CMAVO=(  ZAhO=( "
+;
+;ZEhA <- ZEhA-word-pre inner-word close-paren close-paren
+;ZEhA-word-pre <- " CMAVO=(  ZEhA=( "
+;
+;ZEI <- ZEI-word-pre inner-word close-paren close-paren
+;ZEI-word-pre <- " CMAVO=(  ZEI=( "
+;
+;ZI <- ZI-word-pre inner-word close-paren close-paren
+;ZI-word-pre <- " CMAVO=(  ZI=( "
+;
+;ZIhE <- ZIhE-word-pre inner-word close-paren close-paren
+;ZIhE-word-pre <- " CMAVO=(  ZIhE=( "
+;
+;ZO <- ZO-word-pre inner-word close-paren close-paren
+;ZO-word-pre <- " CMAVO=(  ZO=( "
+;
+;ZOI <- ZOI-word-pre inner-word close-paren close-paren
+;ZOI-word-pre <- " CMAVO=(  ZOI=( "
+;
+;ZOhU <- ZOhU-word-pre inner-word close-paren close-paren
+;ZOhU-word-pre <- " CMAVO=(  ZOhU=( "
+;
