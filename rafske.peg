@@ -266,9 +266,9 @@ comma <- [,]
 
 non-lojban-word <- !lojban-word non-space+
 
-NORATS non-space <- !space-char .
+non-space <- !space-char .
 
-NORATS space-char <- [.\t\n\r?!\u0020]
+space-char <- [.\t\n\r?!\u0020]
 
 ;-------------------------------------------------------------------
 
