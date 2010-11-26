@@ -29,7 +29,8 @@
                          "declare.scm"
                          "main.scm"
                          "jbogenturfahi.meta"
-                         "jbogenturfahi.setup")
+                         "jbogenturfahi.setup"
+                         (dynld-name "jbogenturfahi"))
        (compile ,@jbogenturfahi-cscflags
                 -o "jbogenturfahi"
                 "chicken-cmd.scm"))
