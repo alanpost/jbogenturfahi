@@ -21,6 +21,8 @@
  (category parsing)
  (doc-from-wiki)
  (license "ISC")
+ ; this build takes too long for salmonella, so disable it
+ (platform macosx)
  (needs utf8 genturfahi)
  (test-depends test)
  (synopsis "lo lojbo ke pe'a jajgau ratcu ke'e genturfa'i"))
