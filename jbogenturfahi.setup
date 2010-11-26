@@ -17,28 +17,73 @@
 ;;;; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;;;;
 
+(use genturfahi)
+(use extras)
+
 (include "version.scm")
 (include "conf.scm")
 
-; dynamic library
-(compile -s
-         -O2
-         -d1
-         -o ,(dynld-name "jbogenturfahi")
-         -j jbogenturfahi
-         chicken-egg.scm)
-(compile -s -O2 -d1 jbogenturfahi.import.scm)
+       ; jbogenturfahi executable
+       ;
+(make (("jbogenturfahi" ("chicken-cmd.scm"
+                         "declare.scm"
+                         "main.scm"
+                         "jbogenturfahi.meta"
+                         "jbogenturfahi.setup")
+       (compile ,@jbogenturfahi-cscflags
+                -o "jbogenturfahi"
+                "chicken-cmd.scm"))
 
-; static library
-(compile -c
-         -O2
-         -d1
-         -o "jbogenturfahi.o"
-         "chicken-egg.scm"
-         -unit jbogenturfahi)
+       ; dynamic library
+       ;
+       ((dynld-name "jbogenturfahi") ("chicken-egg.scm"
+                                      "declare.scm"
+                                      "jbogenturfahi.scm"
+                                      "jbogerna.scm"
+                                      "version.scm"
+                                      "jbogenturfahi.meta"
+                                      "jbogenturfahi.setup")
+       (begin (compile -s
+                       ,@jbogenturfahi-cscflags
+                       -j jbogenturfahi
+                       -o ,(dynld-name "jbogenturfahi")
+                       chicken-egg.scm)
+              (compile -s
+                       ,@jbogenturfahi-cscflags
+                       -o ,(dynld-name "jbogenturfahi.import")
+                       jbogenturfahi.import.scm)))
 
-; jbogenturfahi executable
-;
+       ; static library
+       ;
+       ("jbogenturfahi.o" ("chicken-egg.scm"
+                           "declare.scm"
+                           "jbogenturfahi.scm"
+                           "jbogerna.scm"
+                           "version.scm"
+                           "genturfahi.meta"
+                           "genturfahi.setup")
+       (compile -c
+                ,@jbogenturfahi-cscflags
+                -unit jbogenturfahi
+                -o "jbogenturfahi.o"
+                "chicken-egg.scm"))
+
+       ("jbogerna.scm" ("gerna.peg"
+                        "rafske_gumgau.peg"
+                        "rafske.peg")
+        (call-with-output-file "jbogerna.scm"
+          (lambda (port)
+            (let ((lefpoi (string-append (read-all "gerna.peg")
+                                         (read-all "rafske_gumgau.peg")
+                                         (read-all "rafske.peg")))
+                  (gerna (string->symbol (secuxna-definition-name))))
+              (call-with-input-string
+                lefpoi
+                (lambda (peg)
+                  (pretty-print `(define ,gerna ,(genturfahi-peg peg))
+                                port))))))))
+
+      `("jbogenturfahi" ,(dynld-name "jbogenturfahi") "jbogenturfahi.o"))
 
 (install-extension
   ; lo cmene vi pagbu
@@ -50,4 +95,15 @@
     ,(dynld-name "jbogenturfahi.import"))
 
   ; lo se ckaji vi pagbu
-  `((version trunk)))
+  `((static "jbogenturfahi.o")
+    (version ,jbogenturfahi-version)))
+
+(install-program
+  ; lo cmene vi pagbu
+  'jbogenturfahi-cmd
+
+  ; lo datnyvei vi pagbu
+  `("jbogenturfahi")
+
+  ; lo se ckaji vi pagbu
+  `((version ,jbogenturfahi-version)))

@@ -21,14 +21,18 @@
   (jbogenturfahi-version
    jbogenturfahi-version-major
    jbogenturfahi-version-minor
-   jbogenturfahi-version-patch)
+   jbogenturfahi-version-patch
+   
+   jbogenturfahi
+   gerna)
 
 (import chicken)
 (import scheme)
 
-(require-library utf8)
 (require-library genturfahi)
 
-(import utf8 genturfahi)
+(import genturfahi)
 
+(include "jbogerna.scm")
+(include "jbogenturfahi.scm")
 (include "version.scm"))
