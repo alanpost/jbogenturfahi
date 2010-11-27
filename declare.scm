@@ -22,9 +22,15 @@
 ;;;
 
 ;(declare (disable-interrupts))
+;(declare (extended-bindings))
 ;(declare (fixnum-arithmetic))
+;(declare (inline))
+;(declare (inline-global))
 ;(declare (lambda-lift))
+;(declare (local))
 ;(declare (no-bound-checks))
 ;(declare (no-procedure-checks))
 ;(declare (number-type fixnum))
+;(declare (safe-globals))
+;(declare (standard-bindings))
 ;(declare (unsafe))
