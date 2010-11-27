@@ -26,6 +26,7 @@
        ; jbogenturfahi executable
        ;
 (make (("jbogenturfahi" ("chicken-cmd.scm"
+                         "conf.scm"
                          "declare.scm"
                          "main.scm"
                          "jbogenturfahi.meta"
@@ -38,6 +39,7 @@
        ; dynamic library
        ;
        ((dynld-name "jbogenturfahi") ("chicken-egg.scm"
+                                      "conf.scm"
                                       "declare.scm"
                                       "jbogenturfahi.scm"
                                       "jbogerna.scm"
@@ -57,6 +59,7 @@
        ; static library
        ;
        ("jbogenturfahi.o" ("chicken-egg.scm"
+                           "conf.scm"
                            "declare.scm"
                            "jbogenturfahi.scm"
                            "jbogerna.scm"
