@@ -64,8 +64,8 @@
                            "jbogenturfahi.scm"
                            "jbogerna.scm"
                            "version.scm"
-                           "genturfahi.meta"
-                           "genturfahi.setup")
+                           "jbogenturfahi.meta"
+                           "jbogenturfahi.setup")
        (compile -c
                 ,@jbogenturfahi-cscflags
                 -unit jbogenturfahi
