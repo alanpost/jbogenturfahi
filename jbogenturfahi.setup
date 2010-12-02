@@ -21,12 +21,12 @@
 (use extras)
 
 (include "version.scm")
-(include "conf.scm")
+(include "chicken-conf.scm")
 
        ; jbogenturfahi executable
        ;
 (make (("jbogenturfahi" ("chicken-cmd.scm"
-                         "conf.scm"
+                         "chicken-conf.scm"
                          "declare.scm"
                          "main.scm"
                          "jbogenturfahi.meta"
@@ -39,7 +39,7 @@
        ; dynamic library
        ;
        ((dynld-name "jbogenturfahi") ("chicken-egg.scm"
-                                      "conf.scm"
+                                      "chicken-conf.scm"
                                       "declare.scm"
                                       "jbogenturfahi.scm"
                                       "jbogerna.scm"
@@ -59,7 +59,7 @@
        ; static library
        ;
        ("jbogenturfahi.o" ("chicken-egg.scm"
-                           "conf.scm"
+                           "chicken-conf.scm"
                            "declare.scm"
                            "jbogenturfahi.scm"
                            "jbogerna.scm"
