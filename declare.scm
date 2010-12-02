@@ -1,6 +1,6 @@
 ;;;;
-;;;; genturfahi - lo la .ckim. ke pe'a jajgau ratcu ke'e genturfa'i
-;;;;            `-> A Scheme packrat parser.
+;;;; jbogenturfahi - lo lojbo ke pe'a jajgau ratcu ke'e genturfa'i
+;;;;               `-> A Lojban grammar parser
 ;;;;
 ;;;; Copyright (c) 2010 ".alyn.post." <alyn.post@lodockikumazvati.org>
 ;;;;
