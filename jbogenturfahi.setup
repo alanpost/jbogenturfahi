@@ -28,7 +28,7 @@
 (make (("jbogenturfahi" ("chicken-cmd.scm"
                          "chicken-conf.scm"
                          "chicken-declare.scm"
-                         "main.scm"
+                         "main-srfi-37.scm"
                          "jbogenturfahi.meta"
                          "jbogenturfahi.setup"
                          (dynld-name "jbogenturfahi"))
