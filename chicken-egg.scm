@@ -22,14 +22,19 @@
    jbogenturfahi-version-major
    jbogenturfahi-version-minor
    jbogenturfahi-version-patch
-   
+
    jbogenturfahi
    jbogerna)
 
 (import chicken)
 (import scheme)
 
+(require-extension srfi-14)
+(require-extension extras)
 (require-library genturfahi)
+
+(import srfi-14)
+(import extras)
 
 (import genturfahi)
 
