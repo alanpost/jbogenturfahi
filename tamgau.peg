@@ -1,6 +1,6 @@
 ;;;;
 ;;;; jbogenturfahi - lo lojbo ke pe'a jajgau ratcu ke'e genturfa'i
-;;;;               `-> A Lojban grammar parser
+;;;;            `-> A Scheme packrat parser.
 ;;;;
 ;;;; Copyright (c) 2010 ".alyn.post." <alyn.post@lodockikumazvati.org>
 ;;;;
@@ -17,4 +17,11 @@
 ;;;; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;;;;
 
-(define jbogenturfahi (genturfahi jbogerna))
+;; The name of the 
+;;
+{(define-name "jbogerna")}
+
+;; The Chicken Scheme compiler generates better code if I define all
+;; of the grammar rules at the top-level, rather than in a let.
+;;
+{(define-toplevel #t)}

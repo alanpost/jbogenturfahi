@@ -24,7 +24,7 @@
    jbogenturfahi-version-patch
    
    jbogenturfahi
-   gerna)
+   jbogerna)
 
 (import chicken)
 (import scheme)

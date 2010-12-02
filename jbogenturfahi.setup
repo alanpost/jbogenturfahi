@@ -74,17 +74,24 @@
 
        ("jbogerna.scm" ("gerna.peg"
                         "rafske_gumgau.peg"
-                        "rafske.peg")
+                        "rafske.peg"
+                        "tamgau.peg"
+                        "jbogenturfahi.meta"
+                        "jbogenturfahi.setup")
         (call-with-output-file "jbogerna.scm"
           (lambda (port)
-            (let ((lefpoi (string-append (read-all "gerna.peg")
+            (let ((lefpoi (string-append (read-all "tamgau.peg")
+                                         (read-all "gerna.peg")
                                          (read-all "rafske_gumgau.peg")
                                          (read-all "rafske.peg")))
-                  (gerna (string->symbol (secuxna-definition-name))))
+                  (tamgau (string->symbol (secuxna-define-name)))
+                  (text*  (string->symbol "text*")))
               (call-with-input-string
                 lefpoi
                 (lambda (peg)
-                  (pretty-print `(define ,gerna ,(genturfahi-peg peg))
+                  (for-each (lambda (form) (pretty-print form port))
+                            (genturfahi-peg peg))
+                  (pretty-print `(define ,tamgau ,text*)
                                 port))))))))
 
       `("jbogenturfahi" ,(dynld-name "jbogenturfahi") "jbogenturfahi.o"))
