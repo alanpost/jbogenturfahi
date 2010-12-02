@@ -27,7 +27,7 @@
        ;
 (make (("jbogenturfahi" ("chicken-cmd.scm"
                          "chicken-conf.scm"
-                         "declare.scm"
+                         "chicken-declare.scm"
                          "main.scm"
                          "jbogenturfahi.meta"
                          "jbogenturfahi.setup"
@@ -40,7 +40,7 @@
        ;
        ((dynld-name "jbogenturfahi") ("chicken-egg.scm"
                                       "chicken-conf.scm"
-                                      "declare.scm"
+                                      "chicken-declare.scm"
                                       "jbogenturfahi.scm"
                                       "jbogerna.scm"
                                       "version.scm"
@@ -60,7 +60,7 @@
        ;
        ("jbogenturfahi.o" ("chicken-egg.scm"
                            "chicken-conf.scm"
-                           "declare.scm"
+                           "chicken-declare.scm"
                            "jbogenturfahi.scm"
                            "jbogerna.scm"
                            "version.scm"

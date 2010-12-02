@@ -17,7 +17,7 @@
 ;;;; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;;;;
 
-(include "declare.scm")
+(include "chicken-declare.scm")
 
 ;(use utf8)
 (use srfi-28)       ; Basic Format Strings
