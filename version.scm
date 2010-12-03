@@ -21,7 +21,8 @@
 (define jbogenturfahi-version-minor 0)
 (define jbogenturfahi-version-patch 1)
 
-(define jbogenturfahi-version (format "~a.~a.~a"
-                               jbogenturfahi-version-major
-                               jbogenturfahi-version-minor
-                               jbogenturfahi-version-patch))
+;(define jbogenturfahi-version (format "~a.~a.~a"
+;                               jbogenturfahi-version-major
+;                               jbogenturfahi-version-minor
+;                               jbogenturfahi-version-patch))
+(define jbogenturfahi-version "trunk")
