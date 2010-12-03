@@ -17,14 +17,8 @@
 ;;;; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;;;;
 
-(module jbogenturfahi
-  (jbogenturfahi-version
-   jbogenturfahi-version-major
-   jbogenturfahi-version-minor
-   jbogenturfahi-version-patch
-
-   jbogenturfahi
-   jbogerna)
+(module jbogerna
+  (jbogerna)
 
 (import chicken)
 (import scheme)
@@ -38,6 +32,4 @@
 
 (import genturfahi)
 
-(include "jbogerna.scm")
-(include "jbogenturfahi.scm")
-(include "version.scm"))
+(include "jbogerna.scm"))
