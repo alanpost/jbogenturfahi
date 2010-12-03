@@ -118,16 +118,12 @@
             (let ((lefpoi (string-append (read-all "tamgau.peg")
                                          (read-all "gerna.peg")
                                          (read-all "rafske_gumgau.peg")
-                                         (read-all "rafske.peg")))
-                  (tamgau (string->symbol (secuxna-define-name)))
-                  (text*  (string->symbol "text*")))
+                                         (read-all "rafske.peg"))))
               (call-with-input-string
                 lefpoi
                 (lambda (peg)
                   (for-each (lambda (form) (pretty-print form port))
-                            (genturfahi-peg peg))
-                  (pretty-print `(define ,tamgau ,text*)
-                                port))))))))
+                            (genturfahi-peg peg)))))))))
 
       `("jbogenturfahi"
         ,(dynld-name "jbogerna")
