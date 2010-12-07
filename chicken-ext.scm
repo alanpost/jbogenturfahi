@@ -23,6 +23,7 @@
    jbogenturfahi-version-minor
    jbogenturfahi-version-patch
 
+   jbogenturfahi-rafske
    jbogenturfahi)
 
 (import chicken)

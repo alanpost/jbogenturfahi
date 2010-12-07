@@ -18,7 +18,8 @@
 ;;;;
 
 (module jbogerna
-  (jbogerna)
+  (jborafske
+   jbogerna)
 
 (import chicken)
 (import scheme)

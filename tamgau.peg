@@ -19,14 +19,12 @@
 
 ;; The variable defining the morphology and full grammar.
 ;;
-;{(define-name '("jborafske" "jbogerna"))}
-{(define-name '("jbogerna"))}
+{(define-name '("jborafske" "jbogerna"))}
 
 ;; The non-terminal rules in the grammar for the morphology
 ;; and grammar.
 ;;
-;{(start-production '("morphology" "text"))}
-{(start-production '("text"))}
+{(start-production '("morphology" "text"))}
 
 ;; The Chicken Scheme compiler generates better code if I define all
 ;; of the grammar rules at the top-level, rather than in a let.

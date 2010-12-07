@@ -17,4 +17,5 @@
 ;;;; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;;;;
 
+(define jbogenturfahi-rafske (genturfahi jborafske))
 (define jbogenturfahi (genturfahi jbogerna))

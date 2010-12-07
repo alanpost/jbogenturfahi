@@ -23,6 +23,7 @@
 (use srfi-28)       ; Basic Format Strings
 (use srfi-37)       ; args-fold
 (use genturfahi)    ; for secuxna-exit-status
+(use jbogerna)
 (use jbogenturfahi)
 
 (include "main-srfi-37.scm")
