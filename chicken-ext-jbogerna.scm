@@ -27,10 +27,12 @@
 (require-extension srfi-14)
 (require-extension extras)
 (require-library genturfahi)
+(require-library jbogensamselpla)
 
 (import srfi-14)
 (import extras)
 
 (import genturfahi)
+(import jbogensamselpla)
 
 (include "jbogerna.scm"))
