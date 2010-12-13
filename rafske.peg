@@ -56,9 +56,17 @@ brivla <- gismu
 cmene <- jbocme
        / zifcme
 
-zifcme <- !h (nucleus / glide / h / consonant !pause / digit)* consonant &pause
+zifcme <- !h
+          ( nucleus / glide / h / consonant !pause / digit )*
+          consonant
+          &pause
+       -> zifcme
 
-jbocme <- &zifcme (any-syllable / digit)* &pause 
+jbocme <- &zifcme
+          ( any-syllable
+          / digit )*
+          &pause 
+       -> jbocme
 
 ;cmene <- !h &consonant-final coda? (any-syllable / digit)* &pause
 
@@ -87,8 +95,11 @@ cmavo-form <- !h
               !cluster
               onset
               (nucleus h)*
-              (!stressed nucleus / nucleus !cluster)
+              ( !stressed nucleus
+              / nucleus !cluster )
+              -> cmavo-form
             / y+
+              -> cmavo-form-y
             / digit
 
 ;-------------------------------------------------------------------
@@ -148,6 +159,7 @@ gismu <- ( initial-pair stressed-vowel
          consonant
          vowel
          &post-word
+      -> gismu
 
 CVV-final-rafsi <- consonant stressed-vowel h &final-syllable vowel &post-word
 
@@ -209,7 +221,9 @@ stress <- consonant* y? syllable pause
 
 stressed <- onset comma* [AEIOU]
 
-any-syllable <- onset nucleus coda? / consonantal-syllable 
+any-syllable <- onset nucleus coda?
+             -> any-syllable
+              / consonantal-syllable 
 
 syllable <- onset !y nucleus coda?
 
@@ -217,10 +231,19 @@ consonantal-syllable <- consonant
                         syllabic
                         &(consonantal-syllable / onset)
                         (consonant &spaces)?
+                     -> consonantal-syllable
 
-coda <- !any-syllable consonant &any-syllable / syllabic? consonant? &pause 
+coda <- !any-syllable
+        consonant
+        &any-syllable
+      / syllabic?
+        consonant?
+        &pause 
+      -> coda
 
-onset <- h / consonant? glide / initial
+onset <- h
+       / consonant? glide -> onset
+       / initial
 
 nucleus <- vowel / diphthong / y !nucleus
 
@@ -228,7 +251,13 @@ nucleus <- vowel / diphthong / y !nucleus
 
 glide <- (i / u) &nucleus !glide
 
-diphthong <- (a i / a u / e i / o i) !nucleus !glide
+diphthong <- ( a i
+             / a u
+             / e i
+             / o i)
+             !nucleus
+             !glide
+          -> diphthong
 
 vowel <- (a / e / i / o / u) !nucleus
 
@@ -247,18 +276,43 @@ y <- comma* [yY] -> y
 ;-------------------------------------------------------------------
 
 cluster <- consonant consonant+
+        -> cluster
 
-initial-pair <- &initial consonant consonant !consonant
+initial-pair <- &initial
+                consonant
+                consonant
+                !consonant
+             -> initial-pair
 
-initial <- (affricate / sibilant? other? liquid?) !consonant !glide
+initial <- ( affricate
+           / sibilant? other? liquid? -> initial )
+           !consonant
+           !glide
 
-affricate <- t c / t s / d j / d z
+affricate <- t c
+           / t s
+           / d j
+           / d z
+          -> affricate
 
-liquid <- l / r 
+liquid <- l
+        / r 
 
-other <- p / t !l / k / f / x / b / d !l / g / v / m / n !liquid 
+other <- p
+       / t !l
+       / k
+       / f
+       / x
+       / b
+       / d !l
+       / g
+       / v
+       / m
+       / n !liquid 
 
-sibilant <- c / s !x / (j / z) !n !liquid
+sibilant <- c
+          / s !x
+          / (j / z) !n !liquid
 
 consonant <- voiced / unvoiced / syllabic
 
@@ -317,6 +371,7 @@ EOF <- comma* !.
 comma <- [,]
 
 non-lojban-word <- !lojban-word non-space+
+                -> non-lojban-word
 
 non-space <- !space-char .
 
