@@ -32,21 +32,40 @@
                          "main-srfi-37.scm"
                          "jbogenturfahi.meta"
                          "jbogenturfahi.setup"
+                         (dynld-name "jbogenturfahi")
                          (dynld-name "jbogerna")
-                         (dynld-name "jbogenturfahi"))
+                         (dynld-name "jbogensamselpla"))
        (compile ,@jbogenturfahi-cscflags
                 -o "jbogenturfahi"
                 "chicken-cmd.scm"))
 
-       ; dynamic library for jbogerna
+       ; dynamic library (jbogensamselpla)
+       ;
+       ((dynld-name "jbogensamselpla") ("chicken-ext-jbogensamselpla.scm"
+                                        "chicken-conf.scm"
+                                        "chicken-declare.scm"
+                                        "samselpla.scm"
+                                        "jbogenturfahi.meta"
+                                        "jbogenturfahi.setup")
+       (begin (compile -s
+                       ,@jbogenturfahi-cscflags
+                       -j jbogensamselpla
+                       -o ,(dynld-name "jbogensamselpla")
+                       chicken-ext-jbogensamselpla.scm)
+              (compile -s
+                       ,@jbogenturfahi-cscflags
+                       -o ,(dynld-name "jbogensamselpla.import")
+                       jbogensamselpla.import.scm)))
+
+       ; dynamic library (jbogerna)
        ;
        ((dynld-name "jbogerna") ("chicken-ext-jbogerna.scm"
                                  "chicken-conf.scm"
                                  "chicken-declare.scm"
                                  "jbogerna.scm"
-                                 "version.scm"
                                  "jbogenturfahi.meta"
-                                 "jbogenturfahi.setup")
+                                 "jbogenturfahi.setup"
+                                 (dynld-name "jbogensamselpla"))
        (begin (compile -s
                        ,@jbogenturfahi-cscflags
                        -j jbogerna
@@ -57,7 +76,7 @@
                        -o ,(dynld-name "jbogerna.import")
                        jbogerna.import.scm)))
 
-       ; dynamic library for jbogenturfahi
+       ; dynamic library (jbogenturfahi)
        ;
        ((dynld-name "jbogenturfahi") ("chicken-ext.scm"
                                       "chicken-conf.scm"
@@ -77,13 +96,26 @@
                        -o ,(dynld-name "jbogenturfahi.import")
                        jbogenturfahi.import.scm)))
 
+       ; static library (jbogensamselpla)
+       ;
+       ("jbogensamselpla.o" ("chicken-ext-jbogensamselpla.scm"
+                             "chicken-conf.scm"
+                             "chicken-declare.scm"
+                             "samselpla.scm"
+                             "jbogenturfahi.meta"
+                             "jbogenturfahi.setup")
+       (compile -c
+                ,@jbogenturfahi-cscflags
+                -unit jbogensamselpla
+                -o "jbogensamselpla.o"
+                "chicken-ext-jbogensamselpla.scm"))
+
        ; static library (jbogerna)
        ;
        ("jbogerna.o" ("chicken-ext-jbogerna.scm"
                       "chicken-conf.scm"
                       "chicken-declare.scm"
                       "jbogerna.scm"
-                      "version.scm"
                       "jbogenturfahi.meta"
                       "jbogenturfahi.setup")
        (compile -c
@@ -100,8 +132,7 @@
                            "jbogenturfahi.scm"
                            "version.scm"
                            "jbogenturfahi.meta"
-                           "jbogenturfahi.setup"
-                           (dynld-name "jbogerna"))
+                           "jbogenturfahi.setup")
        (compile -c
                 ,@jbogenturfahi-cscflags
                 -unit jbogenturfahi
@@ -127,10 +158,25 @@
                             (genturfahi-peg peg)))))))))
 
       `("jbogenturfahi"
+        ,(dynld-name "jbogensamselpla")
         ,(dynld-name "jbogerna")
         ,(dynld-name "jbogenturfahi")
+        "jbogensamselpla.o"
         "jbogerna.o"
         "jbogenturfahi.o"))
+
+(install-extension
+  ; lo cmene vi pagbu
+  'jbogensamselpla
+
+  ; lo datnyvei vi pagbu
+  `("jbogensamselpla.o"
+    ,(dynld-name "jbogensamselpla")
+    ,(dynld-name "jbogensamselpla.import"))
+
+  ; lo se ckaji vi pagbu
+  `((static "jbogensamselpla.o")
+    (version ,jbogenturfahi-version)))
 
 (install-extension
   ; lo cmene vi pagbu

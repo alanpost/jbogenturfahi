@@ -18,7 +18,48 @@
 ;;;;
 
 (module jbogensamselpla
-  (A
+  (a
+   e
+   i
+   o
+   u
+   y
+
+   l
+   m
+   n
+   r
+   b
+   d
+   g
+   v
+   j
+   z
+   s
+   c
+   x
+   k
+   f
+   p
+   t
+   h
+
+   digit
+   comma
+
+   affricate
+   any-syllable
+   cluster
+   cmavo-form
+   cmavo-form-y
+   coda
+   consonantal-syllable
+   diphthong
+   initial
+   initial-pair
+   onset
+
+   A
    BAI
    BAhE
    BE
@@ -139,7 +180,12 @@
    ZIhE
    ZO
    ZOI
-   ZOhU)
+   ZOhU
+   
+   zifcme
+   jbocme
+   gismu
+   non-lojban-word)
 
 (import chicken)
 (import scheme)
