@@ -320,7 +320,7 @@ non-lojban-word <- !lojban-word non-space+
 
 non-space <- !space-char .
 
-space-char <- [.\t\n\r?!\u0020]
+space-char <- [[:space:]]
 
 ;-------------------------------------------------------------------
 
