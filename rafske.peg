@@ -306,7 +306,7 @@ h <- comma* ['h] &nucleus -> h
 
 ;-------------------------------------------------------------------
 
-digit <- comma* [0123456789] !h !nucleus
+digit <- comma* [[:digit:]] !h !nucleus
 
 post-word <- pause / !nucleus lojban-word
 
