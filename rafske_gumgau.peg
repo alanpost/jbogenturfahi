@@ -1,6 +1,11 @@
 ; Ignore the -morph bits here if searching for these non-terminals.
 ;; out of date: BU is before spaces in front so we can catch Y + BU before anything else.
-morphology <- initial-spaces? ( ( CMAVO / BRIVLA / CMENE / non-lojban-word ) spaces?)*
+morphology <- `initial-spaces?
+              ( ( CMAVO
+                / BRIVLA
+                / CMENE
+                / non-lojban-word )
+              `spaces? )*
 
 ; morphology <- (BU-clause-morph / spaces-morph)* (any-word-morph spaces-morph?)* EOF-morph
 
