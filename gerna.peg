@@ -1,27 +1,3 @@
-; This is a Parsing Expression Grammar for Lojban.
-; See http://www.pdos.lcs.mit.edu/~baford/packrat/
-; 
-; All rules have the form:
-; 
-; 	name <- peg-expression
-; 
-; which means that the grammatical construct "name" is parsed using
-; "peg-expression".  
-; 
-; 1)  Names in lower case are grammatical constructs.
-; 2)  Names in UPPER CASE are selma'o (lexeme) names, and are terminals.
-; 3)  Concatenation is expressed by juxtaposition with no operator symbol.
-; 4)  / represents *ORDERED* alternation (choice).  If the first
-;     option succeeds, the others will never be checked.
-; 5)  ? indicates that the element to the left is optional.
-; 6)  * represents optional repetition of the construct to the left.
-; 7)  + represents one-or-more repetition of the construct to the left.
-; 8)  () serves to indicate the grouping of the other operators.
-;
-; Longest match wins.
-
-; --- GRAMMAR ---
-
 text <- intro-null NAI-clause* text-part-2 (!text-1 joik-jek)? text-1? faho-clause EOF?
 
 intro-null <- spaces? su-clause* intro-si-clause
