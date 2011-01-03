@@ -20,9 +20,19 @@
 (use genturfahi)
 (use genturfahi-peg)
 (use extras)
+(use srfi-1)
 
 (include "version.scm")
 (include "chicken-conf.scm")
+
+(define jbogenturfahi-db-path
+        (reduce make-pathname
+                "/"
+                `(,jbogenturfahi-version
+                  "jbogenturfahi"
+                  ,(chicken-home))))
+(define jbogenturfahi-db-file
+        (make-pathname jbogenturfahi-db-path "jbogenturfahi.db"))
 
        ; jbogenturfahi executable
        ;
@@ -82,7 +92,11 @@
                                       "chicken-conf.scm"
                                       "chicken-declare.scm"
                                       "jbogenturfahi.scm"
+                                      "c0re.scm"
+                                      "sql.scm"
+                                      "db.scm"
                                       "version.scm"
+                                      "path.scm"
                                       "jbogenturfahi.meta"
                                       "jbogenturfahi.setup"
                                       (dynld-name "jbogerna"))
@@ -130,7 +144,11 @@
                            "chicken-conf.scm"
                            "chicken-declare.scm"
                            "jbogenturfahi.scm"
+                           "c0re.scm"
+                           "sql.scm"
+                           "db.scm"
                            "version.scm"
+                           "path.scm")
                            "jbogenturfahi.meta"
                            "jbogenturfahi.setup")
        (compile -c
@@ -139,25 +157,43 @@
                 -o "jbogenturfahi.o"
                 "chicken-ext.scm"))
 
+       ("jbogenturfahi.db" ("chicken-db.scm"
+                            "c0re.scm"
+                            "sql.scm"
+                            "db.scm"
+                            "wordlists/cmavo.scm"
+                            "wordlists/cmavo.txt"
+                            "wordlists/gismu.txt"
+                            "wordlists/rafsi.txt")
+                            "jbogenturfahi.meta"
+                            "jbogenturfahi.setup")
+         (load "chicken-db.scm"))
+
+       ("path.scm" ("jbogenturfahi.meta"
+                    "jbogenturfahi.setup")
+         (call-with-output-file "path.scm"
+           (lambda (port)
+             (write `(define jbogenturfahi-db-path
+                             (make-parameter ,jbogenturfahi-db-file))
+                    port))))
+
        ("jbogerna.scm" ("gerna.peg"
                         "rafske_gumgau.peg"
                         "rafske.peg"
                         "tamgau.peg"
                         "jbogenturfahi.meta"
                         "jbogenturfahi.setup")
-        (call-with-output-file "jbogerna.scm"
-          (lambda (port)
-            (let ((lefpoi (string-append (read-all "tamgau.peg")
-                                         (read-all "gerna.peg")
-                                         (read-all "rafske_gumgau.peg")
-                                         (read-all "rafske.peg"))))
-              (call-with-input-string
-                lefpoi
-                (lambda (peg)
-                  (for-each (lambda (form) (pretty-print form port))
-                            (genturfahi-peg peg)))))))))
+         (call-with-output-file "jbogerna.scm"
+           (lambda (port)
+             (let ((lefpoi (string-append (read-all "tamgau.peg")
+                                          (read-all "gerna.peg")
+                                          (read-all "rafske_gumgau.peg")
+                                          (read-all "rafske.peg"))))
+               (for-each (lambda (form) (pretty-print form port))
+                         (genturfahi-peg lefpoi)))))))
 
-      `("jbogenturfahi"
+      `("jbogenturfahi.db"
+        "jbogenturfahi"
         ,(dynld-name "jbogensamselpla")
         ,(dynld-name "jbogerna")
         ,(dynld-name "jbogenturfahi")
@@ -213,3 +249,9 @@
 
   ; lo se ckaji vi pagbu
   `((version ,jbogenturfahi-version)))
+
+(if (not (setup-install-mode))
+  (exit))
+
+(create-directory/parents jbogenturfahi-db-path)
+(copy-file "jbogenturfahi.db" jbogenturfahi-db-path)
