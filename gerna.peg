@@ -1270,17 +1270,10 @@ ZOhU-post <- post-clause
 ZOhU-no-SA-handling <- pre-clause ZOhU post-clause
 
 
-any-word <- ""
 known-cmavo-pre <- ""
-spaces <- ""
 zoi-open <- ""
 zoi-word <- ""
 zoi-close <- ""
-
-dot-star <- ""
-EOF <- ""
-;dot-star <- .*
-;EOF <- !.
 
 ;;************************
 ;; MORPHOLOGY INTERFACE
