@@ -1,5 +1,7 @@
 jbogenturfahi
+jbogenturfahi.db
 jbogerna.scm
+path.scm
 *.import.scm
 *.o
 *.so
