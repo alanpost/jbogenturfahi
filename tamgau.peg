@@ -30,3 +30,11 @@
 ;; of the grammar rules at the top-level, rather than in a let.
 ;;
 {(define-toplevel #t)}
+
+;; Enable debugging
+;;
+{(debug #f)}
+
+;; Enable profiling
+;;
+{(profile #f)}
