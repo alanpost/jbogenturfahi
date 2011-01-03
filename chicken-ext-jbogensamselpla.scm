@@ -217,8 +217,4 @@
 (import chicken)
 (import scheme)
 
-(require-extension srfi-13)
-
-(import srfi-13)
-
 (include "samselpla.scm"))
