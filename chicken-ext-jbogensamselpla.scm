@@ -24,7 +24,6 @@
    o
    u
    y
-
    l
    m
    n
@@ -43,22 +42,55 @@
    p
    t
    h
-
    digit
    comma
-
-   affricate
+   final-syllable
    any-syllable
+   syllable
+   consonantal-syllable
+   coda
+   onset
+   diphthong
    cluster
+   initial-pair
+   initial
+   affricate
+   zifcme
+   jbocme
+   CVCy-lujvo-brivla-core
+   CVCy-lujvo-short-final-rafsi
    cmavo-form
    cmavo-form-y
-   coda
-   consonantal-syllable
-   diphthong
-   initial
-   initial-pair
-   onset
-
+   lujvo
+   fuhivla
+   stressed-brivla-rafsi
+   brivla-rafsi
+   stressed-fuhivla-rafsi
+   fuhivla-rafsi
+   brivla-head
+   slinkuhi
+   rafsi-string
+   rafsi-string-short-final
+   rafsi-string-initial-pair
+   gismu
+   CVV-final-rafsi
+   short-final-rafsi
+   stressed-y-rafsi
+   stressed-long-rafsi-CCVC
+   stressed-long-rafsi-CVCC
+   stressed-CVC-rafsi
+   stressed-CCV-rafsi
+   stressed-CVV-rafsi
+   stressed-CVV-rafsi-VhV
+   y-rafsi
+   long-rafsi-CCVC
+   long-rafsi-CVCC
+   CVC-rafsi
+   CCV-rafsi
+   CVV-rafsi
+   CVV-rafsi-VhV
+   non-lojban-word
+   ybu
    A
    BAI
    BAhE
@@ -180,12 +212,7 @@
    ZIhE
    ZO
    ZOI
-   ZOhU
-   
-   zifcme
-   jbocme
-   gismu
-   non-lojban-word)
+   ZOhU)
 
 (import chicken)
 (import scheme)

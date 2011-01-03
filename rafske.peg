@@ -1,9 +1,5 @@
-; not used.
-;words <- pause? (word pause?)*
-
-; not used.
-;word <- lojban-word
-;      / non-lojban-word
+;any-word <- lojban-word
+;          / non-lojban-word
 
 lojban-word <- cmene
              / cmavo
@@ -49,9 +45,11 @@ CVCy-lujvo <- CVC-rafsi
               h?
               initial-rafsi*
               brivla-core
+           -> CVCy-lujvo-brivla-core
             / stressed-CVC-rafsi
               y
               short-final-rafsi
+           -> CVCy-lujvo-short-final-rafsi
 
 cmavo-form <- !h
               !cluster
@@ -59,14 +57,19 @@ cmavo-form <- !h
               (nucleus h)*
               ( !stressed nucleus
               / nucleus !cluster )
-              -> cmavo-form
+           -> cmavo-form
             / y+
-              -> cmavo-form-y
+           -> cmavo-form-y
             / digit
 
 ;-------------------------------------------------------------------
 
-lujvo <- !gismu !fuhivla !cmavo initial-rafsi* brivla-core
+lujvo <- !gismu
+         !fuhivla
+         !cmavo
+         initial-rafsi*
+         brivla-core
+      -> lujvo
 
 brivla-core <- fuhivla
              / gismu
@@ -79,115 +82,253 @@ stressed-initial-rafsi <- stressed-extended-rafsi
 
 initial-rafsi <- extended-rafsi
                / y-rafsi
-               / !any-extended-rafsi y-less-rafsi
+               / !any-extended-rafsi
+                 y-less-rafsi
 
-any-extended-rafsi <- fuhivla / extended-rafsi / stressed-extended-rafsi
+any-extended-rafsi <- fuhivla
+                    / extended-rafsi
+                    / stressed-extended-rafsi
 
 ;-------------------------------------------------------------------
 
-fuhivla <- fuhivla-head stressed-syllable consonantal-syllable* final-syllable
+fuhivla <- fuhivla-head
+           stressed-syllable
+           consonantal-syllable*
+           final-syllable
+        -> fuhivla
 
-stressed-extended-rafsi <- stressed-brivla-rafsi / stressed-fuhivla-rafsi 
+stressed-extended-rafsi <- stressed-brivla-rafsi
+                         / stressed-fuhivla-rafsi 
 
-extended-rafsi <- brivla-rafsi / fuhivla-rafsi
+extended-rafsi <- brivla-rafsi
+                / fuhivla-rafsi
 
-stressed-brivla-rafsi <- &unstressed-syllable brivla-head stressed-syllable h y
+stressed-brivla-rafsi <- &unstressed-syllable
+                         brivla-head
+                         stressed-syllable
+                         h
+                         y
+                      -> stressed-brivla-rafsi
 
-brivla-rafsi <- &(syllable consonantal-syllable* syllable) brivla-head h y h?
+brivla-rafsi <- &( syllable
+                   consonantal-syllable*
+                   syllable )
+                brivla-head
+                h
+                y
+                h?
+             -> brivla-rafsi
 
-stressed-fuhivla-rafsi <- fuhivla-head stressed-syllable &consonant onset y 
+stressed-fuhivla-rafsi <- fuhivla-head
+                          stressed-syllable
+                          &consonant
+                          onset
+                          y 
+                       -> stressed-fuhivla-rafsi
 
-fuhivla-rafsi <- &unstressed-syllable fuhivla-head &consonant onset y h?
+fuhivla-rafsi <- &unstressed-syllable
+                 fuhivla-head
+                 &consonant
+                 onset
+                 y
+                 h?
+              -> fuhivla-rafsi
 
-fuhivla-head <- !rafsi-string brivla-head
+fuhivla-head <- !rafsi-string
+                brivla-head
 
-brivla-head <- !cmavo !slinkuhi !h &onset unstressed-syllable*
+brivla-head <- !cmavo
+               !slinkuhi
+               !h
+               &onset
+               unstressed-syllable*
+            -> brivla-head
 
-slinkuhi <- consonant rafsi-string
+slinkuhi <- consonant
+            rafsi-string
+         -> slinkuhi
 
 rafsi-string <- y-less-rafsi*
                 ( gismu
                 / CVV-final-rafsi
-                / stressed-y-less-rafsi short-final-rafsi
+                / stressed-y-less-rafsi
+                  short-final-rafsi
+               -> rafsi-string-short-final
                 / y-rafsi
                 / stressed-y-rafsi
-                / stressed-y-less-rafsi? initial-pair y )
+                / stressed-y-less-rafsi?
+                  initial-pair
+                  y
+               -> rafsi-string-initial-pair)
+             -> rafsi-string
 
 ;-------------------------------------------------------------------
 
-gismu <- ( initial-pair stressed-vowel
-         / consonant stressed-vowel consonant )
+gismu <- ( initial-pair
+           stressed-vowel
+         / consonant
+           stressed-vowel
+           consonant )
          &final-syllable
          consonant
          vowel
          &post-word
       -> gismu
 
-CVV-final-rafsi <- consonant stressed-vowel h &final-syllable vowel &post-word
+CVV-final-rafsi <- consonant
+                   stressed-vowel
+                   h
+                   &final-syllable
+                   vowel
+                   &post-word
+                -> CVV-final-rafsi
 
 short-final-rafsi <- &final-syllable
-                   ( consonant diphthong
-                   / initial-pair vowel )
-                   &post-word
+                     ( consonant
+                       diphthong
+                     / initial-pair
+                       vowel )
+                     &post-word
+                  -> short-final-rafsi
 
-stressed-y-rafsi <- (stressed-long-rafsi / stressed-CVC-rafsi) y
+stressed-y-rafsi <- ( stressed-long-rafsi
+                    / stressed-CVC-rafsi )
+                    y
+                 -> stressed-y-rafsi
 
-stressed-y-less-rafsi <- stressed-CVC-rafsi !y / stressed-CCV-rafsi / stressed-CVV-rafsi
+stressed-y-less-rafsi <- stressed-CVC-rafsi
+                         !y
+                       / stressed-CCV-rafsi
+                       / stressed-CVV-rafsi
 
-stressed-long-rafsi <- initial-pair stressed-vowel consonant
-                     / consonant stressed-vowel consonant consonant
+stressed-long-rafsi <- initial-pair
+                       stressed-vowel
+                       consonant
+                    -> stressed-long-rafsi-CCVC
+                     / consonant
+                       stressed-vowel
+                       consonant
+                       consonant
+                    -> stressed-long-rafsi-CVCC
 
-stressed-CVC-rafsi <- consonant stressed-vowel consonant 
+stressed-CVC-rafsi <- consonant
+                      stressed-vowel
+                      consonant 
+                   -> stressed-CVC-rafsi
 
-stressed-CCV-rafsi <- initial-pair stressed-vowel 
+stressed-CCV-rafsi <- initial-pair
+                      stressed-vowel 
+                   -> stressed-CCV-rafsi
 
 stressed-CVV-rafsi <- consonant
-                      (unstressed-vowel h stressed-vowel / stressed-diphthong)
+                      ( unstressed-vowel
+                        h
+                        stressed-vowel
+                     -> stressed-CVV-rafsi-VhV
+                      / stressed-diphthong )
                       r-hyphen? 
+                   -> stressed-CVV-rafsi
 
-y-rafsi <- (long-rafsi / CVC-rafsi) y h?
+y-rafsi <- ( long-rafsi
+           / CVC-rafsi )
+           y
+           h?
+        -> y-rafsi
 
-y-less-rafsi <- !y-rafsi (CVC-rafsi !y / CCV-rafsi / CVV-rafsi) !any-extended-rafsi
+y-less-rafsi <- !y-rafsi
+                ( CVC-rafsi
+                  !y
+                / CCV-rafsi
+                / CVV-rafsi )
+                !any-extended-rafsi
 
-long-rafsi <- initial-pair unstressed-vowel consonant
-            / consonant unstressed-vowel consonant consonant 
+long-rafsi <- initial-pair
+              unstressed-vowel
+              consonant
+           -> long-rafsi-CCVC
+            / consonant
+              unstressed-vowel
+              consonant
+              consonant 
+           -> long-rafsi-CVCC
 
-CVC-rafsi <- consonant unstressed-vowel consonant
+CVC-rafsi <- consonant
+             unstressed-vowel
+             consonant
+          -> CVC-rafsi
 
-CCV-rafsi <- initial-pair unstressed-vowel
+CCV-rafsi <- initial-pair
+             unstressed-vowel
+          -> CCV-rafsi
 
 CVV-rafsi <- consonant
-             ( unstressed-vowel h unstressed-vowel
-             / unstressed-diphthong)
-             r-hyphen?
+             ( unstressed-vowel
+               h
+               unstressed-vowel
+            -> CVV-rafsi-VhV
+             / unstressed-diphthong )
+               r-hyphen?
+          -> CVV-rafsi
 
-r-hyphen <- r &consonant / n &r
+r-hyphen <- r &consonant
+          / n &r
 
 ;-------------------------------------------------------------------
 
-final-syllable <- onset !y !stressed nucleus !cmene &post-word
+final-syllable <- onset
+                  !y
+                  !stressed
+                  nucleus
+                  !cmene
+                  &post-word
+               -> final-syllable
 
-stressed-syllable <- &stressed syllable / syllable &stress
+stressed-syllable <- &stressed
+                     syllable
+                   / syllable
+                     &stress
 
-stressed-diphthong <- &stressed diphthong / diphthong &stress
+stressed-diphthong <- &stressed
+                      diphthong
+                    / diphthong
+                      &stress
 
-stressed-vowel <- &stressed vowel / vowel &stress
+stressed-vowel <- &stressed
+                  vowel
+                / vowel
+                  &stress
 
-unstressed-syllable <- !stressed syllable !stress / consonantal-syllable
+unstressed-syllable <- !stressed
+                       syllable
+                       !stress
+                     / consonantal-syllable
 
-unstressed-diphthong <- !stressed diphthong !stress
+unstressed-diphthong <- !stressed
+                        diphthong
+                        !stress
 
-unstressed-vowel <- !stressed vowel !stress
+unstressed-vowel <- !stressed
+                    vowel
+                    !stress
 
-stress <- consonant* y? syllable pause
+stress <- consonant*
+          y?
+          syllable
+          pause
 
-stressed <- onset comma* [AEIOU]
+stressed <- onset
+            comma*
+            [AEIOU]
 
 any-syllable <- onset nucleus coda?
              -> any-syllable
               / consonantal-syllable 
 
-syllable <- onset !y nucleus coda?
+syllable <- onset
+            !y
+            nucleus
+            coda?
+         -> syllable
 
 consonantal-syllable <- consonant
                         syllabic
@@ -201,27 +342,32 @@ coda <- !any-syllable
       / syllabic?
         consonant?
         &pause 
-      -> coda
+     -> coda
 
 onset <- h
-       / consonant? glide -> onset
+       / consonant?
+         glide
+      -> onset
        / initial
 
-nucleus <- vowel / diphthong / y !nucleus
+nucleus <- vowel
+         / diphthong
+         / y
+           !nucleus
 
 ;-----------------------------------------------------------------
 
-glide <- (i / u) &nucleus !glide
+glide <- ( i / u ) &nucleus !glide
 
 diphthong <- ( a i
              / a u
              / e i
-             / o i)
+             / o i )
              !nucleus
              !glide
           -> diphthong
 
-vowel <- (a / e / i / o / u) !nucleus
+vowel <- ( a / e / i / o / u ) !nucleus
 
 a <- comma* [aA] -> a
 
@@ -274,9 +420,13 @@ other <- p
 
 sibilant <- c
           / s !x
-          / (j / z) !n !liquid
+          / ( j / z )
+            !n
+            !liquid
 
-consonant <- voiced / unvoiced / syllabic
+consonant <- voiced
+           / unvoiced
+           / syllabic
 
 syllabic <- l / m / n / r
 
@@ -324,9 +474,13 @@ h <- comma* ['h] &nucleus -> h
 
 digit <- comma* [[:digit:]] !h !nucleus
 
-post-word <- pause / !nucleus lojban-word
+post-word <- pause
+           / !nucleus
+             lojban-word
 
-pause <- comma* space-char+ / EOF
+pause <- comma*
+         space-char+
+       / EOF
 
 EOF <- comma* !.
 
@@ -337,15 +491,22 @@ non-lojban-word <- !lojban-word non-space+
 
 non-space <- !space-char .
 
-space-char <- [[:space:]]
+space-char <- [.[:space:]]
 
 ;-------------------------------------------------------------------
 
-spaces <- !Y initial-spaces
+spaces <- ( comma* space-char )+ EOF?
+        / EOF
 
-initial-spaces <- (comma* space-char / !ybu Y)+ EOF? / EOF
+;spaces <- !Y initial-spaces
+;
+;initial-spaces <- ( comma* space-char
+;                  / !ybu Y )+
+;                  EOF?
+;                / EOF
 
-ybu <- Y space-char* BU
+ybu <- Y `space-char* BU
+    -> ybu
 
 ;-------------------------------------------------------------------
 
