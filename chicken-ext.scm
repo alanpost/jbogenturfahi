@@ -24,15 +24,27 @@
    jbogenturfahi-version-patch
 
    jbogenturfahi-rafske
-   jbogenturfahi)
+   jbogenturfahi
+
+   cmavo:drop-table
+   cmavo:create-table
+   cmavo:gen-insert
+   cmavo:gen-select-list
+   
+   jbogenturfahi-db
+   jbogenturfahi-db-path)
 
 (import chicken)
 (import scheme)
 
 (require-extension srfi-14)
 (require-extension extras)
+
 (require-library genturfahi)
 (require-library jbogerna)
+
+(require-library sqlite3)
+
 
 (import srfi-14)
 (import extras)
@@ -40,5 +52,11 @@
 (import genturfahi)
 (import jbogerna)
 
+(import sqlite3)
+
 (include "jbogenturfahi.scm")
-(include "version.scm"))
+(include "version.scm")
+(include "path.scm")
+(include "c0re.scm")
+(include "sql.scm")
+(include "db.scm"))
