@@ -326,10 +326,6 @@ any-word-SA-handling <- BRIVLA-pre / known-cmavo-SA / !known-cmavo-pre CMAVO-pre
 
 known-cmavo-SA <- A-pre / BAI-pre / BAhE-pre / BE-pre / BEI-pre / BEhO-pre / BIhE-pre / BIhI-pre / BO-pre / BOI-pre / BU-pre / BY-pre / CAI-pre / CAhA-pre / CEI-pre / CEhE-pre / CO-pre / COI-pre / CU-pre / CUhE-pre / DAhO-pre / DOI-pre / DOhU-pre / FA-pre / FAhA-pre / FEhE-pre / FEhU-pre / FIhO-pre / FOI-pre / FUhA-pre / FUhE-pre / FUhO-pre / GA-pre / GAhO-pre / GEhU-pre / GI-pre / GIhA-pre / GOI-pre / GOhA-pre / GUhA-pre / I-pre / JA-pre / JAI-pre / JOI-pre / JOhI-pre / KE-pre / KEI-pre / KEhE-pre / KI-pre / KOhA-pre / KU-pre / KUhE-pre / KUhO-pre / LA-pre / LAU-pre / LAhE-pre / LE-pre / LEhU-pre / LI-pre / LIhU-pre / LOhO-pre / LOhU-pre / LU-pre / LUhU-pre / MAI-pre / MAhO-pre / ME-pre / MEhU-pre / MOI-pre / MOhE-pre / MOhI-pre / NA-pre / NAI-pre / NAhE-pre / NAhU-pre / NIhE-pre / NIhO-pre / NOI-pre / NU-pre / NUhA-pre / NUhI-pre / NUhU-pre / PA-pre / PEhE-pre / PEhO-pre / PU-pre / RAhO-pre / ROI-pre / SA-pre / SE-pre / SEI-pre / SEhU-pre / SI-clause / SOI-pre / SU-pre / TAhE-pre / TEI-pre / TEhU-pre / TO-pre / TOI-pre / TUhE-pre / TUhU-pre / UI-pre / VA-pre / VAU-pre / VEI-pre / VEhA-pre / VEhO-pre / VIhA-pre / VUhO-pre / VUhU-pre / XI-pre / ZAhO-pre / ZEI-pre / ZEhA-pre / ZI-pre / ZIhE-pre / ZO-pre / ZOI-pre / ZOhU-pre
 
-; Handling of spaces and things like spaces.
-; --- SPACE ---
-; Do *NOT* delete the line above!
-
 ; SU clauses
 su-clause <- (erasable-clause / su-word)* SU-clause
 
@@ -344,9 +340,6 @@ sa-word <- pre-zei-bu
 si-word <- pre-zei-bu
 
 su-word <- !NIhO-clause !LU-clause !TUhE-clause !TO-clause !SU-clause !FAhO-clause any-word-SA-handling
-
-; --- SELMAHO ---
-; Do *NOT* delete the line above!
 
 BRIVLA-clause <- BRIVLA-pre BRIVLA-post / zei-clause
 BRIVLA-pre <- pre-clause BRIVLA spaces?
