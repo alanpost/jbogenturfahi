@@ -148,7 +148,7 @@
                            "sql.scm"
                            "db.scm"
                            "version.scm"
-                           "path.scm")
+                           "path.scm"
                            "jbogenturfahi.meta"
                            "jbogenturfahi.setup")
        (compile -c
