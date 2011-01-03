@@ -1,56 +1,150 @@
-text <- intro-null NAI-clause* text-part-2 (!text-1 joik-jek)? text-1? faho-clause EOF?
+text <- intro-null
+        NAI-clause*
+        text-part-2
+        (!text-1 joik-jek)?
+        text-1?
+        faho-clause
+        EOF?
 
-intro-null <- spaces? su-clause* intro-si-clause
-text-part-2 <- (CMENE-clause+ / indicators?) free*
+intro-null <- spaces?
+              su-clause*
+              intro-si-clause
+text-part-2 <- (CMENE-clause+ / indicators?)
+               free*
 
 ;; intro-sa-clause <- SA-clause+ / any-word-SA-handling !(ZEI-clause SA-clause) intro-sa-clause
 intro-si-clause <- si-clause? SI-clause*
-faho-clause <- (FAhO-clause dot-star)?
+faho-clause <- (FAhO-clause .*)?
 
 ; Please note that the "text-1" item in the text-1 production does
 ; *not* match the BNF. This is due to a bug in the BNF.  The change
 ; here was made to match grammar.300
-text-1 <- I-clause (jek / joik)? (stag? BO-clause)? free* text-1? / NIhO-clause+ free* su-clause* paragraphs? / paragraphs
+text-1 <- I-clause
+          (jek / joik)?
+          (stag? BO-clause)?
+          free*
+          text-1?
+        / NIhO-clause+
+          free*
+          su-clause*
+          paragraphs?
+        / paragraphs
 
-paragraphs <- paragraph (NIhO-clause+ free* su-clause* paragraphs)?
+paragraphs <- paragraph
+              (NIhO-clause+ free* su-clause* paragraphs)?
 
-paragraph <- (statement / fragment) (I-clause !jek !joik !joik-jek free* (statement / fragment)?)*
+paragraph <- ( statement
+             / fragment )
+             ( I-clause
+               !jek
+               !joik
+               !joik-jek
+               free*
+               ( statement / fragment )? )*
 
-statement <- statement-1 / prenex statement
+statement <- statement-1
+           / prenex statement
 
-statement-1 <- statement-2 (I-clause joik-jek statement-2?)*
+statement-1 <- statement-2
+               (I-clause joik-jek statement-2?)*
 
-statement-2 <- statement-3 (I-clause (jek / joik)? stag? BO-clause free* statement-2)? / statement-3 (I-clause (jek / joik)? stag? BO-clause free*)?
+statement-2 <- statement-3
+               (I-clause (jek / joik)? stag? BO-clause free* statement-2)?
+             / statement-3
+               (I-clause (jek / joik)? stag? BO-clause free*)?
 
-statement-3 <- sentence / tag? TUhE-clause free* text-1 TUhU-clause? free*
+statement-3 <- sentence
+             / tag? TUhE-clause free* text-1 TUhU-clause? free*
 
-fragment <- prenex / terms VAU-clause? free* / ek free* / gihek free* / quantifier / NA-clause !JA-clause free* / relative-clauses / links / linkargs
+fragment <- prenex
+          / terms VAU-clause? free*
+          / ek free*
+          / gihek free*
+          / quantifier
+          / NA-clause !JA-clause free*
+          / relative-clauses
+          / links
+          / linkargs
 
 prenex <- terms ZOhU-clause free*
 
 ;; sentence <- (terms CU-clause? free*)? bridi-tail / bridi-tail
 
-sentence <- (terms bridi-tail-sa* CU-clause? free*)? bridi-tail-sa* bridi-tail
+sentence <- ( terms bridi-tail-sa* CU-clause? free* )?
+            bridi-tail-sa*
+            bridi-tail
 
-sentence-sa <- sentence-start (!sentence-start (sa-word / SA-clause !sentence-start ) )* SA-clause &text-1
+sentence-sa <- sentence-start
+               ( !sentence-start (sa-word / SA-clause !sentence-start ) )*
+               SA-clause &text-1
 
-sentence-start <- I-pre / NIhO-pre
+sentence-start <- I-pre
+                / NIhO-pre
 
-subsentence <- sentence / prenex subsentence
+subsentence <- sentence
+             / prenex subsentence
 
-bridi-tail <- bridi-tail-1 (gihek stag? KE-clause free* bridi-tail KEhE-clause? free* tail-terms)?
+bridi-tail <- bridi-tail-1
+              ( gihek
+                stag?
+                KE-clause free*
+                bridi-tail
+                KEhE-clause?
+                free*
+                tail-terms )?
 
-bridi-tail-sa <- bridi-tail-start (term / !bridi-tail-start (sa-word / SA-clause !bridi-tail-start ) )* SA-clause &bridi-tail
+bridi-tail-sa <- bridi-tail-start
+                 ( term
+                 / !bridi-tail-start
+                   ( sa-word
+                   / SA-clause
+                     !bridi-tail-start ) )*
+                 SA-clause
+                 &bridi-tail
 
-bridi-tail-start <- ME-clause / NUhA-clause / NU-clause / NA-clause !KU-clause / NAhE-clause !BO-clause / selbri / tag bridi-tail-start / KE-clause bridi-tail-start / bridi-tail
+bridi-tail-start <- ME-clause
+                  / NUhA-clause
+                  / NU-clause
+                  / NA-clause !KU-clause
+                  / NAhE-clause !BO-clause
+                  / selbri
+                  / tag bridi-tail-start
+                  / KE-clause bridi-tail-start
+                  / bridi-tail
 
-bridi-tail-1 <- bridi-tail-2 (gihek !(stag? BO-clause) !(stag? KE-clause) free* bridi-tail-2 tail-terms)*
+bridi-tail-1 <- bridi-tail-2
+                ( gihek
+                  !(stag? BO-clause)
+                  !(stag? KE-clause)
+                  free*
+                  bridi-tail-2
+                  tail-terms )*
 
-bridi-tail-2 <- bridi-tail-3 (gihek stag? BO-clause free* bridi-tail-2 tail-terms)?
+bridi-tail-2 <- bridi-tail-3
+                ( gihek
+                  stag?
+                  BO-clause
+                  free*
+                  bridi-tail-2
+                  tail-terms )?
 
-bridi-tail-3 <- selbri tail-terms / gek-sentence
+bridi-tail-3 <- selbri tail-terms
+              / gek-sentence
 
-gek-sentence <- gek subsentence gik subsentence tail-terms / tag? KE-clause free* gek-sentence KEhE-clause? free* / NA-clause free* gek-sentence
+gek-sentence <- gek
+                subsentence
+                gik
+                subsentence
+                tail-terms
+              / tag?
+                KE-clause
+                free*
+                gek-sentence
+                KEhE-clause?
+                free*
+              / NA-clause
+                free*
+                gek-sentence
 
 tail-terms <- terms? VAU-clause? free*
 
@@ -64,21 +158,60 @@ terms-1 <- terms-2 (pehe-sa* PEhE-clause free* joik-jek terms-2)*
 
 terms-2 <- term (cehe-sa* CEhE-clause free* term)*
 
-pehe-sa <- PEhE-clause (!PEhE-clause (sa-word / SA-clause !PEhE-clause))* SA-clause
+pehe-sa <- PEhE-clause
+           ( !PEhE-clause
+             ( sa-word
+             / SA-clause !PEhE-clause ) )*
+           SA-clause
 
-cehe-sa <- CEhE-clause (!CEhE-clause (sa-word / SA-clause !CEhE-clause))* SA-clause
+cehe-sa <- CEhE-clause
+           ( !CEhE-clause
+             ( sa-word
+             / SA-clause !CEhE-clause ) )*
+           SA-clause
 
 ;;term <- sumti / ( !gek (tag / FA-clause free*) (sumti / KU-clause? free*) ) / termset / NA-clause KU-clause free*
 
 term <- term-sa* term-1
 
-term-1 <- sumti / ( !gek (tag / FA-clause free*) (sumti / KU-clause? free*) ) / termset / NA-clause KU-clause free*
+term-1 <- sumti
+        / ( !gek
+            ( tag   / FA-clause  free* )
+            ( sumti / KU-clause? free* ) )
+        / termset
+        / NA-clause
+          KU-clause
+          free*
 
 term-sa <- term-start (!term-start (sa-word / SA-clause !term-start ) )* SA-clause &term-1
 
-term-start <- term-1 / LA-clause / LE-clause / LI-clause / LU-clause / LAhE-clause / quantifier term-start / gek sumti gik / FA-clause / tag term-start
+term-start <- term-1
+            / LA-clause
+            / LE-clause
+            / LI-clause
+            / LU-clause
+            / LAhE-clause
+            / quantifier term-start
+            / gek sumti gik
+            / FA-clause
+            / tag term-start
 
-termset <- gek-termset / NUhI-clause free* gek terms NUhU-clause? free* gik terms NUhU-clause? free* / NUhI-clause free* terms NUhU-clause? free*
+termset <- gek-termset
+         / NUhI-clause
+           free*
+           gek
+           terms
+           NUhU-clause?
+           free*
+           gik
+           terms
+           NUhU-clause?
+           free*
+         / NUhI-clause
+           free*
+           terms
+           NUhU-clause?
+           free*
 
 gek-termset <- gek terms-gik-terms
 
@@ -96,13 +229,30 @@ sumti-4 <- sumti-5 / gek sumti gik sumti-4
 
 sumti-5 <- quantifier? sumti-6 relative-clauses? / quantifier selbri KU-clause? free* relative-clauses?
 
-sumti-6 <- ZO-clause free* / ZOI-clause free* / LOhU-clause free* / lerfu-string !MOI-clause BOI-clause? free* / LU-clause text LIhU-clause? free* / (LAhE-clause free* / NAhE-clause BO-clause free*) relative-clauses? sumti LUhU-clause? free* / KOhA-clause free* / LA-clause free* relative-clauses? CMENE-clause+ free* / (LA-clause / LE-clause) free* sumti-tail KU-clause? free* / li-clause
+sumti-6 <- ZO-clause free*
+         / ZOI-clause free*
+         / LOhU-clause free*
+         / lerfu-string !MOI-clause BOI-clause? free*
+         / LU-clause text LIhU-clause? free*
+         / ( LAhE-clause free*
+           / NAhE-clause BO-clause free* )
+           relative-clauses?
+           sumti
+           LUhU-clause?
+           free*
+         / KOhA-clause free*
+         / LA-clause free* relative-clauses? CMENE-clause+ free*
+         / (LA-clause / LE-clause) free* sumti-tail KU-clause? free*
+         / li-clause
 
 li-clause <- LI-clause free* mex LOhO-clause? free*
 
-sumti-tail <- (sumti-6 relative-clauses?)? sumti-tail-1 / relative-clauses sumti-tail-1
+sumti-tail <- (sumti-6 relative-clauses?)? sumti-tail-1
+            / relative-clauses sumti-tail-1
 
-sumti-tail-1 <- selbri relative-clauses? / quantifier selbri relative-clauses? / quantifier sumti
+sumti-tail-1 <- selbri relative-clauses?
+              / quantifier selbri relative-clauses?
+              / quantifier sumti
 
 relative-clauses <- relative-clause (ZIhE-clause free* relative-clause)*
 
@@ -112,7 +262,8 @@ relative-clause <- relative-clause-sa* relative-clause-1
 
 relative-clause-sa <- relative-clause-start (!relative-clause-start (sa-word / SA-clause !relative-clause-start ) )* SA-clause &relative-clause-1
 
-relative-clause-1 <- GOI-clause free* term GEhU-clause? free* / NOI-clause free* subsentence KUhO-clause? free*
+relative-clause-1 <- GOI-clause free* term GEhU-clause? free*
+                   / NOI-clause free* subsentence KUhO-clause? free*
 
 relative-clause-start <- GOI-clause / NOI-clause
 
