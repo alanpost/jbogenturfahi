@@ -21,6 +21,6 @@
  (category parsing)
  (doc-from-wiki)
  (license "ISC")
- (needs utf8 genturfahi)
- (test-depends test)
+ (needs genturfahi sqlite3 srfi-14 utils)
+ (test-depends matchable srfi-13 test)
  (synopsis "lo lojbo ke pe'a jajgau ratcu ke'e genturfa'i"))
