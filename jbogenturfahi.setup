@@ -164,7 +164,7 @@
                             "wordlists/cmavo.scm"
                             "wordlists/cmavo.txt"
                             "wordlists/gismu.txt"
-                            "wordlists/rafsi.txt")
+                            "wordlists/rafsi.txt"
                             "jbogenturfahi.meta"
                             "jbogenturfahi.setup")
          (load "chicken-db.scm"))
