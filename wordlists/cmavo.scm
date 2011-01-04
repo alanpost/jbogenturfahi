@@ -69,9 +69,9 @@ FAhO        <- !.
 EOS
 )
 
-(let* ((samselpla      (genturfahi-peg gerna))
-       (gerna          (genturfahi (eval samselpla)))
-       (cmavo          (call-with-input-file "wordlists/cmavo.txt" gerna)))
+(let* ((samselpla (genturfahi-peg gerna))
+       (gerna     (genturfahi (eval samselpla)))
+       (cmavo     (call-with-input-file "wordlists/cmavo.txt" gerna)))
 
   (cmavo:drop-table)
   (cmavo:create-table)
