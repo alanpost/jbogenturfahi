@@ -21,5 +21,6 @@
 
 (include "../c0re.scm")
 (include "cmavo.scm")
+(include "gismu.scm")
 
 (test-exit)

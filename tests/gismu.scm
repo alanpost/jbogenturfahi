@@ -17,51 +17,19 @@
 ;;;; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;;;;
 
-(module jbogenturfahi
-  (jbogenturfahi-version
-   jbogenturfahi-version-major
-   jbogenturfahi-version-minor
-   jbogenturfahi-version-patch
+(define (test-gismu gismu)
+         ; parse this gismu
+         ;
+  (let* ((gerna (jbogenturfahi-rafske gismu))
+         (class (caar gerna))
+         (valsi (cadar gerna)))
+    (test #t (eq?      'gismu class))
+    (test #t (string=? gismu  valsi))))
 
-   jbogenturfahi-rafske
-   jbogenturfahi
+(define (gismu)
+  (let ((rodagismu (gismu:gen-select-list)))
+    (map (compose test-gismu car) (rodagismu)))
+  0)
 
-   cmavo:drop-table
-   cmavo:create-table
-   cmavo:gen-insert
-   cmavo:gen-select-list
-   
-   gismu:drop-table
-   gismu:create-table
-   gismu:gen-insert
-   gismu:gen-select-list
-   
-   jbogenturfahi-db
-   jbogenturfahi-db-file)
-
-(import chicken)
-(import scheme)
-
-(require-extension srfi-14)
-(require-extension extras)
-
-(require-library genturfahi)
-(require-library jbogerna)
-
-(require-library sqlite3)
-
-
-(import srfi-14)
-(import extras)
-
-(import genturfahi)
-(import jbogerna)
-
-(import sqlite3)
-
-(include "jbogenturfahi.scm")
-(include "version.scm")
-(include "path.scm")
-(include "c0re.scm")
-(include "sql.scm")
-(include "db.scm"))
+(test-group "gismu"
+  (gismu))

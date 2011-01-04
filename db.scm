@@ -17,11 +17,17 @@
 ;;;; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;;;;
 
-(define jbogenturfahi-db (sql:open (jbogenturfahi-db-path)))
+(define jbogenturfahi-db (sql:open (jbogenturfahi-db-file)))
 
 (define (cmavo:drop-table)
   (sql:drop-table jbogenturfahi-db #<<EOS
 drop table if exists cmavo;
+EOS
+))
+
+(define (gismu:drop-table)
+  (sql:drop-table jbogenturfahi-db #<<EOS
+drop table if exists gismu;
 EOS
 ))
 
@@ -34,10 +40,24 @@ cmavo(valsi varchar(9) primary key,
 EOS
 ))
 
+(define (gismu:create-table)
+  (sql:create-table jbogenturfahi-db #<<EOS
+create table if not exists
+gismu(valsi varchar(5) primary key);
+EOS
+))
+
 (define (cmavo:gen-insert)
   (sql:gen-insert jbogenturfahi-db #<<EOS
 insert into cmavo('valsi', 'selmaho', 'series')
 values(?, ?, ?);
+EOS
+))
+
+(define (gismu:gen-insert)
+  (sql:gen-insert jbogenturfahi-db #<<EOS
+insert into gismu('valsi')
+values(?);
 EOS
 ))
 
@@ -46,6 +66,14 @@ EOS
 select   selmaho,
          valsi
 from     cmavo
+order by valsi
+EOS
+))
+
+(define (gismu:gen-select-list)
+  (sql:gen-select-list jbogenturfahi-db #<<EOS
+select   valsi
+from     gismu
 order by valsi
 EOS
 ))
