@@ -449,18 +449,15 @@ indicator <-  ((UI-clause / CAI-clause) NAI-clause? / DAhO-clause / FUhO-clause)
 
 zei-clause <- pre-clause zei-clause-no-pre
 zei-clause-no-pre <- pre-zei-bu (zei-tail? bu-tail)* zei-tail post-clause
-zei-clause-no-SA <- pre-zei-bu-no-SA (zei-tail? bu-tail)* zei-tail
 
 bu-clause <- pre-clause bu-clause-no-pre
 bu-clause-no-pre <- pre-zei-bu (bu-tail? zei-tail)* bu-tail post-clause
-bu-clause-no-SA <- pre-zei-bu-no-SA (bu-tail? zei-tail)* bu-tail
 
 zei-tail <- (ZEI-clause any-word)+
 bu-tail <- BU-clause+
 
 pre-zei-bu <- (!BU-clause !ZEI-clause !SI-clause !SA-clause !SU-clause !FAhO-clause any-word-SA-handling) si-clause?
 ; LOhU-pre / ZO-pre / ZOI-pre / !ZEI-clause !BU-clause !FAhO-clause !SI-clause !SA-clause !SU-clause any-word-SA-handling si-clause?
-pre-zei-bu-no-SA <- LOhU-pre / ZO-pre / ZOI-pre / !ZEI-clause !BU-clause !FAhO-clause !SI-clause !SA-clause !SU-clause any-word si-clause?
 
 ; -- General Morphology Issues
 ;
@@ -557,9 +554,7 @@ BOI-post <- post-clause
 
 ;         turns any word into a BY lerfu word 
 BU-clause <- BU-pre BU-post
-BU-clause-no-SA <- BU-pre-no-SA BU BU-post
 BU-pre <- pre-clause BU `spaces?
-BU-pre-no-SA <- pre-clause
 BU-post <- `spaces?
 
 ;         individual lerfu words 
@@ -819,8 +814,6 @@ LE-post <- post-clause
 LEhU-clause <- LEhU-pre LEhU-post
 LEhU-pre <- pre-clause LEhU `spaces?
 LEhU-post <- `spaces?
-LEhU-clause-no-SA <- LEhU-pre-no-SA LEhU-post
-LEhU-pre-no-SA <- pre-clause LEhU `spaces?
 
 ;         convert number to sumti 
 LI-clause <- LI-pre LI-post
@@ -1119,9 +1112,7 @@ ZEhA-post <- post-clause
 
 ;         lujvo glue 
 ZEI-clause <- ZEI-pre ZEI-post
-ZEI-clause-no-SA <- ZEI-pre-no-SA ZEI ZEI-post
 ZEI-pre <- pre-clause ZEI `spaces?
-ZEI-pre-no-SA <- pre-clause
 ZEI-post <- `spaces?
 
 ;         time distance tense 
