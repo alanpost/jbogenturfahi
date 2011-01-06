@@ -143,7 +143,7 @@
 (define (zifcme nafanmo consonant)
   `(cmene ,(string (apply string-append nafanmo) consonant)))
 
-(define (jbocme any-syllable-or-digit)
+(define (jbocme . any-syllable-or-digit)
   `(cmene ,(apply string-append any-syllable-or-digit)))
 
 
