@@ -18,92 +18,194 @@
 ;;;;
 
 (define (test-selmaho selmaho cmavo)
-  (define (secuxna-selmaho rodaselmaho)
-    (match rodaselmaho
-           ((_ 'BU)              'BY)
-
-           (('FEhE selmaho)       selmaho)
-           (('FEhE 'PA selmaho)   selmaho)
-
-           (('I selmaho)          selmaho)
-           (('I selmaho 'NAI)     selmaho)
-           (('I 'NA selmaho)      selmaho)
-
-           (('JAI 'PU)            'SE)
-           (('JAI 'BAI)           'SE)
-           (('JAI 'VA)            'SE)
-
-           (('LAhE selmaho)       selmaho)
-
-           (('LE 'GOhA)           'KOhA)
-           (('LE 'SE 'GOhA)       'KOhA)
-
-           (('MOhI selmaho)       selmaho)
-
-            ; negation uses the second selma'o
-            ;
-           (('NA selmaho)         selmaho)
-
-           (('NAhE selmaho)       selmaho)
-
-            ; quantity prefix uses the second selma'o
-            ;
-           (('PA selmaho)         selmaho)
-           (('PA 'PA selmaho)     selmaho)
-           (('PA 'PA 'PA selmaho) selmaho)
-
-            ; the only PU that usess the second selma'o
-            ;
-           (('PU 'ZAhO)           'ZAhO)
-
-            ; conversion prefix uses the second selma'o
-            ;
-           ;(('SE selmaho . _)     selmaho)
-           (('SE selmaho)         selmaho)
-           (('SE selmaho 'NAI)    selmaho)
-           (('SE selmaho 'KOhA)   selmaho)
-
-           ; comment out, shouldn't be needed any longer.
-           (()                    '())
-           ((rodaselmaho . _)     rodaselmaho)))
+  (define (secuxna-selmaho selmaho-db gerna)
+    (match gerna
+       ; letteral conversion
+      ((('cmavo (selmaho pamoi))
+        ('cmavo ('BU     remoi)))
+        (test #t (eq? selmaho-db 'BY))
+        (test #t (string=? cmavo (string-append pamoi remoi))))
 
 
-         ; convert the selmaho from the database to a symbol,
-         ; to match the parser.
-         ;
-  (let* ((selmaho-db  (string->symbol selmaho))
+      ((('cmavo ('FEhE   pamoi))
+        ('cmavo (selmaho remoi)))
+        (test #t (eq? selmaho-db selmaho))
+        (test #t (string=? cmavo (string-append pamoi remoi))))
 
-         ; parse this cmavo
-         ;
-         (gerna       (jbogenturfahi-rafske cmavo))
+      ((('cmavo ('FEhE   pamoi))
+        ('cmavo ('PA     remoi))
+        ('cmavo (selmaho cimoi)))
+        (test #t (eq? selmaho-db selmaho))
+        (test #t (string=? cmavo (string-append pamoi remoi cimoi))))
 
-         ; retrieve the first selma'o from the parsed results 
-         ;
-         (selmaho-gen (secuxna-selmaho (map car gerna)))
 
-         ; reconstruct the cmavo as it is returned from the parser.
-         ;
-         (vowel       (char-set #\a #\e #\i #\o #\u))
-         (valsi       (reduce (lambda (cmavo valsi)
-                                ; concatenate the cmavo returned
-                                ; from the parser, but make sure
-                                ; we insert mandatory pauses.
-                                ;
-                                (if (char-set-contains?
-                                       vowel
-                                       (string-ref cmavo 0))
-                                    (string-append valsi "." cmavo)
-                                    (string-append valsi     cmavo)))
-                              ""
-                              (map cadr gerna))))
+       ; handle I prefixed entries.
+       ;
+      ((('cmavo ('I      pamoi))
+        ('cmavo (selmaho remoi)))
+        (test #t (eq? selmaho-db selmaho))
+        (test #t (string=? cmavo (string-append pamoi remoi))))
 
-    ; ignore BU while I'm testing only the morphology.  BU is
-    ; handled in the grammar.
-    ;
-    (if (not (or (string=? "slakabu" cmavo)
-                 (string=? "denpabu" cmavo)))
-        (begin (test #t (eq?      selmaho-db selmaho-gen))
-               (test #t (string=? cmavo valsi))))))
+      ((('cmavo ('I      pamoi))
+        ('cmavo (selmaho remoi))
+        ('cmavo ('NAI    cimoi)))
+        (test #t (eq? selmaho-db selmaho))
+        (test #t (string=? cmavo (string-append pamoi remoi cimoi))))
+
+      ((('cmavo ('I      pamoi))
+        ('cmavo ('NA     remoi))
+        ('cmavo (selmaho cimoi)))
+        (test #t (eq? selmaho-db selmaho))
+        (test #t (string=? cmavo (string-append pamoi remoi cimoi))))
+
+
+       ; Why are these SE in cmavo.txt?
+       ;
+      ((('cmavo ('JAI pamoi))
+        ('cmavo ('VA  remoi)))
+        (test #t (eq? selmaho-db 'SE))
+        (test #t (string=? cmavo (string-append pamoi remoi))))
+
+      ((('cmavo ('JAI pamoi))
+        ('cmavo ('BAI remoi)))
+        (test #t (eq? selmaho-db 'SE))
+        (test #t (string=? cmavo (string-append pamoi remoi))))
+
+      ((('cmavo ('JAI pamoi))
+        ('cmavo ('PU  remoi)))
+        (test #t (eq? selmaho-db 'SE))
+        (test #t (string=? cmavo (string-append pamoi remoi))))
+
+
+      ((('cmavo ('LAhE   pamoi))
+        ('cmavo (selmaho remoi)))
+        (test #t (eq? selmaho-db selmaho))
+        (test #t (string=? cmavo (string-append pamoi remoi))))
+
+
+       ; I'm not sure why cmavo.txt considers these KOhA.
+       ;
+      ((('cmavo ('LE   pamoi))
+        ('cmavo ('GOhA remoi)))
+        (test #t (eq? selmaho-db 'KOhA))
+        (test #t (string=? cmavo (string-append pamoi remoi))))
+
+      ((('cmavo ('LE   pamoi))
+        ('cmavo ('SE   remoi))
+        ('cmavo ('GOhA cimoi)))
+        (test #t (eq? selmaho-db 'KOhA))
+        (test #t (string=? cmavo (string-append pamoi remoi cimoi))))
+
+
+       ; not sure about this case.
+       ;
+      ((('cmavo ('MOhI   pamoi))
+        ('cmavo (selmaho remoi)))
+        (test #t (eq? selmaho-db selmaho))
+        (test #t (string=? cmavo (string-append pamoi remoi))))
+
+
+       ; negation uses the second selma'o
+       ;
+      ((('cmavo ('NA     pamoi))
+        ('cmavo ('A      remoi)))
+        (test #t (eq? selmaho-db 'A))
+        (test #t (string=? cmavo (string-append pamoi "." remoi))))
+
+      ((('cmavo ('NA     pamoi))
+        ('cmavo (selmaho remoi)))
+        (test #t (eq? selmaho-db selmaho))
+        (test #t (string=? cmavo (string-append pamoi remoi))))
+
+      ((('cmavo ('NAhE   pamoi))
+        ('cmavo (selmaho remoi)))
+        (test #t (eq? selmaho-db selmaho))
+        (test #t (string=? cmavo (string-append pamoi remoi))))
+
+
+       ; quantity prefix uses the second selma'o
+       ;
+      ((('cmavo ('PA     pamoi))
+        ('cmavo (selmaho remoi)))
+        (test #t (eq? selmaho-db selmaho))
+        (test #t (string=? cmavo (string-append pamoi remoi))))
+
+      ((('cmavo ('PA     pamoi))
+        ('cmavo ('PA     remoi))
+        ('cmavo (selmaho cimoi)))
+        (test #t (eq? selmaho-db selmaho))
+        (test #t (string=? cmavo (string-append pamoi remoi cimoi))))
+
+      ((('cmavo ('PA     pamoi))
+        ('cmavo ('PA     remoi))
+        ('cmavo ('PA     cimoi))
+        ('cmavo (selmaho vomoi)))
+        (test #t (eq? selmaho-db selmaho))
+        (test #t (string=? cmavo (string-append pamoi remoi cimoi vomoi))))
+
+
+       ; the only PU that usess the second selma'o.  The rest
+       ; are captured by the default rule.
+       ;
+      ((('cmavo ('PU   pamoi))
+        ('cmavo ('ZAhO remoi)))
+        (test #t (eq? selmaho-db 'ZAhO))
+        (test #t (string=? cmavo (string-append pamoi remoi))))
+
+
+      ; conversion prefix uses the second selma'o
+      ;
+      ((('cmavo ('SE     pamoi))
+        ('cmavo (selmaho remoi)))
+        (test #t (eq? selmaho-db selmaho))
+        (test #t (string=? cmavo (string-append pamoi remoi))))
+
+      ((('cmavo ('SE     pamoi))
+        ('cmavo (selmaho remoi))
+        ('cmavo ('KOhA   cimoi)))
+        (test #t (eq? selmaho-db selmaho))
+        (test #t (string=? cmavo (string-append pamoi remoi cimoi))))
+
+      ((('cmavo ('SE     pamoi))
+        ('cmavo (selmaho remoi))
+        ('cmavo ('NAI    cimoi)))
+        (test #t (eq? selmaho-db selmaho))
+        (test #t (string=? cmavo (string-append pamoi remoi cimoi))))
+
+
+      ; the typical pattern
+      ;
+      ((('cmavo (selmaho pamoi))
+        ('cmavo (_       remoi))
+        ('cmavo (_       cimoi)))
+        (test #t (eq? selmaho-db selmaho))
+        (test #t (string=? cmavo (string-append pamoi remoi cimoi))))
+
+      ((('cmavo (selmaho pamoi))
+        ('cmavo (_       remoi)))
+        (test #t (eq? selmaho-db selmaho))
+        (test #t (string=? cmavo (string-append pamoi remoi))))
+
+      ((('cmavo (selmaho valsi)))
+        (test #t (eq? selmaho-db selmaho))
+        (test #t (string=? cmavo valsi)))))
+
+
+  ; ignore BU while I'm testing only the morphology.  BU is
+  ; handled in the grammar.
+  ;
+  (if (not (or (string=? "slakabu" cmavo)
+               (string=? "denpabu" cmavo)))
+           ; convert the selmaho from the database to a symbol,
+           ; to match the parser.
+           ;
+    (let* ((selmaho-db  (string->symbol selmaho))
+
+           ; parse this cmavo
+           ;
+           (gerna       (jbogenturfahi-rafske cmavo)))
+
+      (secuxna-selmaho selmaho-db gerna))))
 
 (define (cmavo)
   (let ((rodacmavo (cmavo:gen-select-list)))

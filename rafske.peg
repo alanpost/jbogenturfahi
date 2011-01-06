@@ -39,6 +39,7 @@ jbocme <- &zifcme
 ;-------------------------------------------------------------------
 
 cmavo <- !cmene !CVCy-lujvo cmavo-form &post-word 
+      -> cmavo
 
 CVCy-lujvo <- CVC-rafsi
               y

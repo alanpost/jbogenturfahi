@@ -91,6 +91,7 @@
    CVV-rafsi-VhV
    non-lojban-word
    ybu
+   cmavo
    A
    BAI
    BAhE
