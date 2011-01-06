@@ -17,56 +17,33 @@
 ;;;; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;;;;
 
-(module jbogenturfahi
-  (jbogenturfahi-version
-   jbogenturfahi-version-major
-   jbogenturfahi-version-minor
-   jbogenturfahi-version-patch
+(define (test-rafsi rafsi valsi)
+  (define (t pamoi remoi)
+     (test #t (string=? pamoi remoi)))
 
-   jbogenturfahi-rafske
-   jbogenturfahi
+         ; parse this rafsi+valsi
+         ;
+  (let* ((genrafsi(jbogenturfahi-rafske rafsi))
+         (genvla  (jbogenturfahi-rafske valsi)))
 
-   cmavo:drop-table
-   cmavo:create-table
-   cmavo:gen-insert
-   cmavo:gen-select-list
-   
-   gismu:drop-table
-   gismu:create-table
-   gismu:gen-insert
-   gismu:gen-select-list
-   
-   rafsi:drop-table
-   rafsi:create-table
-   rafsi:gen-insert
-   rafsi:gen-select-list
-   
-   jbogenturfahi-db
-   jbogenturfahi-db-file)
+    (test '() (cdr genrafsi))
+    (test '() (cdr genvla))
 
-(import chicken)
-(import scheme)
+    (match (car genrafsi)
+      (('cmavo (_ cmavo))       (t rafsi cmavo))
+      (('cmavo cmavo)           (t rafsi cmavo))
+      (('cmene cmene)           (t rafsi cmene))
+      (('non-lojban-word jalge) (t rafsi jalge)))
 
-(require-extension srfi-14)
-(require-extension extras)
+    (match (car genvla)
+      (('gismu gismu)     (t valsi gismu))
+      (('cmavo (_ cmavo)) (t valsi cmavo))
+      (('cmene cmene)     (t valsi cmene)))))
 
-(require-library genturfahi)
-(require-library jbogerna)
+(define (rafsi)
+  (let ((rodarafsi (rafsi:gen-select-list)))
+    (map-apply test-rafsi (rodarafsi)))
+  0)
 
-(require-library sqlite3)
-
-
-(import srfi-14)
-(import extras)
-
-(import genturfahi)
-(import jbogerna)
-
-(import sqlite3)
-
-(include "jbogenturfahi.scm")
-(include "version.scm")
-(include "path.scm")
-(include "c0re.scm")
-(include "sql.scm")
-(include "db.scm"))
+(test-group "rafsi"
+  (rafsi))

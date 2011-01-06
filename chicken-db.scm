@@ -16,3 +16,4 @@
 
 (include "wordlists/cmavo.scm")
 (include "wordlists/gismu.scm")
+(include "wordlists/rafsi.scm")

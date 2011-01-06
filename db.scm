@@ -31,6 +31,13 @@ drop table if exists gismu;
 EOS
 ))
 
+(define (rafsi:drop-table)
+  (sql:drop-table jbogenturfahi-db #<<EOS
+drop table if exists rafsi;
+EOS
+))
+
+
 (define (cmavo:create-table)
   (sql:create-table jbogenturfahi-db #<<EOS
 create table if not exists
@@ -47,6 +54,15 @@ gismu(valsi varchar(5) primary key);
 EOS
 ))
 
+(define (rafsi:create-table)
+  (sql:create-table jbogenturfahi-db #<<EOS
+create table if not exists
+rafsi(rafsi varchar(4) primary key,
+      valsi varchar(5) not null);
+EOS
+))
+
+
 (define (cmavo:gen-insert)
   (sql:gen-insert jbogenturfahi-db #<<EOS
 insert into cmavo('valsi', 'selmaho', 'series')
@@ -60,6 +76,14 @@ insert into gismu('valsi')
 values(?);
 EOS
 ))
+
+(define (rafsi:gen-insert)
+  (sql:gen-insert jbogenturfahi-db #<<EOS
+insert into rafsi('rafsi', 'valsi')
+values(?, ?);
+EOS
+))
+
 
 (define (cmavo:gen-select-list)
   (sql:gen-select-list jbogenturfahi-db #<<EOS
@@ -75,5 +99,14 @@ EOS
 select   valsi
 from     gismu
 order by valsi
+EOS
+))
+
+(define (rafsi:gen-select-list)
+  (sql:gen-select-list jbogenturfahi-db #<<EOS
+select   rafsi,
+         valsi
+from     rafsi
+order by rafsi
 EOS
 ))

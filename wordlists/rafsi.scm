@@ -17,56 +17,40 @@
 ;;;; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;;;;
 
-(module jbogenturfahi
-  (jbogenturfahi-version
-   jbogenturfahi-version-major
-   jbogenturfahi-version-minor
-   jbogenturfahi-version-patch
+(set! gerna #<<EOS
+{(no-memoize "CRLF")}
 
-   jbogenturfahi-rafske
-   jbogenturfahi
+cfari       <- `((!CRLF .)* CRLF) lerpinsle* `FAhO
 
-   cmavo:drop-table
-   cmavo:create-table
-   cmavo:gen-insert
-   cmavo:gen-select-list
-   
-   gismu:drop-table
-   gismu:create-table
-   gismu:gen-insert
-   gismu:gen-select-list
-   
-   rafsi:drop-table
-   rafsi:create-table
-   rafsi:gen-insert
-   rafsi:gen-select-list
-   
-   jbogenturfahi-db
-   jbogenturfahi-db-file)
+lerpinsle   <- rafsi gismu gloss `CRLF?
+            -> {(lambda (rafsi gismu gloss) `(,rafsi ,gismu))}
 
-(import chicken)
-(import scheme)
+rafsi       <- [[:jbole'u:]]+
+               canlu
+gismu       <- [[:jbole'u:]*]+
+               canlu
+gloss       <- (!(CRLF / &FAhO) .)+
 
-(require-extension srfi-14)
-(require-extension extras)
+canlu       <- `canlu-lerfu*
+canlu-lerfu <- [[:space:]]
 
-(require-library genturfahi)
-(require-library jbogerna)
+CR          <- #\return
+LF          <- #\linefeed
+CRLF        <- CR LF / CR / LF
 
-(require-library sqlite3)
+FAhO        <- !.
+EOS
+)
 
+(let* ((samselpla (genturfahi-peg gerna))
+       (gerna     (genturfahi (eval samselpla)))
+       (rafsi     (call-with-input-file "wordlists/rafsi.txt" gerna)))
 
-(import srfi-14)
-(import extras)
+  (rafsi:drop-table)
+  (rafsi:create-table)
 
-(import genturfahi)
-(import jbogerna)
-
-(import sqlite3)
-
-(include "jbogenturfahi.scm")
-(include "version.scm")
-(include "path.scm")
-(include "c0re.scm")
-(include "sql.scm")
-(include "db.scm"))
+  (call-with-values
+    rafsi:gen-insert
+    (lambda (insert cleanup)
+      (map-apply insert rafsi)
+      (cleanup))))
