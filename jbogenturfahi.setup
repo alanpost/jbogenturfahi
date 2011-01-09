@@ -159,6 +159,7 @@
                             "db.scm"
                             "wordlists/cmavo.scm"
                             "wordlists/gismu.scm"
+                            "wordlists/rafsi.scm"
                             "wordlists/cmavo.txt"
                             "wordlists/gismu.txt"
                             "wordlists/rafsi.txt"
