@@ -17,24 +17,83 @@
 ;;;; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;;;;
 
-(define (help option name arg . seeds)
-  (print "usage: jbogenturfahi [-help] [-version] [file]")
+(define cfari-javni (make-parameter jbogenturfahi))
+
+(define (debug option name arg seed)
+  (if arg (sexuna-debug-file arg))
+  (secuxna-debug #t)
+  (or seed #f))
+
+(define (grammar option name arg seed)
+  (cfari-javni jbogenturfahi)
+  (or seed #f))
+
+(define (help option name arg seed)
+  (print #<<EOS
+usage: jbogenturfahi [-:?]
+                     [-d | --debug]
+                     [-h | --help]
+                     [-i | --input-file NAME]
+                     [-o | --output-file NAME]
+                     [-p | --profile]
+                     [-v | --version]
+                     [file]*
+EOS
+  )
   (exit 0))
 
-(define (version option name arg . seeds)
+(define (input-file option name arg seed)
+  (call-with-input-file arg current-input-port)
+  (or seed #f))
+
+(define (morphology option name arg seed)
+  (cfari-javni jbogenturfahi-rafske)
+  (or seed #f))
+
+(define (output-file option name arg seed)
+  (call-with-output-file arg current-output-port)
+  (or seed #f))
+
+(define (profile option name arg seed)
+  (if arg (sexuna-profile-file arg))
+  (secuxna-profile #t)
+  (or seed #f))
+
+(define (version option name arg seed)
   (print (format "jbogenturfa'i version ~a" jbogenturfahi-version))
   (exit 0))
 
-(define options
-  (list (option '(#\h "sidju" "help")    #f #f help)
-        (option '(#\v         "version") #f #f version)))
+; handled by the Chicken runtime.
+(define (runtime option name arg seed)
+  (or seed #f))
 
-(define (usage option name args . seeds)
+(define options
+  (list (option '(#\d "debug" "cfisisku")    #f #t debug)
+        (option '(#\g "grammar" "gerna")     #f #f grammar)
+        (option '(#\h "sidju" "help")        #f #f help)
+        (option '(#\i "input-file")          #t #f input-file)
+        (option '(#\o "output-file")         #t #f output-file)
+        (option '(#\p "profile" "junla")     #f #t profile)
+        (option '(#\r "morphology" "rafske") #f #f morphology)
+        (option '(#\v "version")             #f #f version)
+        (option '(#\:)                       #t #f runtime)))
+
+(define (usage option name args seed)
   (error (format "unrecognized option \"~a\"" name)))
 
-(define (args name . seeds)
-  (let ((lefpoi (call-with-input-file name jbogenturfahi)))
-    (display lefpoi)))
+(define (for-file name seed)
+  (or seed (call-with-input-file name for-port)))
+
+(define (for-port port)
+  (let ((jalge    ((cfari-javni) port))
+        (port     (current-output-port)))
+    (if (not jalge)
+        (secuxna-exit-status 1))
+    (pretty-print jalge port)
+    #t))
 
 (define (main)
-  (args-fold (cdr (argv)) options usage args))
+  (let ((args (cdr (argv))))
+    (and (not (args-fold args options usage for-file #f))
+         (for-port (current-input-port)))
+    (exit (secuxna-exit-status))))
