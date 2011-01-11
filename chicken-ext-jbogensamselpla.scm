@@ -43,7 +43,6 @@
    t
    h
    digit
-   comma
    final-syllable
    any-syllable
    syllable

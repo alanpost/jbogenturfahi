@@ -20,83 +20,80 @@
 ;;
 ;; lerfu
 ;;
-(define (a comma lerfu)
+(define (a lerfu #!key (comma '()))
   (string-append (apply string comma) (string lerfu)))
 
-(define (e comma lerfu)
+(define (e lerfu #!key (comma '()))
   (string-append (apply string comma) (string lerfu)))
 
-(define (i comma lerfu)
+(define (i lerfu #!key (comma '()))
   (string-append (apply string comma) (string lerfu)))
 
-(define (o comma lerfu)
+(define (o lerfu #!key (comma '()))
   (string-append (apply string comma) (string lerfu)))
 
-(define (u comma lerfu)
+(define (u lerfu #!key (comma '()))
   (string-append (apply string comma) (string lerfu)))
 
-(define (y comma lerfu)
+(define (y lerfu #!key (comma '()))
   (string-append (apply string comma) (string lerfu)))
 
-(define (l comma lerfu)
+(define (l lerfu #!key (comma '()))
   (string-append (apply string comma) (string lerfu)))
 
-(define (m comma lerfu)
+(define (m lerfu #!key (comma '()))
   (string-append (apply string comma) (string lerfu)))
 
-(define (n comma lerfu)
+(define (n lerfu #!key (comma '()))
   (string-append (apply string comma) (string lerfu)))
 
-(define (r comma lerfu)
+(define (r lerfu #!key (comma '()))
   (string-append (apply string comma) (string lerfu)))
 
-(define (b comma lerfu)
+(define (b lerfu #!key (comma '()))
   (string-append (apply string comma) (string lerfu)))
 
-(define (d comma lerfu)
+(define (d lerfu #!key (comma '()))
   (string-append (apply string comma) (string lerfu)))
 
-(define (g comma lerfu)
+(define (g lerfu #!key (comma '()))
   (string-append (apply string comma) (string lerfu)))
 
-(define (v comma lerfu)
+(define (v lerfu #!key (comma '()))
   (string-append (apply string comma) (string lerfu)))
 
-(define (j comma lerfu)
+(define (j lerfu #!key (comma '()))
   (string-append (apply string comma) (string lerfu)))
 
-(define (z comma lerfu)
+(define (z lerfu #!key (comma '()))
   (string-append (apply string comma) (string lerfu)))
 
-(define (s comma lerfu)
+(define (s lerfu #!key (comma '()))
   (string-append (apply string comma) (string lerfu)))
 
-(define (c comma lerfu)
+(define (c lerfu #!key (comma '()))
   (string-append (apply string comma) (string lerfu)))
 
-(define (x comma lerfu)
+(define (x lerfu #!key (comma '()))
   (string-append (apply string comma) (string lerfu)))
 
-(define (k comma lerfu)
+(define (k lerfu #!key (comma '()))
   (string-append (apply string comma) (string lerfu)))
 
-(define (f comma lerfu)
+(define (f lerfu #!key (comma '()))
   (string-append (apply string comma) (string lerfu)))
 
-(define (p comma lerfu)
+(define (p lerfu #!key (comma '()))
   (string-append (apply string comma) (string lerfu)))
 
-(define (t comma lerfu)
+(define (t lerfu #!key (comma '()))
   (string-append (apply string comma) (string lerfu)))
 
-(define (h comma lerfu)
+(define (h lerfu #!key (comma '()))
   (string-append (apply string comma) (string lerfu)))
 
-(define (digit comma digit)
+(define (digit digit #!key (comma '()))
   (string-append (apply string comma) (string digit)))
-
-(define (comma lerfu)
-  lerfu)
 
 
 ;;
@@ -105,19 +102,19 @@
 (define (final-syllable onset nucleus)
   (string-append onset nucleus))
 
-(define (any-syllable onset nucleus coda)
+(define (any-syllable onset nucleus #!key (coda ""))
   (string-append onset nucleus coda))
 
-(define (syllable onset nucleus coda)
+(define (syllable onset nucleus #!key (coda ""))
   (string-append onset nucleus coda))
 
-(define (consonantal-syllable consonant0 syllabic consonant1)
-  (string-append consonant0 syllabic consonant1))
+(define (consonantal-syllable consonant0 syllabic #!key (consonant ""))
+  (string-append consonant0 syllabic consonant))
 
-(define (coda syllabic consonant)
+(define (coda #!key (syllabic "") (consonant ""))
   (string-append syllabic consonant))
 
-(define (onset consonant glide)
+(define (onset glide #!key consonant)
   (string-append consonant glide))
 
 
@@ -131,7 +128,7 @@
 (define (initial-pair consonant0 consonant1)
   (string-append consonant0 consonant1))
 
-(define (initial sibilant other liquid)
+(define (initial #!key (sibilant "") (other "") (liquid ""))
   (string-append sibilant other liquid))
 
 (define (affricate stop fricative)
@@ -140,16 +137,20 @@
 
 ;; cmene
 ;;
-(define (zifcme nafanmo consonant)
+(define (zifcme consonant #!key (nafanmo '()))
   `(cmene ,(string (apply string-append nafanmo) consonant)))
 
-(define (jbocme . any-syllable-or-digit)
+(define (jbocme #!key (any-syllable-or-digit '()))
   `(cmene ,(apply string-append any-syllable-or-digit)))
 
 
 ;; cmavo
 ;;
-(define (CVCy-lujvo-brivla-core CVC-rafsi y h initial-rafsi brivla-core)
+(define (CVCy-lujvo-brivla-core CVC-rafsi
+                                y
+                                brivla-core
+                                #!key (h "")
+                                      (initial-rafsi '()))
   (string-append CVC-rafsi
                  y
                  h
@@ -159,7 +160,7 @@
 (define (CVCy-lujvo-short-final-rafsi stressed-CVC-rafsi y short-final-rafsi)
   (string-append stressed-CVC-rafsi y short-final-rafsi))
 
-(define (cmavo-form onset h nucleus)
+(define (cmavo-form onset nucleus #!key (h '()))
   (string-append onset
                  (apply string-append
                         (map (lambda (h) (apply string-append h)) h))
@@ -171,7 +172,7 @@
 
 ;; lujvo
 ;;
-(define (lujvo initial-rafsi brivla-core)
+(define (lujvo brivla-core #!key (initial-rafsi '()))
   `(lujvo ,(string-append (apply string-append initial-rafsi) brivla-core)))
 
 
@@ -179,8 +180,8 @@
 ;;
 (define (fuhivla fuhivla-head
                  stressed-syllable
-                 consonantal-syllable
-                 final-syllable)
+                 final-syllable
+                 #!key (consonantal-syllable '()))
   `(fuhivla ,(string-append fuhivla-head
                             stressed-syllable
                             (apply string-append consonantal-syllable)
@@ -189,28 +190,30 @@
 (define (stressed-brivla-rafsi brivla-head stressed-syllable h y)
   (string-append brivla-head stressed-syllable h y))
 
-(define (brivla-rafsi brivla-head h0 y h1)
-  (string-append brivla-head h0 y h1))
+(define (brivla-rafsi brivla-head h0 y #!key (h ""))
+  (string-append brivla-head h0 y h))
 
-(define (stressed-fuhivla-rafsi fuhivla-head stressed-syllable onset y )
+(define (stressed-fuhivla-rafsi fuhivla-head stressed-syllable onset y)
   (string-append fuhivla-head stressed-syllable onset y))
 
-(define (fuhivla-rafsi fuhivla-head onset y h)
+(define (fuhivla-rafsi fuhivla-head onset y #!key (h ""))
   (string-append fuhivla-head onset y h))
 
-(define (brivla-head . unstressed-syllable)
+(define (brivla-head #!key (unstressed-syllable '()))
   (apply string-append unstressed-syllable))
 
 (define (slinkuhi consonant rafsi-string)
   (string-append consonant rafsi-string))
 
-(define (rafsi-string y-less-rafsi rest)
+(define (rafsi-string rest #!key (y-less-rafsi '()))
   (string-append (apply string-append y-less-rafsi) rest))
 
 (define (rafsi-string-short-final stressed-y-less-rafsi short-final-rafsi)
   (string-append stressed-y-less-rafsi short-final-rafsi))
 
-(define (rafsi-string-initial-pair stressed-y-less-rafsi initial-pair y)
+(define (rafsi-string-initial-pair initial-pair
+                                    y
+                                    #!key (stressed-y-less-rafsi ""))
   (string-append stressed-y-less-rafsi initial-pair y))
 
 
@@ -243,13 +246,13 @@
 (define (stressed-CCV-rafsi initial-pair stressed-vowel)
   (string-append initial-pair stressed-vowel))
 
-(define (stressed-CVV-rafsi consonant vowel0 vowel1)
-  (string-append consonant vowel0 vowel1))
+(define (stressed-CVV-rafsi consonant vowel #!key (r-hyphen ""))
+  (string-append consonant vowel r-hyphen))
 
 (define (stressed-CVV-rafsi-VhV unstressed-vowel h stressed-vowel)
   (string-append unstressed-vowel h stressed-vowel))
 
-(define (y-rafsi rafsi y h)
+(define (y-rafsi rafsi y #!key (h ""))
   (string-append rafsi y h))
 
 (define (long-rafsi-CCVC initial-pair unstressed-vowel consonant)
@@ -264,8 +267,8 @@
 (define (CCV-rafsi initial-pair unstressed-vowel)
   (string-append initial-pair unstressed-vowel))
 
-(define (CVV-rafsi consonant vowel0 vowel1)
-  (string-append consonant vowel0 vowel1))
+(define (CVV-rafsi consonant vowel #!key (r-hyphen ""))
+  (string-append consonant vowel r-hyphen))
 
 (define (CVV-rafsi-VhV unstressed-vowel0 h unstressed-vowel1)
   (string-append unstressed-vowel0 h unstressed-vowel1))
