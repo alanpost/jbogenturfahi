@@ -19,7 +19,7 @@
 
 (define (test-rafsi rafsi valsi)
   (define (t pamoi remoi)
-     (test #t (string=? pamoi remoi)))
+    (test #t (string=? pamoi remoi)))
 
          ; parse this rafsi+valsi
          ;
