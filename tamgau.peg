@@ -32,7 +32,7 @@
 {(define-toplevel #t)}
 
 ;; don't modify the parse tree when an optional or zero-length match
-;; is made.  This keeps the part tree from being full of otherwise
+;; is made.  This keeps the parse tree from being full of otherwise
 ;; empty matches.
 ;;
 {(?-default ignore)}
