@@ -245,7 +245,6 @@ li-clause <- LI-clause free* mex LOhO-clause? free*
 
 sumti-tail <- ( sumti-6 relative-clauses? )? sumti-tail-1
             / relative-clauses sumti-tail-1
-            / relative-clauses sumti-tail-1
 
 sumti-tail-1 <- selbri relative-clauses?
               / quantifier selbri relative-clauses?
