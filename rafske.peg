@@ -1,6 +1,3 @@
-;any-word <- lojban-word
-;          / non-lojban-word
-
 lojban-word <- cmene
              / cmavo
              / brivla
@@ -25,16 +22,6 @@ jbocme <- &zifcme
                                   / digit )*
           &pause 
        -> jbocme
-
-;cmene <- !h &consonant-final coda? (any-syllable / digit)* &pause
-
-;consonant-final <- (non-space &non-space)* consonant &pause
-
-;cmene <- !h cmene-syllable* &consonant coda? consonantal-syllable* onset &pause
-
-;cmene-syllable <- !doi-la-lai-lahi coda? consonantal-syllable* onset nucleus / digit
-
-;doi-la-lai-lahi <- (d o i / l a (h? i)?) !h !nucleus
 
 ;-------------------------------------------------------------------
 
