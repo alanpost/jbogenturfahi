@@ -1,7 +1,7 @@
 text <- intro-null
         NAI-clause*
         text-part-2
-        (!text-1 joik-jek)?
+        ( !text-1 joik-jek )?
         text-1?
         faho-clause
         EOF?
@@ -9,18 +9,18 @@ text <- intro-null
 intro-null <- `spaces?
               su-clause*
               intro-si-clause
-text-part-2 <- (CMENE-clause+ / indicators?)
+text-part-2 <- ( CMENE-clause+ / indicators? )
                free*
 
 intro-si-clause <- si-clause? SI-clause*
-faho-clause <- (FAhO-clause `.*)?
+faho-clause <- ( FAhO-clause `.* )?
 
 ; Please note that the "text-1" item in the text-1 production does
 ; *not* match the BNF. This is due to a bug in the BNF.  The change
 ; here was made to match grammar.300
 text-1 <- I-clause
-          (jek / joik)?
-          (stag? BO-clause)?
+          ( jek / joik )?
+          ( stag? BO-clause )?
           free*
           text-1?
         / NIhO-clause+
@@ -30,7 +30,7 @@ text-1 <- I-clause
         / paragraphs
 
 paragraphs <- paragraph
-              (NIhO-clause+ free* su-clause* paragraphs)?
+              ( NIhO-clause+ free* su-clause* paragraphs )?
 
 paragraph <- ( statement
              / fragment )
@@ -44,12 +44,12 @@ paragraph <- ( statement
 statement <- statement-1
            / prenex statement
 
-statement-1 <- statement-2 (I-clause joik-jek statement-2?)*
+statement-1 <- statement-2 ( I-clause joik-jek statement-2? )*
 
 statement-2 <- statement-3
-               (I-clause (jek / joik)? stag? BO-clause free* statement-2)?
+               ( I-clause ( jek / joik )? stag? BO-clause free* statement-2 )?
              / statement-3
-               (I-clause (jek / joik)? stag? BO-clause free*)?
+               ( I-clause ( jek / joik )? stag? BO-clause free* )?
 
 statement-3 <- sentence
              / tag? TUhE-clause free* text-1 TUhU-clause? free*
@@ -110,8 +110,8 @@ bridi-tail-start <- ME-clause
 
 bridi-tail-1 <- bridi-tail-2
                 ( gihek
-                  !(stag? BO-clause)
-                  !(stag? KE-clause)
+                  !( stag? BO-clause )
+                  !( stag? KE-clause )
                   free*
                   bridi-tail-2
                   tail-terms )*
@@ -337,7 +337,7 @@ linkargs <- linkargs-sa* linkargs-1
 linkargs-1 <- BE-clause free* term links? BEhO-clause? free*
 
 linkargs-sa <- linkargs-start
-               ( !linkargs-start (sa-word / SA-clause !linkargs-start ) )*
+               ( !linkargs-start ( sa-word / SA-clause !linkargs-start ) )*
                SA-clause
                &linkargs-1
 
@@ -412,7 +412,7 @@ operator-0 <- operator-1
 
 operator-sa <- operator-start
                ( !operator-start
-                 ( sa-word / SA-clause !operator-start) )*
+                 ( sa-word / SA-clause !operator-start ) )*
                SA-clause
                &operator-0
 
@@ -424,7 +424,7 @@ operator-start <- guhek
 
 operator-1 <- operator-2
             / guhek operator-1 gik operator-2
-            / operator-2 (jek / joik) stag? BO-clause free* operator-1
+            / operator-2 ( jek / joik ) stag? BO-clause free* operator-1
 
 operator-2 <- mex-operator
             / KE-clause free* operator KEhE-clause? free*
@@ -455,9 +455,9 @@ operand-start <- quantifier
                / LAhE-clause
                / NAhE-clause
 
-operand-1 <- operand-2 (joik-ek operand-2)*
+operand-1 <- operand-2 ( joik-ek operand-2 )*
 
-operand-2 <- operand-3 (joik-ek stag? BO-clause free* operand-2)?
+operand-2 <- operand-3 ( joik-ek stag? BO-clause free* operand-2 )?
 
 operand-3 <- quantifier
            / lerfu-string !MOI-clause BOI-clause? free*
@@ -466,12 +466,12 @@ operand-3 <- quantifier
            / JOhI-clause free* mex-2+ TEhU-clause? free*
            / gek operand gik operand-3
            / ( LAhE-clause free*
-             / NAhE-clause BO-clause free*)
+             / NAhE-clause BO-clause free* )
              operand
              LUhU-clause?
              free*
 
-number <- PA-clause (PA-clause / lerfu-word)*
+number <- PA-clause ( PA-clause / lerfu-word )*
 
 lerfu-string <- lerfu-word ( PA-clause / lerfu-word )*
 
@@ -518,7 +518,7 @@ guhek <- SE-clause? GUhA-clause NAI-clause? free*
 
 gik <- GI-clause NAI-clause? free*
 
-tag <- tense-modal (joik-jek tense-modal)*
+tag <- tense-modal ( joik-jek tense-modal )*
 
 ;stag <- simple-tense-modal ((jek / joik) simple-tense-modal)*
 stag <- simple-tense-modal ( ( jek / joik ) simple-tense-modal )*
@@ -644,12 +644,12 @@ indicator <- ( ( UI-clause / CAI-clause ) NAI-clause?
 ; ****************
 
 zei-clause <- pre-clause zei-clause-no-pre
-zei-clause-no-pre <- pre-zei-bu (zei-tail? bu-tail)* zei-tail post-clause
+zei-clause-no-pre <- pre-zei-bu ( zei-tail? bu-tail )* zei-tail post-clause
 
 bu-clause <- pre-clause bu-clause-no-pre
-bu-clause-no-pre <- pre-zei-bu (bu-tail? zei-tail)* bu-tail post-clause
+bu-clause-no-pre <- pre-zei-bu ( bu-tail? zei-tail )* bu-tail post-clause
 
-zei-tail <- (ZEI-clause any-word)+
+zei-tail <- ( ZEI-clause any-word )+
 bu-tail <- BU-clause+
 
 pre-zei-bu <- ( !BU-clause
@@ -803,7 +803,9 @@ su-clause <- ( erasable-clause / su-word )* SU-clause
 
 ; Handling of SI and interactions with zo and lo'u...le'u
 
-si-clause <- ((erasable-clause / si-word / SA-clause) si-clause? SI-clause)+
+si-clause <- ( ( erasable-clause / si-word / SA-clause )
+               si-clause?
+               SI-clause )+
 
 erasable-clause <- bu-clause-no-pre
                    !ZEI-clause
