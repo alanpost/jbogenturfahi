@@ -12,7 +12,6 @@ intro-null <- `spaces?
 text-part-2 <- (CMENE-clause+ / indicators?)
                free*
 
-;; intro-sa-clause <- SA-clause+ / any-word-SA-handling !(ZEI-clause SA-clause) intro-sa-clause
 intro-si-clause <- si-clause? SI-clause*
 faho-clause <- (FAhO-clause `.*)?
 
@@ -67,8 +66,6 @@ fragment <- prenex
           / linkargs
 
 prenex <- terms ZOhU-clause free*
-
-;; sentence <- (terms CU-clause? free*)? bridi-tail / bridi-tail
 
 sentence <- ( terms bridi-tail-sa* CU-clause? free* )?
             bridi-tail-sa*
@@ -150,10 +147,6 @@ tail-terms <- terms? VAU-clause? free*
 
 terms <- terms-1+
 
-;; terms-1 <- terms-2 (PEhE-clause free* joik-jek terms-2)*
-
-;; terms-2 <- term (CEhE-clause free* term)*
-
 terms-1 <- terms-2 (pehe-sa* PEhE-clause free* joik-jek terms-2)*
 
 terms-2 <- term (cehe-sa* CEhE-clause free* term)*
@@ -170,7 +163,6 @@ cehe-sa <- CEhE-clause
              / SA-clause !CEhE-clause ) )*
            SA-clause
 
-;;term <- sumti / ( !gek (tag / FA-clause free*) (sumti / KU-clause? free*) ) / termset / NA-clause KU-clause free*
 
 term <- term-sa* term-1
 
@@ -256,7 +248,6 @@ sumti-tail-1 <- selbri relative-clauses?
 
 relative-clauses <- relative-clause (ZIhE-clause free* relative-clause)*
 
-;; relative-clause <- GOI-clause free* term GEhU-clause? free* / NOI-clause free* subsentence KUhO-clause? free*
 
 relative-clause <- relative-clause-sa* relative-clause-1
 
@@ -288,8 +279,6 @@ tanru-unit-1 <- tanru-unit-2 linkargs?
 ; ** zei is part of BRIVLA-clause
 tanru-unit-2 <- BRIVLA-clause free* / GOhA-clause RAhO-clause? free* / KE-clause free* selbri-3 KEhE-clause? free* / ME-clause free* (sumti / lerfu-string) MEhU-clause? free* MOI-clause? free* / (number / lerfu-string) MOI-clause free* / NUhA-clause free* mex-operator / SE-clause free* tanru-unit-2 / JAI-clause free* tag? tanru-unit-2 / NAhE-clause free* tanru-unit-2 / NU-clause NAI-clause? free* (joik-jek NU-clause NAI-clause? free*)* subsentence KEI-clause? free*
 
-;; linkargs <- BE-clause free* term links? BEhO-clause? free*
-
 linkargs <- linkargs-sa* linkargs-1
 
 linkargs-1 <- BE-clause free* term links? BEhO-clause? free*
@@ -297,8 +286,6 @@ linkargs-1 <- BE-clause free* term links? BEhO-clause? free*
 linkargs-sa <- linkargs-start (!linkargs-start (sa-word / SA-clause !linkargs-start ) )* SA-clause &linkargs-1
 
 linkargs-start <- BE-clause
-
-;; links <- BEI-clause free* term links?
 
 links <- links-sa* links-1
 
@@ -310,7 +297,6 @@ links-start <- BEI-clause
 
 quantifier <- number !MOI-clause BOI-clause? free* / VEI-clause free* mex VEhO-clause? free*
 
-;;mex <- mex-1 (operator mex-1)* / rp-clause
 
 mex <- mex-sa* mex-0
 
@@ -340,7 +326,6 @@ fore-operands <- mex-2+
 rp-expression <- operand rp-expression-tail
 rp-expression-tail <- (rp-expression operator rp-expression-tail)?
 
-;; operator <- operator-1 (joik-jek operator-1 / joik stag? KE-clause free* operator KEhE-clause? free*)*
 
 operator <- operator-sa* operator-0
 
@@ -356,7 +341,6 @@ operator-2 <- mex-operator / KE-clause free* operator KEhE-clause? free*
 
 mex-operator <- SE-clause free* mex-operator / NAhE-clause free* mex-operator / MAhO-clause free* mex TEhU-clause? free* / NAhU-clause free* selbri TEhU-clause? free* / VUhU-clause free*
 
-;; operand <- operand-1 (joik-ek stag? KE-clause free* operand KEhE-clause? free*)?
 
 operand <- operand-sa* operand-0
 
@@ -381,7 +365,6 @@ lerfu-word <- BY-clause / LAU-clause lerfu-word / TEI-clause lerfu-string FOI-cl
 
 ek <- NA-clause? SE-clause? A-clause NAI-clause?
 
-;; gihek <- NA-clause? SE-clause? GIhA-clause NAI-clause?
 gihek <- gihek-sa* gihek-1
 
 gihek-1 <- NA-clause? SE-clause? GIhA-clause NAI-clause?
@@ -394,7 +377,6 @@ joik <- SE-clause? JOI-clause NAI-clause? / interval / GAhO-clause interval GAhO
 
 interval <- SE-clause? BIhI-clause NAI-clause?
 
-;; joik-ek <- joik free* / ek free*
 joik-ek <- joik-ek-sa* joik-ek-1
 
 joik-ek-1 <- (joik free* / ek free*)
@@ -457,7 +439,6 @@ zei-tail <- (ZEI-clause any-word)+
 bu-tail <- BU-clause+
 
 pre-zei-bu <- (!BU-clause !ZEI-clause !SI-clause !SA-clause !SU-clause !FAhO-clause any-word-SA-handling) si-clause?
-; LOhU-pre / ZO-pre / ZOI-pre / !ZEI-clause !BU-clause !FAhO-clause !SI-clause !SA-clause !SU-clause any-word-SA-handling si-clause?
 
 ; -- General Morphology Issues
 ;
