@@ -23,8 +23,8 @@
 
          ; parse this rafsi+valsi
          ;
-  (let* ((genrafsi(jbogenturfahi-rafske rafsi))
-         (genvla  (jbogenturfahi-rafske valsi)))
+  (let* ((genrafsi (jbogenturfahi-rafske rafsi))
+         (genvla   (jbogenturfahi-rafske valsi)))
 
     (test '() (cdr genrafsi))
     (test '() (cdr genvla))
