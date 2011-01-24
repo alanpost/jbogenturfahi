@@ -276,7 +276,7 @@
 
 ;; non-Lojban word
 ;;
-(define (non-lojban-word . rodalerfu)
+(define (non-lojban-word rodalerfu)
   `(non-lojban-word ,(apply string rodalerfu)))
 
 
@@ -292,370 +292,375 @@
 (define (cmavo cmavo-form)
   `(cmavo ,cmavo-form))
 
-(define (A . rodalerfu)
-  `(cmavo (A ,(apply string-append rodalerfu))))
+; ji is the only two-letter cmavo in A.  The rest are
+; a single letter.
+;
+(define (A rodalerfu)
+  (if (list? rodalerfu)
+      `(cmavo (A ,(apply string-append rodalerfu)))
+      `(cmavo (A ,(string-append rodalerfu)))))
 
-(define (BAI . rodalerfu)
+(define (BAI rodalerfu)
   `(cmavo (BAI ,(apply string-append rodalerfu))))
 
-(define (BAhE . rodalerfu)
+(define (BAhE rodalerfu)
   `(cmavo (BAhE ,(apply string-append rodalerfu))))
 
-(define (BE . rodalerfu)
+(define (BE rodalerfu)
   `(cmavo (BE ,(apply string-append rodalerfu))))
 
-(define (BEI . rodalerfu)
+(define (BEI rodalerfu)
   `(cmavo (BEI ,(apply string-append rodalerfu))))
 
-(define (BEhO . rodalerfu)
+(define (BEhO rodalerfu)
   `(cmavo (BEhO ,(apply string-append rodalerfu))))
 
-(define (BIhE . rodalerfu)
+(define (BIhE rodalerfu)
   `(cmavo (BIhE ,(apply string-append rodalerfu))))
 
-(define (BIhI . rodalerfu)
+(define (BIhI rodalerfu)
   `(cmavo (BIhI ,(apply string-append rodalerfu))))
 
-(define (BO . rodalerfu)
+(define (BO rodalerfu)
   `(cmavo (BO ,(apply string-append rodalerfu))))
 
-(define (BOI . rodalerfu)
+(define (BOI rodalerfu)
   `(cmavo (BOI ,(apply string-append rodalerfu))))
 
-(define (BU . rodalerfu)
+(define (BU rodalerfu)
   `(cmavo (BU ,(apply string-append rodalerfu))))
 
-(define (BY . rodalerfu)
+(define (BY rodalerfu)
   `(cmavo (BY ,(apply string-append rodalerfu))))
 
-(define (CAhA . rodalerfu)
+(define (CAhA rodalerfu)
   `(cmavo (CAhA ,(apply string-append rodalerfu))))
 
-(define (CAI . rodalerfu)
+(define (CAI rodalerfu)
   `(cmavo (CAI ,(apply string-append rodalerfu))))
 
-(define (CEI . rodalerfu)
+(define (CEI rodalerfu)
   `(cmavo (CEI ,(apply string-append rodalerfu))))
 
-(define (CEhE . rodalerfu)
+(define (CEhE rodalerfu)
   `(cmavo (CEhE ,(apply string-append rodalerfu))))
 
-(define (CO . rodalerfu)
+(define (CO rodalerfu)
   `(cmavo (CO ,(apply string-append rodalerfu))))
 
-(define (COI . rodalerfu)
+(define (COI rodalerfu)
   `(cmavo (COI ,(apply string-append rodalerfu))))
 
-(define (CU . rodalerfu)
+(define (CU rodalerfu)
   `(cmavo (CU ,(apply string-append rodalerfu))))
 
-(define (CUhE . rodalerfu)
+(define (CUhE rodalerfu)
   `(cmavo (CUhE ,(apply string-append rodalerfu))))
 
-(define (DAhO . rodalerfu)
+(define (DAhO rodalerfu)
   `(cmavo (DAhO ,(apply string-append rodalerfu))))
 
-(define (DOI . rodalerfu)
+(define (DOI rodalerfu)
   `(cmavo (DOI ,(apply string-append rodalerfu))))
 
-(define (DOhU . rodalerfu)
+(define (DOhU rodalerfu)
   `(cmavo (DOhU ,(apply string-append rodalerfu))))
 
-(define (FA . rodalerfu)
+(define (FA rodalerfu)
   `(cmavo (FA ,(apply string-append rodalerfu))))
 
-(define (FAhA . rodalerfu)
+(define (FAhA rodalerfu)
   `(cmavo (FAhA ,(apply string-append rodalerfu))))
 
-(define (FAhO . rodalerfu)
+(define (FAhO rodalerfu)
   `(cmavo (FAhO ,(apply string-append rodalerfu))))
 
-(define (FEhE . rodalerfu)
+(define (FEhE rodalerfu)
   `(cmavo (FEhE ,(apply string-append rodalerfu))))
 
-(define (FEhU . rodalerfu)
+(define (FEhU rodalerfu)
   `(cmavo (FEhU ,(apply string-append rodalerfu))))
 
-(define (FIhO . rodalerfu)
+(define (FIhO rodalerfu)
   `(cmavo (FIhO ,(apply string-append rodalerfu))))
 
-(define (FOI . rodalerfu)
+(define (FOI rodalerfu)
   `(cmavo (FOI ,(apply string-append rodalerfu))))
 
-(define (FUhA . rodalerfu)
+(define (FUhA rodalerfu)
   `(cmavo (FUhA ,(apply string-append rodalerfu))))
 
-(define (FUhE . rodalerfu)
+(define (FUhE rodalerfu)
   `(cmavo (FUhE ,(apply string-append rodalerfu))))
 
-(define (FUhO . rodalerfu)
+(define (FUhO rodalerfu)
   `(cmavo (FUhO ,(apply string-append rodalerfu))))
 
-(define (GA . rodalerfu)
+(define (GA rodalerfu)
   `(cmavo (GA ,(apply string-append rodalerfu))))
 
-(define (GAhO . rodalerfu)
+(define (GAhO rodalerfu)
   `(cmavo (GAhO ,(apply string-append rodalerfu))))
 
-(define (GEhU . rodalerfu)
+(define (GEhU rodalerfu)
   `(cmavo (GEhU ,(apply string-append rodalerfu))))
 
-(define (GI . rodalerfu)
+(define (GI rodalerfu)
   `(cmavo (GI ,(apply string-append rodalerfu))))
 
-(define (GIhA . rodalerfu)
+(define (GIhA rodalerfu)
   `(cmavo (GIhA ,(apply string-append rodalerfu))))
 
-(define (GOI . rodalerfu)
+(define (GOI rodalerfu)
   `(cmavo (GOI ,(apply string-append rodalerfu))))
 
-(define (GOhA . rodalerfu)
+(define (GOhA rodalerfu)
   `(cmavo (GOhA ,(apply string-append rodalerfu))))
 
-(define (GUhA . rodalerfu)
+(define (GUhA rodalerfu)
   `(cmavo (GUhA ,(apply string-append rodalerfu))))
 
-(define (I . rodalerfu)
-  `(cmavo (I ,(apply string-append rodalerfu))))
+(define (I lerfu)
+  `(cmavo (I ,(string-append lerfu))))
 
-(define (JA . rodalerfu)
+(define (JA rodalerfu)
   `(cmavo (JA ,(apply string-append rodalerfu))))
 
-(define (JAI . rodalerfu)
+(define (JAI rodalerfu)
   `(cmavo (JAI ,(apply string-append rodalerfu))))
 
-(define (JOhI . rodalerfu)
+(define (JOhI rodalerfu)
   `(cmavo (JOhI ,(apply string-append rodalerfu))))
 
-(define (JOI . rodalerfu)
+(define (JOI rodalerfu)
   `(cmavo (JOI ,(apply string-append rodalerfu))))
 
-(define (KE . rodalerfu)
+(define (KE rodalerfu)
   `(cmavo (KE ,(apply string-append rodalerfu))))
 
-(define (KEhE . rodalerfu)
+(define (KEhE rodalerfu)
   `(cmavo (KEhE ,(apply string-append rodalerfu))))
 
-(define (KEI . rodalerfu)
+(define (KEI rodalerfu)
   `(cmavo (KEI ,(apply string-append rodalerfu))))
 
-(define (KI . rodalerfu)
+(define (KI rodalerfu)
   `(cmavo (KI ,(apply string-append rodalerfu))))
 
-(define (KOhA . rodalerfu)
+(define (KOhA rodalerfu)
   `(cmavo (KOhA ,(apply string-append rodalerfu))))
 
-(define (KU . rodalerfu)
+(define (KU rodalerfu)
   `(cmavo (KU ,(apply string-append rodalerfu))))
 
-(define (KUhE . rodalerfu)
+(define (KUhE rodalerfu)
   `(cmavo (KUhE ,(apply string-append rodalerfu))))
 
-(define (KUhO . rodalerfu)
+(define (KUhO rodalerfu)
   `(cmavo (KUhO ,(apply string-append rodalerfu))))
 
-(define (LA . rodalerfu)
+(define (LA rodalerfu)
   `(cmavo (LA ,(apply string-append rodalerfu))))
 
-(define (LAU . rodalerfu)
+(define (LAU rodalerfu)
   `(cmavo (LAU ,(apply string-append rodalerfu))))
 
-(define (LAhE . rodalerfu)
+(define (LAhE rodalerfu)
   `(cmavo (LAhE ,(apply string-append rodalerfu))))
 
-(define (LE . rodalerfu)
+(define (LE rodalerfu)
   `(cmavo (LE ,(apply string-append rodalerfu))))
 
-(define (LEhU . rodalerfu)
+(define (LEhU rodalerfu)
   `(cmavo (LEhU ,(apply string-append rodalerfu))))
 
-(define (LI . rodalerfu)
+(define (LI rodalerfu)
   `(cmavo (LI ,(apply string-append rodalerfu))))
 
-(define (LIhU . rodalerfu)
+(define (LIhU rodalerfu)
   `(cmavo (LIhU ,(apply string-append rodalerfu))))
 
-(define (LOhO . rodalerfu)
+(define (LOhO rodalerfu)
   `(cmavo (LOhO ,(apply string-append rodalerfu))))
 
-(define (LOhU . rodalerfu)
+(define (LOhU rodalerfu)
   `(cmavo (LOhU ,(apply string-append rodalerfu))))
 
-(define (LU . rodalerfu)
+(define (LU rodalerfu)
   `(cmavo (LU ,(apply string-append rodalerfu))))
 
-(define (LUhU . rodalerfu)
+(define (LUhU rodalerfu)
   `(cmavo (LUhU ,(apply string-append rodalerfu))))
 
-(define (MAhO . rodalerfu)
+(define (MAhO rodalerfu)
   `(cmavo (MAhO ,(apply string-append rodalerfu))))
 
-(define (MAI . rodalerfu)
+(define (MAI rodalerfu)
   `(cmavo (MAI ,(apply string-append rodalerfu))))
 
-(define (ME . rodalerfu)
+(define (ME rodalerfu)
   `(cmavo (ME ,(apply string-append rodalerfu))))
 
-(define (MEhU . rodalerfu)
+(define (MEhU rodalerfu)
   `(cmavo (MEhU ,(apply string-append rodalerfu))))
 
-(define (MOhE . rodalerfu)
+(define (MOhE rodalerfu)
   `(cmavo (MOhE ,(apply string-append rodalerfu))))
 
-(define (MOhI . rodalerfu)
+(define (MOhI rodalerfu)
   `(cmavo (MOhI ,(apply string-append rodalerfu))))
 
-(define (MOI . rodalerfu)
+(define (MOI rodalerfu)
   `(cmavo (MOI ,(apply string-append rodalerfu))))
 
-(define (NA . rodalerfu)
+(define (NA rodalerfu)
   `(cmavo (NA ,(apply string-append rodalerfu))))
 
-(define (NAI . rodalerfu)
+(define (NAI rodalerfu)
   `(cmavo (NAI ,(apply string-append rodalerfu))))
 
-(define (NAhE . rodalerfu)
+(define (NAhE rodalerfu)
   `(cmavo (NAhE ,(apply string-append rodalerfu))))
 
-(define (NAhU . rodalerfu)
+(define (NAhU rodalerfu)
   `(cmavo (NAhU ,(apply string-append rodalerfu))))
 
-(define (NIhE . rodalerfu)
+(define (NIhE rodalerfu)
   `(cmavo (NIhE ,(apply string-append rodalerfu))))
 
-(define (NIhO . rodalerfu)
+(define (NIhO rodalerfu)
   `(cmavo (NIhO ,(apply string-append rodalerfu))))
 
-(define (NOI . rodalerfu)
+(define (NOI rodalerfu)
   `(cmavo (NOI ,(apply string-append rodalerfu))))
 
-(define (NU . rodalerfu)
+(define (NU rodalerfu)
   `(cmavo (NU ,(apply string-append rodalerfu))))
 
-(define (NUhA . rodalerfu)
+(define (NUhA rodalerfu)
   `(cmavo (NUhA ,(apply string-append rodalerfu))))
 
-(define (NUhI . rodalerfu)
+(define (NUhI rodalerfu)
   `(cmavo (NUhI ,(apply string-append rodalerfu))))
 
-(define (NUhU . rodalerfu)
+(define (NUhU rodalerfu)
   `(cmavo (NUhU ,(apply string-append rodalerfu))))
 
-(define (PA . rodalerfu)
+(define (PA rodalerfu)
   `(cmavo (PA ,(apply string-append rodalerfu))))
 
-(define (PEhE . rodalerfu)
+(define (PEhE rodalerfu)
   `(cmavo (PEhE ,(apply string-append rodalerfu))))
 
-(define (PEhO . rodalerfu)
+(define (PEhO rodalerfu)
   `(cmavo (PEhO ,(apply string-append rodalerfu))))
 
-(define (PU . rodalerfu)
+(define (PU rodalerfu)
   `(cmavo (PU ,(apply string-append rodalerfu))))
 
-(define (RAhO . rodalerfu)
+(define (RAhO rodalerfu)
   `(cmavo (RAhO ,(apply string-append rodalerfu))))
 
-(define (ROI . rodalerfu)
+(define (ROI rodalerfu)
   `(cmavo (ROI ,(apply string-append rodalerfu))))
 
-(define (SA . rodalerfu)
+(define (SA rodalerfu)
   `(cmavo (SA ,(apply string-append rodalerfu))))
 
-(define (SE . rodalerfu)
+(define (SE rodalerfu)
   `(cmavo (SE ,(apply string-append rodalerfu))))
 
-(define (SEI . rodalerfu)
+(define (SEI rodalerfu)
   `(cmavo (SEI ,(apply string-append rodalerfu))))
 
-(define (SEhU . rodalerfu)
+(define (SEhU rodalerfu)
   `(cmavo (SEhU ,(apply string-append rodalerfu))))
 
-(define (SI . rodalerfu)
+(define (SI rodalerfu)
   `(cmavo (SI ,(apply string-append rodalerfu))))
 
-(define (SOI . rodalerfu)
+(define (SOI rodalerfu)
   `(cmavo (SOI ,(apply string-append rodalerfu))))
 
-(define (SU . rodalerfu)
+(define (SU rodalerfu)
   `(cmavo (SU ,(apply string-append rodalerfu))))
 
-(define (TAhE . rodalerfu)
+(define (TAhE rodalerfu)
   `(cmavo (TAhE ,(apply string-append rodalerfu))))
 
-(define (TEhU . rodalerfu)
+(define (TEhU rodalerfu)
   `(cmavo (TEhU ,(apply string-append rodalerfu))))
 
-(define (TEI . rodalerfu)
+(define (TEI rodalerfu)
   `(cmavo (TEI ,(apply string-append rodalerfu))))
 
-(define (TO . rodalerfu)
+(define (TO rodalerfu)
   `(cmavo (TO ,(apply string-append rodalerfu))))
 
-(define (TOI . rodalerfu)
+(define (TOI rodalerfu)
   `(cmavo (TOI ,(apply string-append rodalerfu))))
 
-(define (TUhE . rodalerfu)
+(define (TUhE rodalerfu)
   `(cmavo (TUhE ,(apply string-append rodalerfu))))
 
-(define (TUhU . rodalerfu)
+(define (TUhU rodalerfu)
   `(cmavo (TUhU ,(apply string-append rodalerfu))))
 
-(define (UI . rodalerfu)
+(define (UI rodalerfu)
   `(cmavo (UI ,(apply string-append rodalerfu))))
 
-(define (VA . rodalerfu)
+(define (VA rodalerfu)
   `(cmavo (VA ,(apply string-append rodalerfu))))
 
-(define (VAU . rodalerfu)
+(define (VAU rodalerfu)
   `(cmavo (VAU ,(apply string-append rodalerfu))))
 
-(define (VEI . rodalerfu)
+(define (VEI rodalerfu)
   `(cmavo (VEI ,(apply string-append rodalerfu))))
 
-(define (VEhO . rodalerfu)
+(define (VEhO rodalerfu)
   `(cmavo (VEhO ,(apply string-append rodalerfu))))
 
-(define (VEhA . rodalerfu)
+(define (VEhA rodalerfu)
   `(cmavo (VEhA ,(apply string-append rodalerfu))))
 
-(define (VIhA . rodalerfu)
+(define (VIhA rodalerfu)
   `(cmavo (VIhA ,(apply string-append rodalerfu))))
 
-(define (VUhO . rodalerfu)
+(define (VUhO rodalerfu)
   `(cmavo (VUhO ,(apply string-append rodalerfu))))
 
-(define (VUhU . rodalerfu)
+(define (VUhU rodalerfu)
   `(cmavo (VUhU ,(apply string-append rodalerfu))))
 
-(define (XI . rodalerfu)
+(define (XI rodalerfu)
   `(cmavo (XI ,(apply string-append rodalerfu))))
 
-(define (Y . rodalerfu)
+(define (Y rodalerfu)
   `(cmavo (Y ,(apply string-append rodalerfu))))
 
-(define (ZAhO . rodalerfu)
+(define (ZAhO rodalerfu)
   `(cmavo (ZAhO ,(apply string-append rodalerfu))))
 
-(define (ZEhA . rodalerfu)
+(define (ZEhA rodalerfu)
   `(cmavo (ZEhA ,(apply string-append rodalerfu))))
 
-(define (ZEI . rodalerfu)
+(define (ZEI rodalerfu)
   `(cmavo (ZEI ,(apply string-append rodalerfu))))
 
-(define (ZI . rodalerfu)
+(define (ZI rodalerfu)
   `(cmavo (ZI ,(apply string-append rodalerfu))))
 
-(define (ZIhE . rodalerfu)
+(define (ZIhE rodalerfu)
   `(cmavo (ZIhE ,(apply string-append rodalerfu))))
 
-(define (ZO . rodalerfu)
+(define (ZO rodalerfu)
   `(cmavo (ZO ,(apply string-append rodalerfu))))
 
-(define (ZOI . rodalerfu)
+(define (ZOI rodalerfu)
   `(cmavo (ZOI ,(apply string-append rodalerfu))))
 
-(define (ZOhU . rodalerfu)
+(define (ZOhU rodalerfu)
   `(cmavo (ZOhU ,(apply string-append rodalerfu))))
 
 
