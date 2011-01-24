@@ -61,7 +61,7 @@ short         <- . . . . . . . . . . . . . . . . . . . . .
               -> {(lambda lerfu `(short ,(apply string lerfu)))}
 
 long          <- (!EOL .)+
-              -> {(lambda lerfu `(long ,(apply string lerfu)))}
+              -> {(lambda (lerfu) `(long ,(apply string lerfu)))}
 
 canlu-lerfu   <- [[:space:]]
 recanlu-lerfu <- [[:space:]] [[:space:]]
