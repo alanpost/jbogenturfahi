@@ -20,7 +20,7 @@
 (set! gerna #<<EOS
 {(no-memoize "CRLF")}
 
-cfari       <- `((!CRLF .)* CRLF) lerpinsle* `FAhO
+cfari       <- lerpinsle* `FAhO
 
 lerpinsle   <- rafsi gismu gloss `CRLF?
             -> {(lambda (rafsi gismu gloss) `(,rafsi ,gismu))}
