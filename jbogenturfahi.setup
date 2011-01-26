@@ -50,6 +50,7 @@
        ((dynld-name "jbogensamselpla") ("chicken-ext-jbogensamselpla.scm"
                                         "chicken-conf.scm"
                                         "chicken-declare.scm"
+                                        "c0re.scm"
                                         "samselpla.scm"
                                         "jbogenturfahi.meta"
                                         "jbogenturfahi.setup")
@@ -111,6 +112,7 @@
        ("jbogensamselpla.o" ("chicken-ext-jbogensamselpla.scm"
                              "chicken-conf.scm"
                              "chicken-declare.scm"
+                             "c0re.scm"
                              "samselpla.scm"
                              "jbogenturfahi.meta"
                              "jbogenturfahi.setup")
