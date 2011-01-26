@@ -30,18 +30,3 @@
 ;; of the grammar rules at the top-level, rather than in a let.
 ;;
 {(define-toplevel #t)}
-
-;; don't modify the parse tree when an optional or zero-length match
-;; is made.  This keeps the parse tree from being full of otherwise
-;; empty matches.
-;;
-{(?-default ignore)}
-{(*-default ignore)}
-
-;; Enable debugging
-;;
-{(debug #f)}
-
-;; Enable profiling
-;;
-{(profile #f)}
