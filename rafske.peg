@@ -12,14 +12,14 @@ cmene <- jbocme
        / zifcme
 
 zifcme <- !h
-          #:nafanmo ( nucleus / glide / h / consonant !pause / digit )*
+          ( nucleus / glide / h / consonant !pause / digit )*
           consonant
           &pause
        -> zifcme
 
 jbocme <- &zifcme
-          #:any-syllable-or-digit ( any-syllable
-                                  / digit )*
+          ( any-syllable
+          / digit )*
           &pause 
        -> jbocme
 
@@ -30,8 +30,8 @@ cmavo <- !cmene !CVCy-lujvo cmavo-form &post-word
 
 CVCy-lujvo <- CVC-rafsi
               y
-              #:h h?
-              #:initial-rafsi initial-rafsi*
+              h?
+              initial-rafsi*
               brivla-core
            -> CVCy-lujvo-brivla-core
             / stressed-CVC-rafsi
@@ -42,7 +42,7 @@ CVCy-lujvo <- CVC-rafsi
 cmavo-form <- !h
               !cluster
               onset
-              #:h (nucleus h)*
+              (nucleus h)*
               ( !stressed nucleus
               / nucleus !cluster )
            -> cmavo-form
@@ -55,7 +55,7 @@ cmavo-form <- !h
 lujvo <- !gismu
          !fuhivla
          !cmavo
-         #:initial-rafsi initial-rafsi*
+         initial-rafsi*
          brivla-core
       -> lujvo
 
@@ -81,7 +81,7 @@ any-extended-rafsi <- fuhivla
 
 fuhivla <- fuhivla-head
            stressed-syllable
-           #:consonantal-syllable consonantal-syllable*
+           consonantal-syllable*
            final-syllable
         -> fuhivla
 
@@ -104,7 +104,7 @@ brivla-rafsi <- &( syllable
                 brivla-head
                 h
                 y
-                #:h h?
+                h?
              -> brivla-rafsi
 
 stressed-fuhivla-rafsi <- fuhivla-head
@@ -119,7 +119,7 @@ fuhivla-rafsi <- &unstressed-syllable
                  &consonant
                  onset
                  y
-                 #:h h?
+                 h?
               -> fuhivla-rafsi
 
 fuhivla-head <- !rafsi-string
@@ -129,14 +129,14 @@ brivla-head <- !cmavo
                !slinkuhi
                !h
                &onset
-               #:unstressed-syllable unstressed-syllable*
+               unstressed-syllable*
             -> brivla-head
 
 slinkuhi <- consonant
             rafsi-string
          -> slinkuhi
 
-rafsi-string <- #:y-less-rafsi y-less-rafsi*
+rafsi-string <- y-less-rafsi*
                 ( gismu
                 / CVV-final-rafsi
                 / stressed-y-less-rafsi
@@ -144,7 +144,7 @@ rafsi-string <- #:y-less-rafsi y-less-rafsi*
                -> rafsi-string-short-final
                 / y-rafsi
                 / stressed-y-rafsi
-                / #:stressed-y-less-rafsi stressed-y-less-rafsi?
+                / stressed-y-less-rafsi?
                   initial-pair
                   y
                -> rafsi-string-initial-pair)
@@ -214,13 +214,13 @@ stressed-CVV-rafsi <- consonant
                         stressed-vowel
                      -> stressed-CVV-rafsi-VhV
                       / stressed-diphthong )
-                      #:r-hyphen r-hyphen? 
+                      r-hyphen? 
                    -> stressed-CVV-rafsi
 
 y-rafsi <- ( long-rafsi
            / CVC-rafsi )
            y
-           #:h h?
+           h?
         -> y-rafsi
 
 y-less-rafsi <- !y-rafsi
@@ -255,7 +255,7 @@ CVV-rafsi <- consonant
                unstressed-vowel
             -> CVV-rafsi-VhV
              / unstressed-diphthong )
-               #:r-hyphen r-hyphen?
+               r-hyphen?
           -> CVV-rafsi
 
 r-hyphen <- r &consonant
@@ -308,32 +308,32 @@ stressed <- onset
             comma*
             [AEIOU]
 
-any-syllable <- onset nucleus #:coda coda?
+any-syllable <- onset nucleus coda?
              -> any-syllable
               / consonantal-syllable 
 
 syllable <- onset
             !y
             nucleus
-            #:coda coda?
+            coda?
          -> syllable
 
 consonantal-syllable <- consonant
                         syllabic
                         &(consonantal-syllable / onset)
-                        #:consonant (consonant &spaces)?
+                        (consonant &spaces)?
                      -> consonantal-syllable
 
 coda <- !any-syllable
         consonant
         &any-syllable
-      / #:syllabic  syllabic?
-        #:consonant consonant?
+      / syllabic?
+        consonant?
         &pause 
      -> coda
 
 onset <- h
-       / #:consonant consonant?
+       / consonant?
          glide
       -> onset
        / initial
@@ -357,17 +357,17 @@ diphthong <- ( a i
 
 vowel <- ( a / e / i / o / u ) !nucleus
 
-a <- #:comma comma* [aA] -> a
+a <- comma* [aA] -> a
 
-e <- #:comma comma* [eE] -> e
+e <- comma* [eE] -> e
 
-i <- #:comma comma* [iI] -> i
+i <- comma* [iI] -> i
 
-o <- #:comma comma* [oO] -> o
+o <- comma* [oO] -> o
 
-u <- #:comma comma* [uU] -> u
+u <- comma* [uU] -> u
 
-y <- #:comma comma* [yY] -> y
+y <- comma* [yY] -> y
 
 ;-------------------------------------------------------------------
 
@@ -381,9 +381,9 @@ initial-pair <- &initial
              -> initial-pair
 
 initial <- ( affricate
-           / #:sibilant sibilant?
-             #:other    other?
-             #:liquid   liquid?
+           / sibilant?
+             other?
+             liquid?
           -> initial )
            !consonant
            !glide
@@ -425,45 +425,45 @@ voiced <- b / d / g / j / v / z
 
 unvoiced <- c / f / k / p / s / t / x
 
-l <- #:comma comma* [lL] !h !l -> l
+l <- comma* [lL] !h !l -> l
 
-m <- #:comma comma* [mM] !h !m !z -> m
+m <- comma* [mM] !h !m !z -> m
 
-n <- #:comma comma* [nN] !h !n !affricate -> n
+n <- comma* [nN] !h !n !affricate -> n
 
-r <- #:comma comma* [rR] !h !r -> r
+r <- comma* [rR] !h !r -> r
 
-b <- #:comma comma* [bB] !h !b !unvoiced -> b
+b <- comma* [bB] !h !b !unvoiced -> b
 
-d <- #:comma comma* [dD] !h !d !unvoiced -> d
+d <- comma* [dD] !h !d !unvoiced -> d
 
-g <- #:comma comma* [gG] !h !g !unvoiced -> g
+g <- comma* [gG] !h !g !unvoiced -> g
 
-v <- #:comma comma* [vV] !h !v !unvoiced -> v
+v <- comma* [vV] !h !v !unvoiced -> v
 
-j <- #:comma comma* [jJ] !h !j !z !unvoiced -> j
+j <- comma* [jJ] !h !j !z !unvoiced -> j
 
-z <- #:comma comma* [zZ] !h !z !j !unvoiced -> z
+z <- comma* [zZ] !h !z !j !unvoiced -> z
 
-s <- #:comma comma* [sS] !h !s !c !voiced -> s
+s <- comma* [sS] !h !s !c !voiced -> s
 
-c <- #:comma comma* [cC] !h !c !s !x !voiced -> c
+c <- comma* [cC] !h !c !s !x !voiced -> c
 
-x <- #:comma comma* [xX] !h !x !c !k !voiced -> x
+x <- comma* [xX] !h !x !c !k !voiced -> x
 
-k <- #:comma comma* [kK] !h !k !x !voiced -> k
+k <- comma* [kK] !h !k !x !voiced -> k
 
-f <- #:comma comma* [fF] !h !f !voiced -> f
+f <- comma* [fF] !h !f !voiced -> f
 
-p <- #:comma comma* [pP] !h !p !voiced -> p
+p <- comma* [pP] !h !p !voiced -> p
 
-t <- #:comma comma* [tT] !h !t !voiced -> t
+t <- comma* [tT] !h !t !voiced -> t
 
-h <- #:comma comma* ['h] &nucleus -> h
+h <- comma* ['h] &nucleus -> h
 
 ;-------------------------------------------------------------------
 
-digit <- #:comma comma* [[:digit:]] !h !nucleus
+digit <- comma* [[:digit:]] !h !nucleus
       -> digit
 
 post-word <- pause
