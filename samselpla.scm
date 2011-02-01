@@ -746,22 +746,22 @@
 
 (define (text-1-I I-clause
                   jek-or-joik?
-                  stag?-BO-clause?
+                  stag?
+                  BO-clause?
                   free*
                   text-1?)
   `(,@I-clause
     ,@(?-null jek-or-joik?)
-    ,@(apply (lambda (stag? BO-clause?)
-               `(,@(?-null stag?) ,@(?-null BO-clause?)))
-             stag?-BO-clause?)
+    ,@(?-null stag?)
+    ,@(?-null BO-clause?)
     ,@(*-null free*)
     ,@(?-null text-1?)))
 
 (define (text-1-NIhO NIhO-clause+ free* su-clause* paragraphs?)
-  `(,@NIhO-clause+
+  `(,@(+-null NIhO-clause+)
     ,@(*-null free*)
     ,@(*-null su-clause*)
-    ,@(?*-null paragraphs?)))
+    ,@(?-null paragraphs?)))
 
 (define (text-1-paragraphs paragraphs)
   paragraphs)
@@ -772,7 +772,7 @@
 (define (paragraphs paragraph NIhO-clause+ free* su-clause* paragraphs)
   `(paragraphs
     ,@paragraph
-    ,@(?-null NIhO-clause+)
+    ,@(?*-null NIhO-clause+)
     ,@(?*-null free*)
     ,@(?*-null su-clause*)
     ,@(?-null paragraphs)))
@@ -2283,10 +2283,10 @@
 
 
 (define (I-clause sentence-sa* I-pre I-post)
-  `((I-clause ,@(*-null sentence-sa*) ,@I-pre ,@I-post)))
+  `(I-clause ,@(*-null sentence-sa*) ,@I-pre ,@I-post))
 
 (define (I-pre pre-clause I)
-  `(,@pre-clause ,@I))
+  `(,@pre-clause ,I))
 
 (define (I-post post-clause)
   post-clause)
@@ -2637,10 +2637,10 @@
 
 
 (define (NIhO-clause sentence-sa* NIhO-pre NIhO-post)
-  `((NIhO-clause ,@(*-null sentence-sa*) ,@NIhO-pre ,@NIhO-post)))
+  `(NIhO-clause ,@(*-null sentence-sa*) ,@NIhO-pre ,@NIhO-post))
 
 (define (NIhO-pre pre-clause NIhO)
-  `(,@pre-clause ,@NIhO))
+  `(,@pre-clause ,NIhO))
 
 (define (NIhO-post su-clause* post-clause)
   `(,@(*-null su-clause*) ,@post-clause))
