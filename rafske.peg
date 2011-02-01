@@ -483,7 +483,7 @@ non-lojban-word <- !lojban-word non-space+
 
 non-space <- !space-char .
 
-space-char <- [.[:space:]]
+space-char <- [.[:space:][:punct:]]
 
 ;-------------------------------------------------------------------
 
