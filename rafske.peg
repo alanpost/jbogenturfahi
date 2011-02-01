@@ -147,7 +147,7 @@ rafsi-string <- y-less-rafsi*
                 / stressed-y-less-rafsi?
                   initial-pair
                   y
-               -> rafsi-string-initial-pair)
+               -> rafsi-string-initial-pair )
              -> rafsi-string
 
 ;-------------------------------------------------------------------
