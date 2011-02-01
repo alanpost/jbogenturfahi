@@ -23,6 +23,9 @@
    jbogenturfahi-version-minor
    jbogenturfahi-version-patch
 
+   jbogenturfahi-rafske*
+   jbogenturfahi*
+
    jbogenturfahi-rafske
    jbogenturfahi
 
