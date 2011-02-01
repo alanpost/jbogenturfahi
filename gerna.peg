@@ -736,7 +736,7 @@ pre-clause <- BAhE-clause?
 
 any-word-SA-handling <- BRIVLA-pre
                       / known-cmavo-SA
-                      / !known-cmavo-pre CMAVO-pre
+                      / CMAVO-pre
                       / CMENE-pre
 
 known-cmavo-SA <- A-pre
@@ -1643,8 +1643,6 @@ ZOI-post    <- post-clause
 ZOhU-clause <- ZOhU-pre ZOhU-post
 ZOhU-pre    <- pre-clause ZOhU `spaces?
 ZOhU-post   <- post-clause
-
-known-cmavo-pre <- ""
 
 zoi-open  <- any-word `spaces?
           -| zoi-open
