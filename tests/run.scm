@@ -59,5 +59,6 @@
 (include "selmaho/zoi.scm")
 
 (include "cll/19/10.scm")
+(include "cll/19/13.scm")
 
 (test-exit)
