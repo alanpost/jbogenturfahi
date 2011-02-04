@@ -54,6 +54,8 @@
 (include "gismu.scm")
 (include "rafsi.scm")
 
+(include "ldcmz.scm")
+
 (include "selmaho/zoi.scm")
 
 (include "cll/19/10.scm")
