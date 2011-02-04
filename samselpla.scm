@@ -1395,10 +1395,10 @@
     `(,@joik-jek ,@NU-clause ,@(?-null NAI-clause?) ,@(*-null free*)))
 
   `(,@NU-clause
-    ,@(?-null NAI-clause)
+    ,@(?-null NAI-clause?)
     ,@(*-null free-0*)
     ,@(map-apply joik-jek-NU joik-jek-NU*)
-    ,@subsentence
+    ,subsentence
     ,@(?-null KEI-clause?)
     ,@(*-null free-1*)))
 
@@ -2380,11 +2380,11 @@
   post-clause)
 
 
-(define (KEI-clause . rodasumti)
-  `(KEI-clause ,@rodasumti))
+(define (KEI-clause KEI-pre KEI-post)
+  `(KEI-clause ,@KEI-pre ,@KEI-post))
 
 (define (KEI-pre pre-clause KEI)
-  `(,@pre-clause ,@KEI))
+  `(,@pre-clause ,KEI))
 
 (define (KEI-post post-clause)
   post-clause)
@@ -2684,11 +2684,11 @@
   post-clause)
 
 
-(define (NU-clause . rodasumti)
-  `(NU-clause ,@rodasumti))
+(define (NU-clause NU-pre NU-post)
+  `(NU-clause ,@NU-pre ,@NU-post))
 
 (define (NU-pre pre-clause NU)
-  `(,@pre-clause ,@NU))
+  `(,@pre-clause ,NU))
 
 (define (NU-post post-clause)
   post-clause)
