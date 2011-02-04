@@ -1807,7 +1807,7 @@
     `(,@COI-clause ,@(?-null NAI-clause?)))
 
   `(,@(apply append (map-apply COI-NAI? COI-NAI?-clause*))
-    ,@(?-null DOI-clause?)))
+    ,@(?*-null DOI-clause?)))
 
 (define (indicators FUhE-clause? indicator+)
   `(,@(?-null FUhE-clause?) ,@(apply append indicator+)))
@@ -2116,21 +2116,21 @@
   post-clause)
 
 
-(define (DOI-clause . rodasumti)
-  `(DOI-clause ,@rodasumti))
+(define (DOI-clause DOI-pre DOI-post)
+  `(DOI-clause ,@DOI-pre ,@DOI-post))
 
 (define (DOI-pre pre-clause DOI)
-  `(,@pre-clause ,@DOI))
+  `(,@pre-clause ,DOI))
 
 (define (DOI-post post-clause)
   post-clause)
 
 
-(define (DOhU-clause . rodasumti)
-  `(DOhU-clause ,@rodasumti))
+(define (DOhU-clause DOI-pre DOI-post)
+  `(DOhU-clause ,@DOI-pre ,@DOI-post))
 
 (define (DOhU-pre pre-clause DOhU)
-  `(,@pre-clause ,@DOhU))
+  `(,@pre-clause ,DOhU))
 
 (define (DOhU-post post-clause)
   post-clause)
