@@ -63,6 +63,10 @@ EOS
   (print (format "jbogenturfa'i version ~a" jbogenturfahi-version))
   (exit 0))
 
+(define (width option name arg seed)
+  (pretty-print-width (string->number arg))
+  (or seed #f))
+
 ; handled by the Chicken runtime.
 (define (runtime option name arg seed)
   (or seed #f))
@@ -75,6 +79,7 @@ EOS
         (option '(#\o "output-file")         #t #f output-file)
         (option '(#\p "profile" "junla")     #f #t profile)
         (option '(#\r "morphology" "rafske") #f #f morphology)
+        (option '(#\w "width")               #t #f width)
         (option '(#\v "version")             #f #f version)
         (option '(#\:)                       #t #f runtime)))
 
