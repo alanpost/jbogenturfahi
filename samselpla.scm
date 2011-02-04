@@ -1167,11 +1167,11 @@
                     relative-clauses?
                     CMENE-clause+
                     free-1*)
-  `((,@LA-clause
-     ,@(*-null free-0*)
-     ,@(?-null relative-clauses?)
-     ,@CMENE-clause+
-     ,@(*-null free-1*))))
+  `(,@LA-clause
+    ,@(*-null free-0*)
+    ,@(?-null relative-clauses?)
+    ,@CMENE-clause+
+    ,@(*-null free-1*)))
 
 (define (sumti-6-LE LA-or-LE-clause
                     free-0*
