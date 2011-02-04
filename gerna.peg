@@ -99,7 +99,8 @@ sentence <- ( terms bridi-tail-sa* CU-clause? free* )?
 
 sentence-sa <- sentence-start
                ( !sentence-start ( sa-word / SA-clause !sentence-start ) )*
-               SA-clause &text-1
+               SA-clause
+               &text-1
             -> sentence-sa
 
 sentence-start <- I-pre
