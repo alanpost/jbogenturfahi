@@ -875,7 +875,10 @@
 
 
 (define (sentence-sa sentence-start sa-word* SA-clause)
-  `(,@sentence-start ,@(*-null sa-word*) ,@SA-clause))
+  `(sa-clause
+    ,@sentence-start
+    ,@(apply append (*-null sa-word*))
+    ,SA-clause))
 
 (define (sentence-start-I I-pre)
   I-pre)
@@ -1042,7 +1045,7 @@
 
 
 (define (term-sa term-start sa-word* SA-clause)
-  `(,@term-start ,@(*-null sa-word*) ,@SA-clause))
+  `(sa-clause ,@term-start ,@(*-null sa-word*) ,SA-clause))
 
 
 (define (term-start term-1)
@@ -1233,7 +1236,7 @@
   `(,@relative-clause-sa* ,@relative-clause-1))
 
 (define (relative-clause-sa relative-clause-start sa-word* SA-clause)
-  `(,@relative-clause-start ,@(*-null sa-word*) ,@SA-clause))
+  `(sa-clause ,@relative-clause-start ,@(*-null sa-word*) ,SA-clause))
 
 (define (relative-clause-1-GOI GOI-clause
                                free-0*
@@ -1412,7 +1415,7 @@
     ,@(*-null free*)))
 
 (define (linkargs-sa linkargs-start sa-word* SA-clause)
-  `(,@linkargs-start ,@(*-null sa-word*) ,@SA-clause))
+  `(sa-clause ,@linkargs-start ,@(*-null sa-word*) ,SA-clause))
 
 (define (linkargs-start BE-clause)
   BE-clause)
@@ -1421,7 +1424,7 @@
   `(,@(*-null links-sa*) ,@links-1))
 
 (define (links-sa links-start sa-word* SA-clause)
-  `(,@links-start ,@(*-null sa-word*) ,@SA-clause))
+  `(sa-clause ,@links-start ,@(*-null sa-word*) ,SA-clause))
 
 (define (links-1 BEI-clause free* term links?)
   `(,@BEI-clause ,@(*-null free*) ,@term ,@(?-null links?)))
@@ -1831,7 +1834,7 @@
   `(bu-tail ,@rodasumti))
 
 (define (pre-zei-bu any-word si-clause?)
-  `(,@any-word ,@(?-null si-clause?)))
+  `(,any-word ,@(?-null si-clause?)))
 
 (define (post-clause si-clause? indicators*)
   `(,@(?-null si-clause?) ,@(*-null indicators*)))
@@ -1853,9 +1856,9 @@
 
 (define (si-clause sumti+)
   (define (si clause si-clause? SI-clause)
-    `(,@clause ,@(?-null si-clause?) ,@SI-clause))
+    `(,@clause ,@(?*-null si-clause?) ,SI-clause))
 
-  `(si-clause ,@(map-apply si sumti+)))
+  `(si-clause ,@(apply append (map-apply si sumti+))))
 
 (define (erasable-clause-zei . rodasumti)
   `(erasable-clause .@rodasumti))
@@ -2781,8 +2784,8 @@
   post-clause)
 
 
-(define (SA-clause SA-pre)
-  `(SA-clause ,SA-pre))
+(define (SA-clause pre-clause SA)
+  `(SA-clause ,@pre-clause ,SA))
 
 
 (define (SE-clause SE-pre SE-post)
@@ -2816,10 +2819,10 @@
 
 
 (define (SI-clause SI)
-  `((SI-clause ,SI)))
+  `(SI-clause ,SI))
 
 (define (SI-pre pre-clause SI)
-  `(,@pre-clause ,@SI))
+  `(,@pre-clause ,SI))
 
 (define (SI-post post-clause)
   post-clause)
