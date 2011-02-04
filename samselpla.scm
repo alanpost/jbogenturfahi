@@ -183,6 +183,18 @@
   (string-append stop fricative))
 
 
+;; brivla
+;;
+(define (brivla-gismu gismu)
+  `(gismu ,gismu))
+
+(define (brivla-fuhivla fuhivla)
+  `(fuhivla ,fuhivla))
+
+(define (brivla-lujvo lujvo)
+  `(lujvo ,lujvo))
+
+
 ;; cmene
 ;;
 (define (zifcme nafanmo consonant)
@@ -220,7 +232,7 @@
 ;; lujvo
 ;;
 (define (lujvo initial-rafsi brivla-core)
-  `(lujvo ,(string-append (apply string-append initial-rafsi) brivla-core)))
+  (string-append (apply string-append initial-rafsi) brivla-core))
 
 
 ;; fu'ivla
@@ -229,10 +241,10 @@
                  stressed-syllable
                  consonantal-syllable
                  final-syllable)
-  `(fuhivla ,(string-append fuhivla-head
-                            stressed-syllable
-                            (apply string-append consonantal-syllable)
-                            final-syllable)))
+  (string-append fuhivla-head
+                 stressed-syllable
+                 (apply string-append consonantal-syllable)
+                 final-syllable))
 
 (define (stressed-brivla-rafsi brivla-head stressed-syllable h y)
   (string-append brivla-head stressed-syllable h y))
@@ -267,7 +279,7 @@
 ;; gismu
 ;;
 (define (gismu . rodalerfu)
-  `(gismu ,(apply string-append rodalerfu)))
+  (apply string-append rodalerfu))
 
 (define (CVV-final-rafsi consonant stressed-vowel h vowel)
   (string-append consonant stressed-vowel h vowel))

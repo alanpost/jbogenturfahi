@@ -54,6 +54,11 @@
    initial-pair
    initial
    affricate
+
+   brivla-gismu
+   brivla-fuhivla
+   brivla-lujvo
+
    zifcme
    jbocme
    CVCy-lujvo-brivla-core

@@ -3,8 +3,11 @@ lojban-word <- cmene
              / brivla
 
 brivla <- gismu
+       -> brivla-gismu
         / fuhivla
+       -> brivla-fuhivla
         / lujvo
+       -> brivla-lujvo
 
 ;-------------------------------------------------------------------
 
@@ -388,11 +391,10 @@ initial <- ( affricate
            !consonant
            !glide
 
-affricate <- t c
-           / t s
-           / d j
-           / d z
-          -> affricate
+affricate <- t c -> affricate
+           / t s -> affricate
+           / d j -> affricate
+           / d z -> affricate
 
 liquid <- l
         / r 
