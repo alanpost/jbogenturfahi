@@ -539,8 +539,12 @@
 
    pre-zei-bu
 
-   pre-clause
    post-clause
+   pre-clause
+
+   any-word-SA-LOhU
+   any-word-SA-ZO
+   any-word-SA-ZOI
 
    su-clause
    si-clause

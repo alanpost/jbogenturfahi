@@ -1814,14 +1814,23 @@
 (define (bu-tail . rodasumti)
   `(bu-tail ,@rodasumti))
 
-(define (pre-zei-bu . rodasumti)
-  `(pre-zei-bu ,@rodasumti))
+(define (pre-zei-bu any-word si-clause?)
+  `(,@any-word ,@(?-null si-clause?)))
+
+(define (post-clause si-clause? indicators*)
+  `(,@(?-null si-clause?) ,@(*-null indicators*)))
 
 (define (pre-clause BAhE-clause?)
   (?-null BAhE-clause?))
 
-(define (post-clause si-clause? indicators*)
-  `(,@(?-null si-clause?) ,@(*-null indicators*)))
+(define (any-word-SA-LOhU LOhU-pre)
+  `(any-string ,@LOhU-pre))
+
+(define (any-word-SA-ZO ZO-pre)
+  `(any-word ,@ZO-pre))
+
+(define (any-word-SA-ZOI ZOI-pre)
+  `(any-string ,@ZOI-pre))
 
 (define (su-clause . rodasumti)
   `(su-clause ,@rodasumti))
