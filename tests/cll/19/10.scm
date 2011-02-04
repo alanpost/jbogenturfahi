@@ -50,20 +50,21 @@
   ; 10.3 (Errata: ungrammatical according to CLL)
   ;
   (mapti
-    ('text
-      (_ *** '(sentence
-                (term (sumti (KOhA-clause (cmavo (KOhA "mi")))))
-                (selbri (BRIVLA-clause (gismu "djuno")))
-                (term (FA-clause (cmavo (FA "fi")))
-                      (sumti (LE-clause (cmavo (LE "le")))
-                             (selbri (BRIVLA-clause (gismu "valsi")))
-                             (GOI-clause
-                               (cmavo (GOI "po'u"))
-                               (term (sumti (ZOI-clause
-                                              (cmavo (ZOI "zoi"))
-                                              (cmavo (BY "gy"))
-                                              (cmene "gyrations")
-                                              (cmavo (BY "gy")))))))))))
+    ('text 
+      (_ *** (sentence
+               (term (sumti (KOhA-clause (cmavo (KOhA "mi")))))
+               (selbri (BRIVLA-clause (gismu "djuno")))
+               (term (FA-clause (cmavo (FA "fi")))
+                     (sumti (LE-clause
+                              (cmavo (LE "le"))
+                              (selbri (BRIVLA-clause (gismu "valsi")))
+                              (GOI-clause
+                                (cmavo (GOI "po'u"))
+                                (term (sumti (ZOI-clause
+                                               (cmavo (ZOI "zoi"))
+                                               (cmavo (BY "gy"))
+                                               (cmene "gyrations")
+                                               (cmavo (BY "gy"))))))))))))
     "mi djuno fi le valsi po'u zoi gy. gyrations .gy.")
 
   ; 10.4
@@ -74,15 +75,16 @@
                 (term (sumti (KOhA-clause (cmavo (KOhA "mi")))))
                 (selbri (BRIVLA-clause (gismu "djuno")))
                 (term (FA-clause (cmavo (FA "fi")))
-                      (sumti (LE-clause (cmavo (LE "le")))
-                             (selbri (BRIVLA-clause (gismu "valsi")))
-                             (GOI-clause
-                               (cmavo (GOI "po'u"))
-                               (term (sumti (ZOI-clause
-                                              (cmavo (ZOI "zoi"))
-                                              (cmavo (JAI "jai"))
-                                              (cmene "gyrations")
-                                              (cmavo (JAI "jai")))))))))))
+                      (sumti (LE-clause
+                               (cmavo (LE "le"))
+                               (selbri (BRIVLA-clause (gismu "valsi")))
+                               (GOI-clause
+                                 (cmavo (GOI "po'u"))
+                                 (term (sumti (ZOI-clause
+                                                (cmavo (ZOI "zoi"))
+                                                (cmavo (JAI "jai"))
+                                                (cmene "gyrations")
+                                                (cmavo (JAI "jai"))))))))))))
     "mi djuno fi le valsi po'u zoi jai. gyrations .jai")
 
   ; 10.5
@@ -135,28 +137,31 @@
   ;
   (mapti
     ('text
-      (_ *** (sentence
-               (term (sumti (ZO-clause (cmavo (ZO "zo"))
-                                       (cmene "bab"))))
-               (selbri (BRIVLA-clause (gismu "cmene")))
-               (term (sumti (LAhE-clause (cmavo (LAhE "la'e")))
-                            (sumti (ZO-clause (cmavo (ZO "zo"))
-                                              (cmene "bab"))))))))
+      (_ *** '(sentence
+                (term (sumti (ZO-clause (cmavo (ZO "zo"))
+                                        (cmene "bab"))))
+                (selbri (BRIVLA-clause (gismu "cmene")))
+                (term (sumti (LAhE-clause
+                               (cmavo (LAhE "la'e"))
+                               (sumti (ZO-clause (cmavo (ZO "zo"))
+                                                 (cmene "bab")))))))))
     "zo .bab. cmene la'e zo .bab.")
+
 
   ; 10.8
   ;
   (mapti
     ('text
-      (_ *** (sentence
-               (term (sumti (LAhE-clause (cmavo (LAhE "lu'e")))
-                            (sumti (LA-clause
-                                     (cmavo (LA "la"))
-                                     (CMENE-clause cmene "bab")))))
-               (selbri (BRIVLA-clause (gismu "cmene")))
-               (term (sumti (LA-clause
-                              (cmavo (LA "la"))
-                              (CMENE-clause cmene "bab")))))))
+      (_ *** '(sentence
+                (term (sumti (LAhE-clause
+                               (cmavo (LAhE "lu'e"))
+                               (sumti (LA-clause
+                                        (cmavo (LA "la"))
+                                        (CMENE-clause cmene "bab"))))))
+                (selbri (BRIVLA-clause (gismu "cmene")))
+                (term (sumti (LA-clause
+                               (cmavo (LA "la"))
+                               (CMENE-clause cmene "bab")))))))
     "lu'e la bab. cmene la bab.")
 
   ; 10.9
