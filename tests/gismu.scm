@@ -17,16 +17,19 @@
 ;;;; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;;;;
 
-(define (test-gismu gismu)
-         ; parse this gismu
-         ;
-  (let* ((gerna (jbogenturfahi-rafske gismu))
-         (class (caar gerna))
-         (valsi (cadar gerna)))
-    (test #t (eq?      'gismu class))
-    (test #t (string=? gismu  valsi))))
-
 (define (gismu)
+  (define (test-gismu gismu)
+    ; test morphology
+    ;
+    (define (rafske gismu)
+      (let* ((gerna (jbogenturfahi-rafske gismu))
+             (class (caar gerna))
+             (valsi (cadar gerna)))
+        (test gismu #t (eq?      'gismu class))
+        (test gismu #t (string=? gismu  valsi))))
+
+    (rafske gismu))
+
   (let ((rodagismu (gismu:gen-select-list)))
     (map (compose test-gismu car) (rodagismu)))
   0)
