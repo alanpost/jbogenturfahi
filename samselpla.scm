@@ -737,7 +737,7 @@
     ,@(*-null NAI-clause*)
     ,@text-part-2
     ,@(?-null joik-jek?)
-    ,@(?-null text-1?)
+    ,@(?*-null text-1?)
     ,@faho-clause
     ,@(?*-null EOF?)))
 
@@ -762,21 +762,21 @@
                   BO-clause?
                   free*
                   text-1?)
-  `(,@I-clause
+  `(,I-clause
     ,@(?-null jek-or-joik?)
     ,@(?-null stag?)
     ,@(?-null BO-clause?)
     ,@(*-null free*)
-    ,@(?-null text-1?)))
+    ,@(?*-null text-1?)))
 
 (define (text-1-NIhO NIhO-clause+ free* su-clause* paragraphs?)
   `(,@(+-null NIhO-clause+)
     ,@(*-null free*)
     ,@(*-null su-clause*)
-    ,@(?-null paragraphs?)))
+    ,@(?*-null paragraphs?)))
 
 (define (text-1-paragraphs paragraphs)
-  paragraphs)
+  `(,paragraphs))
 
 ;; NIhO-clause? is: ( NIhO-clause+ free* su-clause* paragraphs )?
 ;; ?-null handles + and *.
@@ -787,7 +787,7 @@
     ,@(?*-null NIhO-clause+)
     ,@(?*-null free*)
     ,@(?*-null su-clause*)
-    ,@(?-null paragraphs)))
+    ,@(?*-null paragraphs)))
 
 (define (paragraph statement-or-fragment I-clause*)
   (define (I I-clause free* statement-or-fragment?)
@@ -878,7 +878,7 @@
   `(sa-clause
     ,@sentence-start
     ,@(apply append (*-null sa-word*))
-    ,SA-clause))
+    ,@SA-clause))
 
 (define (sentence-start-I I-pre)
   I-pre)
@@ -1034,18 +1034,18 @@
 (define (term-1-FA-sumti sumti)
   sumti)
 
-(define (term-1-FA-KU KU-clause free*)
-  `(,@KU-clause ,@(*-null free*)))
+(define (term-1-FA-KU KU-clause? free*)
+  `(,@(?-null KU-clause?) ,@(*-null free*)))
 
 (define (term-1-termset termset)
   termset)
 
 (define (term-1-NA NA-clause KU-clause free*)
-  `(,@NA-clause ,@KU-clause ,@(*-null free*)))
+  `(,NA-clause ,KU-clause ,@(*-null free*)))
 
 
 (define (term-sa term-start sa-word* SA-clause)
-  `(sa-clause ,@term-start ,@(*-null sa-word*) ,SA-clause))
+  `(sa-clause ,@term-start ,@(*-null sa-word*) ,@SA-clause))
 
 
 (define (term-start term-1)
@@ -1236,7 +1236,7 @@
   `(,@relative-clause-sa* ,@relative-clause-1))
 
 (define (relative-clause-sa relative-clause-start sa-word* SA-clause)
-  `(sa-clause ,@relative-clause-start ,@(*-null sa-word*) ,SA-clause))
+  `(sa-clause ,@relative-clause-start ,@(*-null sa-word*) ,@SA-clause))
 
 (define (relative-clause-1-GOI GOI-clause
                                free-0*
@@ -1415,7 +1415,7 @@
     ,@(*-null free*)))
 
 (define (linkargs-sa linkargs-start sa-word* SA-clause)
-  `(sa-clause ,@linkargs-start ,@(*-null sa-word*) ,SA-clause))
+  `(sa-clause ,@linkargs-start ,@(*-null sa-word*) ,@SA-clause))
 
 (define (linkargs-start BE-clause)
   BE-clause)
@@ -1424,7 +1424,7 @@
   `(,@(*-null links-sa*) ,@links-1))
 
 (define (links-sa links-start sa-word* SA-clause)
-  `(sa-clause ,@links-start ,@(*-null sa-word*) ,SA-clause))
+  `(sa-clause ,@links-start ,@(*-null sa-word*) ,@SA-clause))
 
 (define (links-1 BEI-clause free* term links?)
   `(,@BEI-clause ,@(*-null free*) ,@term ,@(?-null links?)))
@@ -1608,17 +1608,17 @@
 (define (number . rodasumti)
   `(number ,@rodasumti))
 
-(define (lerfu-string . rodasumti)
-  `(lerfu-string ,@rodasumti))
+(define (lerfu-string lerfu-word PA-clause-or-lerfu-word*)
+  `(,@lerfu-word ,@(*-null PA-clause-or-lerfu-word*)))
 
-(define (lerfu-word-BY . rodasumti)
-  `(lerfu-word-BY ,@rodasumti))
+(define (lerfu-word-BY BY-clause)
+  BY-clause)
 
-(define (lerfu-word-LAU . rodasumti)
-  `(lerfu-word-LAU ,@rodasumti))
+(define (lerfu-word-LAU LAU-clause lerfu-word)
+  `(,@LAU-clause ,@lerfu-word))
 
-(define (lerfu-word-TEI . rodasumti)
-  `(lerfu-word-TEI ,@rodasumti))
+(define (lerfu-word-TEI TEI-clause lerfu-string FOI-clause)
+  `(,@TEI-clause ,@lerfu-string ,@FOI-clause))
 
 (define (ek NA-clause? SE-clause? A-clause NAI-clause?)
   `(,@(?-null NA-clause?)
@@ -1680,32 +1680,68 @@
 (define (gik . rodasumti)
   `(gik ,@rodasumti))
 
-(define (tag . rodasumti)
-  `(tag ,@rodasumti))
 
-(define (stag-tense . rodasumti)
-  `(stag-tense ,@rodasumti))
+(define (tag tense-modal sumti*)
+  (define (tense joik-jek tense-modal)
+    `(,@joik-jek ,@tense-modal))
 
-(define (stag-simple-tense . rodasumti)
-  `(stag-simple-tense ,@rodasumti))
+  `(,@tense-modal ,@(map-apply tense sumti*)))
 
-(define (tense-modal-simple-tense . rodasumti)
-  `(tense-modal-simple-tense ,@rodasumti))
 
-(define (tense-modal-FIhO . rodasumti)
-  `(tense-modal-FIhO ,@rodasumti))
+(define (stag-tense simple-tense-modal sumti*)
+  (define (tense joik-jek simple-tense-modal)
+    `(,@joik-jek ,@simple-tense-modal))
 
-(define (simple-tense-modal-BAI . rodasumti)
-  `(simple-tense-modal-BAI ,@rodasumti))
+  `(,@simple-tense-modal ,@(map-apply tense sumti*)))
 
-(define (simple-tense-modal-CUhE . rodasumti)
-  `(simple-tense-modal-CUhE ,@rodasumti))
+(define (stag-simple-tense tense-modal sumti*)
+  (define (tense joik-jek tense-modal)
+    `(,@joik-jek ,@tense-modal))
 
-(define (simple-tense-modal-KI . rodasumti)
-  `(simple-tense-modal-KI ,@rodasumti))
+  `(,@tense-modal ,@(map-apply tense sumti*)))
 
-(define (simple-tense-modal-CAhA . rodasumti)
-  `(simple-tense-modal-CAhA ,@rodasumti))
+
+(define (tense-modal-simple-tense simple-tense-modal free*)
+  `(,@simple-tense-modal ,@(*-null free*)))
+
+(define (tense-modal-FIhO FIhO-clause free-0* selbri FEhU-clause? free-1*)
+  `(,@FIhO-clause
+    ,@(*-null free-0*)
+    ,@selbri
+    ,@(?-null FEhU-clause?)
+    ,@(*-null free-1*)))
+
+
+(define (simple-tense-modal-BAI NAhE-clause?
+                                SE-clause?
+                                BAI-clause
+                                NAI-clause?
+                                KI-clause?)
+  `(,@(?-null NAhE-clause?)
+    ,@(?-null SE-clause?)
+    ,@BAI-clause
+    ,@(?-null NAI-clause?)
+    ,@(?-null KI-clause?)))
+
+(define (simple-tense-modal-time-space-CAhA time? space? CAhA-clause)
+  `(,@(?-null time?) ,@(?-null space?) ,@CAhA-clause))
+
+(define (simple-tense-modal-time-space time? space?)
+  `(,@(?-null time?) ,@(?-null space?)))
+
+(define (simple-tense-modal-CAhA CAhA-clause)
+  CAhA-clause)
+
+(define (simple-tense-modal NAhE-clause? time-space-CAhA KI-clause?)
+  `(,@(?-null NAhE-clause?)
+    ,@time-space-CAhA
+    ,@(?-null KI-clause?)))
+
+(define (simple-tense-modal-KI KI-clause)
+  KI-clause)
+
+(define (simple-tense-modal-CUhE CUhE-clause)
+  CUhE-clause)
 
 (define (time-ZI . rodasumti)
   `(time ,@rodasumti))
@@ -1713,29 +1749,54 @@
 (define (time-offset . rodasumti)
   `(time-offset ,@rodasumti))
 
-(define (space . rodasumti)
-  `(space ,@rodasumti))
+(define (space VA-clause?
+               space-offset*
+               space-interval?
+               MOhI-clause?
+               space-offset?)
+  `(,@(?-null VA-clause?)
+    ,@(apply append space-offset*)
+    ,@(?-null space-interval?)
+    ,@(?-null MOhI-clause?)
+    ,@(?-null space-offset?)))
 
-(define (space-offset . rodasumti)
-  `(space-offset ,@rodasumti))
+(define (space-offset FAhA-clause NAI-clause? VA-clause?)
+  `(,@FAhA-clause ,@(?-null NAI-clause?) ,@(?-null VA-clause?)))
 
-(define (space-interval . rodasumti)
-  `(space-interval ,@rodasumti))
+(define (space-interval-VEhA VEhA-clause VIhA-clause?)
+  `(,@VEhA-clause ,@(?-null VIhA-clause)))
 
-(define (space-interval-VEhA . rodasumti)
-  `(space-interval-VEhA ,@rodasumti))
+(define (space-interval-VIhA VIhA-clause)
+  VIhA-clause)
 
-(define (space-int-props . rodasumti)
-  `(space-int-props ,@rodasumti))
+(define (space-interval-VEhA-VIhA VEhA-clause
+                                  FAhA-clause?
+                                  NAI-clause?
+                                  space-int-props?)
+  `(,@VEhA-clause
+    ,@(?-null FAhA-clause?)
+    ,@(?-null NAI-clause)
+    ,@(?-null space-int-props?)))
 
-(define (interval-property . rodasumti)
-  `(interval-property ,@rodasumti))
+(define (space-interval space-int-props)
+  space-int-props)
 
-(define (interval-property-TAhE . rodasumti)
-  `(interval-property-TAhE ,@rodasumti))
+(define (space-int-props sumti)
+  (define (prop FEhE-clause interval-property)
+    `(,@FEhE-clause ,@interval-property))
 
-(define (interval-property-ZAhO . rodasumti)
-  `(interval-property-ZAhO ,@rodasumti))
+  (map-apply prop sumti))
+
+
+(define (interval-property number ROI-clause NAI-clause?)
+  `(,number ,ROI-clause ,@(?-null NAI-clause?)))
+
+(define (interval-property-TAhE TAhE-clause NAI-clause?)
+  `(,TAhE-clause ,@(?-null NAI-clause)))
+
+(define (interval-property-ZAhO ZAhO-clause NAI-clause?)
+  `(,ZAhO-clause ,@(?-null NAI-clause)))
+
 
 (define (free-SEI SEI-clause
                   free-0*
@@ -1789,8 +1850,8 @@
 (define (free-MAI number-or-lerfu-string MAI-clause)
   `(,@number-or-lerfu-string ,@MAI-clause))
 
-(define (free-TO TO-clause text TOI-clause)
-  `(,@TO-clause ,text ,TOI-clause))
+(define (free-TO TO-clause text TOI-clause?)
+  `(,@TO-clause ,text ,@(?-null TOI-clause?)))
 
 
 (define (xi-clause-BOI XI-clause free* number-or-lerfu-string BOI-clause?)
@@ -1823,23 +1884,47 @@
 (define (indicator clause #!optional (NAhE-clause? ""))
   `(,@clause ,@(?-null NAhE-clause?)))
 
-(define (zei-clause . rodasumti)
-  `(zei-clause ,@rodasumti))
+(define (zei-clause pre-clause zei-clause-no-pre)
+  `(,@pre-clause ,@zei-clause-no-pre))
 
-(define (zei-clause-no-pre . rodasumti)
-  `(zei-clause-no-pre ,@rodasumti))
+(define (zei-clause-no-pre pre-zei-bu
+                           zei-bu*
+                           zei-tail
+                           post-clause)
+  (define (zei-bu zei-tail? bu-tail)
+    `(,@(?-null zei-tail?) ,@bu-tail))
 
-(define (bu-clause . rodasumti)
-  `(bu-clause ,@rodasumti))
+  `(,@pre-zei-bu
+    ,@(map-apply zei-bu zei-bu*)
+    ,@(apply append zei-tail)
+    ,@post-clause))
 
-(define (bu-clause-no-pre . rodasumti)
-  `(bu-clause-no-pre ,@rodasumti))
 
-(define (zei-tail . rodasumti)
-  `(zei-tail ,@rodasumti))
+(define (bu-clause pre-clause bu-clause-no-pre)
+  `(,@pre-clause ,@bu-clause-no-pre))
 
-(define (bu-tail . rodasumti)
-  `(bu-tail ,@rodasumti))
+(define (bu-clause-no-pre pre-zei-bu
+                          bu-zei*
+                          bu-tail
+                          post-clause)
+  (define (bu-zei bu-tail? zei-tail)
+    `(,@(?-null bu-tail?) ,@zei-tail))
+
+  `(,@pre-zei-bu
+    ,@(map-apply bu-zei bu-zei*)
+    ,@bu-tail
+    ,@post-clause))
+
+
+(define (zei-tail zei+)
+  (define (zei ZEI-clause any-word)
+    `(,ZEI-clause ,any-word))
+
+  (map-apply zei zei+))
+
+
+(define (bu-tail BU-clause+)
+  BU-clause+)
 
 (define (pre-zei-bu any-word si-clause?)
   `(,any-word ,@(?-null si-clause?)))
@@ -1859,20 +1944,20 @@
 (define (any-word-SA-ZOI ZOI-pre)
   `(any-string ,@ZOI-pre))
 
-(define (su-clause . rodasumti)
-  `(su-clause ,@rodasumti))
+(define (su-clause clause* SU-clause)
+  `(su-clause ,@clause* ,SU-clause))
 
-(define (si-clause sumti+)
+(define (si-clause si+)
   (define (si clause si-clause? SI-clause)
     `(,@clause ,@(?*-null si-clause?) ,SI-clause))
 
-  `(si-clause ,@(apply append (map-apply si sumti+))))
+  `(si-clause ,@(apply append (map-apply si si+))))
 
-(define (erasable-clause-zei . rodasumti)
-  `(erasable-clause .@rodasumti))
+(define (erasable-clause-bu bu-clause-no-pre)
+  bu-clause-no-pre)
 
-(define (erasable-clause-bu . rodasumti)
-  `(erasable-clause .@rodasumti))
+(define (erasable-clause-zei zei-clause-no-pre)
+  `((brivla ,@zei-clause-no-pre)))
 
 (define (sa-word pre-zei-bu)
   pre-zei-bu)
@@ -1880,15 +1965,15 @@
 (define (si-word pre-zei-bu)
   pre-zei-bu)
 
-(define (su-word any-word-SA-handling)
-  any-word-SA-handling)
+(define (su-word any-word-SA)
+  any-word-SA)
 
 
 (define (BRIVLA-clause BRIVLA-pre BRIVLA-post)
   `(BRIVLA-clause ,BRIVLA-pre ,@BRIVLA-post))
 
 (define (BRIVLA-clause-zei zei-clause)
-  `((BRIVLA-clause ,@zei-clause)))
+  `(BRIVLA-clause ,@zei-clause))
 
 (define (BRIVLA-pre pre-clause BRIVLA)
   `(,@pre-clause ,@BRIVLA))
@@ -1898,7 +1983,7 @@
 
 
 (define (CMENE-clause CMENE-pre CMENE-post)
-  `(CMENE-clause ,@CMENE-pre ,@CMENE-post))
+  `(CMENE-clause ,CMENE-pre ,@CMENE-post))
 
 (define (CMENE-pre pre-clause CMENE)
   `(,@pre-clause ,@CMENE))
@@ -1912,7 +1997,7 @@
 
 
 (define (A-clause A-pre A-post)
-  `((A-clause ,@A-pre ,@A-post)))
+  `((A-clause ,A-pre ,@A-post)))
 
 (define (A-pre pre-clause A)
   `(,@pre-clause ,@A))
@@ -1922,7 +2007,7 @@
 
 
 (define (BAI-clause BAI-pre BAI-post)
-  `(BAI-clause ,@BAI-pre ,@BAI-post))
+  `(BAI-clause ,BAI-pre ,@BAI-post))
 
 (define (BAI-pre pre-clause BAI)
   `(,@pre-clause ,@BAI))
@@ -1945,17 +2030,17 @@
 
 
 (define (BE-clause BE-pre BE-post)
-  `(BE-clause ,@BE-pre ,@BE-post))
+  `(BE-clause ,BE-pre ,@BE-post))
 
 (define (BE-pre pre-clause BE)
-  `(,@pre-clause ,BE))
+  `(,@pre-clause ,@BE))
 
 (define (BE-post post-clause)
   post-clause)
 
 
 (define (BEI-clause BEI-pre BEI-post)
-  `(BEI-clause ,@BEI-pre ,@BEI-post))
+  `(BEI-clause ,BEI-pre ,@BEI-post))
 
 (define (BEI-pre pre-clause BEI)
   `(,@pre-clause ,@BEI))
@@ -1965,7 +2050,7 @@
 
 
 (define (BEhO-clause BEhO-pre BEhO-post)
-  `(BEhO-clause ,@BEhO-pre ,@BEhO-post))
+  `(BEhO-clause ,BEhO-pre ,@BEhO-post))
 
 (define (BEhO-pre pre-clause BEhO)
   `(,@pre-clause ,@BEhO))
@@ -1975,7 +2060,7 @@
 
 
 (define (BIhE-clause BIhE-pre BIhE-post)
-  `(BIhE-clause ,@BIhE-pre ,@BIhE-post))
+  `(BIhE-clause ,BIhE-pre ,@BIhE-post))
 
 (define (BIhE-pre pre-clause BIhE)
   `(,@pre-clause ,@BIhE))
@@ -1985,7 +2070,7 @@
 
 
 (define (BIhI-clause BIhI-pre BIhI-post)
-  `(BIhI-clause ,@BIhI-pre ,@BIhI-post))
+  `(BIhI-clause ,BIhI-pre ,@BIhI-post))
 
 (define (BIhI-pre pre-clause BIhI)
   `(,@pre-clause ,@BIhI))
@@ -1995,7 +2080,7 @@
 
 
 (define (BO-clause BO-pre BO-post)
-  `(BO-clause ,@BO-pre ,@BO-post))
+  `(BO-clause ,BO-pre ,@BO-post))
 
 (define (BO-pre pre-clause BO)
   `(,@pre-clause ,@BO))
@@ -2005,7 +2090,7 @@
 
 
 (define (BOI-clause BOI-pre BOI-post)
-  `(bOI-clause ,@BOI-pre ,@BOI-post))
+  `(BOI-clause ,BOI-pre ,@BOI-post))
 
 (define (BOI-pre pre-clause bOI)
   `(,@pre-clause ,@bOI))
@@ -2019,10 +2104,10 @@
 
 
 (define (BY-clause BY-pre BY-post)
-  `((BY-clause ,@BY-clause ,@BY-post)))
+  `(BY-clause ,BY-pre ,@BY-post))
 
 (define (BY-clause-bu bu-clause)
-  `((BY-clause ,@bu-clause)))
+  `(BY-clause ,@bu-clause))
 
 (define (BY-pre pre-clause BY)
   `(,@pre-clause ,@BY))
@@ -2082,7 +2167,7 @@
 
 
 (define (COI-clause COI-pre COI-post)
-  `((COI-clause ,@COI-pre ,@COI-post)))
+  `((COI-clause ,COI-pre ,@COI-post)))
 
 (define (COI-pre pre-clause COI)
   `(,@pre-clause ,@COI))
@@ -2122,20 +2207,20 @@
 
 
 (define (DOI-clause DOI-pre DOI-post)
-  `(DOI-clause ,@DOI-pre ,@DOI-post))
+  `(DOI-clause ,DOI-pre ,@DOI-post))
 
 (define (DOI-pre pre-clause DOI)
-  `(,@pre-clause ,DOI))
+  `(,@pre-clause ,@DOI))
 
 (define (DOI-post post-clause)
   post-clause)
 
 
 (define (DOhU-clause DOI-pre DOI-post)
-  `(DOhU-clause ,@DOI-pre ,@DOI-post))
+  `(DOhU-clause ,DOI-pre ,@DOI-post))
 
 (define (DOhU-pre pre-clause DOhU)
-  `(,@pre-clause ,DOhU))
+  `(,@pre-clause ,@DOhU))
 
 (define (DOhU-post post-clause)
   post-clause)
@@ -2151,8 +2236,8 @@
   post-clause)
 
 
-(define (FAhA-clause . rodasumti)
-  `(FAhA-clause ,@rodasumti))
+(define (FAhA-clause FAhA-pre FAhA-post)
+  `(FAhA-clause ,FAhA-pre ,@FAhA-post))
 
 (define (FAhA-pre pre-clause FAhA)
   `(,@pre-clause ,@FAhA))
@@ -2162,11 +2247,11 @@
 
 
 (define (FAhO-clause pre-clause FAhO)
-  `((FAhO-clause ,@pre-clause ,@FAhO)))
+  `(FAhO-clause ,@pre-clause ,FAhO))
 
 
-(define (FEhE-clause . rodasumti)
-  `(FEhE-clause ,@rodasumti))
+(define (FEhE-clause FEhE-pre FEhE-post)
+  `(FEhE-clause ,FEhE-pre ,@FEhE-post))
 
 (define (FEhE-pre pre-clause FEhE)
   `(,@pre-clause ,@FEhE))
@@ -2175,8 +2260,8 @@
   post-clause)
 
 
-(define (FEhU-clause . rodasumti)
-  `(FEhU-clause ,@rodasumti))
+(define (FEhU-clause FEhU-pre FEhU-post)
+  `(FEhU-clause ,FEhU-pre ,@FEhU-post))
 
 (define (FEhU-pre pre-clause FEhU)
   `(,@pre-clause ,@FEhU))
@@ -2185,8 +2270,8 @@
   post-clause)
 
 
-(define (FIhO-clause . rodasumti)
-  `(FIhO-clause ,@rodasumti))
+(define (FIhO-clause FIhO-pre FIhO-post)
+  `(FIhO-clause ,FIhO-pre ,@FIhO-post))
 
 (define (FIhO-pre pre-clause FIhO)
   `(,@pre-clause ,@FIhO))
@@ -2195,8 +2280,8 @@
   post-clause)
 
 
-(define (FOI-clause . rodasumti)
-  `(FOI-clause ,@rodasumti))
+(define (FOI-clause FOI-pre FOI-post)
+  `(FOI-clause ,FOI-pre ,@FOI-post))
 
 (define (FOI-pre pre-clause FOI)
   `(,@pre-clause ,@FOI))
@@ -2205,8 +2290,8 @@
   post-clause)
 
 
-(define (FUhA-clause . rodasumti)
-  `(FUhA-clause ,@rodasumti))
+(define (FUhA-clause FUhA-pre FUhA-post)
+  `(FUhA-clause ,FUhA-pre ,@FUhA-post))
 
 (define (FUhA-pre pre-clause FUhA)
   `(,@pre-clause ,@FUhA))
@@ -2215,8 +2300,8 @@
   post-clause)
 
 
-(define (FUhE-clause . rodasumti)
-  `(FUhE-clause ,@rodasumti))
+(define (FUhE-clause FUhE-pre FUhE-post)
+  `(FUhE-clause ,FUhO-pre ,@FUhE-post))
 
 (define (FUhE-pre pre-clause FUhE)
   `(,@pre-clause ,@FUhE))
@@ -2225,8 +2310,8 @@
   post-clause)
 
 
-(define (FUhO-clause . rodasumti)
-  `(FUhO-clause ,@rodasumti))
+(define (FUhO-clause FUhO-pre FUhO-post)
+  `(FUhO-clause ,FUhO-pre ,@FUhO-post))
 
 (define (FUhO-pre pre-clause FUhO)
   `(,@pre-clause ,@FUhO))
@@ -2245,8 +2330,8 @@
   post-clause)
 
 
-(define (GAhO-clause . rodasumti)
-  `(GAhO-clause ,@rodasumti))
+(define (GAhO-clause GAhO-pre GAhO-post)
+  `(GAhO-clause ,GAhO-pre ,@GAhO-post))
 
 (define (GAhO-pre pre-clause GAhO)
   `(,@pre-clause ,@GAhO))
@@ -2286,20 +2371,20 @@
 
 
 (define (GOI-clause GOI-pre GOI-post)
-  `(GOI-clause ,@GOI-pre ,@GOI-post))
+  `(GOI-clause ,GOI-pre ,@GOI-post))
 
 (define (GOI-pre pre-clause GOI)
-  `(,@pre-clause ,GOI))
+  `(,@pre-clause ,@GOI))
 
 (define (GOI-post post-clause)
   post-clause)
 
 
 (define (GOhA-clause GOhA-pre GOhA-post)
-  `(GOhA-clause ,@GOhA-pre ,@GOhA-post))
+  `(GOhA-clause ,GOhA-pre ,@GOhA-post))
 
 (define (GOhA-pre pre-clause GOhA)
-  `(,@pre-clause ,GOhA))
+  `(,@pre-clause ,@GOhA))
 
 (define (GOhA-post post-clause)
   post-clause)
@@ -2316,10 +2401,10 @@
 
 
 (define (I-clause sentence-sa* I-pre I-post)
-  `(I-clause ,@(*-null sentence-sa*) ,@I-pre ,@I-post))
+  `(I-clause ,@(*-null sentence-sa*) ,I-pre ,@I-post))
 
 (define (I-pre pre-clause I)
-  `(,@pre-clause ,I))
+  `(,@pre-clause ,@I))
 
 (define (I-post post-clause)
   post-clause)
@@ -2386,10 +2471,10 @@
 
 
 (define (KEI-clause KEI-pre KEI-post)
-  `(KEI-clause ,@KEI-pre ,@KEI-post))
+  `(KEI-clause ,KEI-pre ,@KEI-post))
 
 (define (KEI-pre pre-clause KEI)
-  `(,@pre-clause ,KEI))
+  `(,@pre-clause ,@KEI))
 
 (define (KEI-post post-clause)
   post-clause)
@@ -2416,10 +2501,10 @@
 
 
 (define (KU-clause KU-pre KU-post)
-  `(KU-clause ,@KU-pre ,@KU-post))
+  `(KU-clause ,KU-pre ,@KU-post))
 
 (define (KU-pre pre-clause KU)
-  `(,@pre-clause ,KU))
+  `(,@pre-clause ,@KU))
 
 (define (KU-post post-clause)
   post-clause)
@@ -2466,10 +2551,10 @@
 
 
 (define (LAhE-clause LAhE-pre LAhE-post)
-  `(LAhE-clause ,@LAhE-pre ,@LAhE-post))
+  `(LAhE-clause ,LAhE-pre ,@LAhE-post))
 
 (define (LAhE-pre pre-clause LAhE)
-  `(,@pre-clause ,LAhE))
+  `(,@pre-clause ,@LAhE))
 
 (define (LAhE-post post-clause)
   post-clause)
@@ -2485,8 +2570,11 @@
   post-clause)
 
 
-(define (LEhU-clause pre-clause LEhU)
-  `(LEhU-clause ,@pre-clause ,LEhU))
+(define (LEhU-clause LEhU-pre)
+  `(LEhU-clause ,LEhU-pre))
+
+(define (LEhU-pre pre-clause LEhU)
+  `(,@pre-clause ,@LEhU))
 
 
 (define (LI-clause LI-pre LI-post)
@@ -2500,20 +2588,20 @@
 
 
 (define (LIhU-clause LIhU-pre LIhU-post)
-  `(LIhU-clause ,@LIhU-pre ,@LIhU-post))
+  `(LIhU-clause ,LIhU-pre ,@LIhU-post))
 
 (define (LIhU-pre pre-clause LIhU)
-  `(,@pre-clause ,LIhU))
+  `(,@pre-clause ,@LIhU))
 
 (define (LIhU-post post-clause)
   post-clause)
 
 
 (define (LOhO-clause LOhO-pre LOhO-post)
-  `(LOhO-clause ,@LOhO-pre ,@LOhO-post))
+  `(LOhO-clause ,LOhO-pre ,@LOhO-post))
 
 (define (LOhO-pre pre-clause LOhO)
-  `(,@pre-clause ,LOhO))
+  `(,@pre-clause ,@LOhO))
 
 (define (LOhO-post post-clause)
   post-clause)
@@ -2530,27 +2618,27 @@
 
 
 (define (LU-clause LU-pre LU-post)
-  `(LU-clause ,@LU-pre ,@LU-post))
+  `(LU-clause ,LU-pre ,@LU-post))
 
 (define (LU-pre pre-clause LU)
-  `(,@pre-clause ,LU))
+  `(,@pre-clause ,@LU))
 
 (define (LU-post post-clause)
   post-clause)
 
 
 (define (LUhU-clause LUhU-pre LUhU-post)
-  `(LUhU-clause ,@LUhU-pre ,@LUhU-post))
+  `(LUhU-clause ,LUhU-pre ,@LUhU-post))
 
 (define (LUhU-pre pre-clause LUhU)
-  `(,@pre-clause ,LUhU))
+  `(,@pre-clause ,@LUhU))
 
 (define (LUhU-post post-clause)
   post-clause)
 
 
-(define (MAhO-clause . rodasumti)
-  `(MAhO-clause ,@rodasumti))
+(define (MAhO-clause MAhO-pre MAhO-post)
+  `(MAhO-clause ,MAhO-pre ,@MAhO-post))
 
 (define (MAhO-pre pre-clause MAhO)
   `(,@pre-clause ,@MAhO))
@@ -2559,8 +2647,8 @@
   post-clause)
 
 
-(define (MAI-clause . rodasumti)
-  `(MAI-clause ,@rodasumti))
+(define (MAI-clause MAI-pre MAI-post)
+  `(MAI-clause ,MAI-pre ,@MAI-post))
 
 (define (MAI-pre pre-clause MAI)
   `(,@pre-clause ,@MAI))
@@ -2579,8 +2667,8 @@
   post-clause)
 
 
-(define (MEhU-clause . rodasumti)
-  `(MEhU-clause ,@rodasumti))
+(define (MEhU-clause MEhU-pre MEhU-post)
+  `(MEhU-clause ,MEhU-pre ,@MEhU-post))
 
 (define (MEhU-pre pre-clause MEhU)
   `(,@pre-clause ,@MEhU))
@@ -2589,8 +2677,8 @@
   post-clause)
 
 
-(define (MOhE-clause . rodasumti)
-  `(MOhE-clause ,@rodasumti))
+(define (MOhE-clause MOhE-pre MOhE-post)
+  `(MOhE-clause ,MOhE-pre ,@MOhE-post))
 
 (define (MOhE-pre pre-clause MOhE)
   `(,@pre-clause ,@MOhE))
@@ -2599,8 +2687,8 @@
   post-clause)
 
 
-(define (MOhI-clause . rodasumti)
-  `(MOhI-clause ,@rodasumti))
+(define (MOhI-clause MOhI-pre MOhI-post)
+  `(MOhI-clause ,MOhI-pre ,@MOhI-post))
 
 (define (MOhI-pre pre-clause MOhI)
   `(,@pre-clause ,@MOhI))
@@ -2609,8 +2697,8 @@
   post-clause)
 
 
-(define (MOI-clause . rodasumti)
-  `(MOI-clause ,@rodasumti))
+(define (MOI-clause MOI-pre MOI-post)
+  `(MOI-clause ,MOI-pre ,@MOI-post))
 
 (define (MOI-pre pre-clause MOI)
   `(,@pre-clause ,@MOI))
@@ -2620,37 +2708,37 @@
 
 
 (define (NA-clause NA-pre NA-post)
-  `(NA-clause ,@NA-pre ,@NA-post))
+  `(NA-clause ,NA-pre ,@NA-post))
 
 (define (NA-pre pre-clause NA)
-  `(,@pre-clause ,NA))
+  `(,@pre-clause ,@NA))
 
 (define (NA-post post-clause)
   post-clause)
 
 
 (define (NAI-clause NAI-pre NAI-post)
-  `(NAI-clause ,@NAI-pre ,@NAI-post))
+  `(NAI-clause ,NAI-pre ,@NAI-post))
 
 (define (NAI-pre pre-clause NAI)
-  `(,@pre-clause ,NAI))
+  `(,@pre-clause ,@NAI))
 
 (define (NAI-post post-clause)
   post-clause)
 
 
 (define (NAhE-clause NAhE-pre NAhE-post)
-  `(NAhE-clause ,@NAhE-pre ,@NAhE-post))
+  `(NAhE-clause ,NAhE-pre ,@NAhE-post))
 
 (define (NAhE-pre pre-clause NAhE)
-  `(,@pre-clause ,NAhE))
+  `(,@pre-clause ,@NAhE))
 
 (define (NAhE-post post-clause)
   post-clause)
 
 
-(define (NAhU-clause . rodasumti)
-  `(NAhU-clause ,@rodasumti))
+(define (NAhU-clause NAhU-pre NAhU-post)
+  `(NAhU-clause ,NAhU-pre ,@NAhU-post))
 
 (define (NAhU-pre pre-clause NAhU)
   `(,@pre-clause ,@NAhU))
@@ -2659,8 +2747,8 @@
   post-clause)
 
 
-(define (NIhE-clause . rodasumti)
-  `(NIhE-clause ,@rodasumti))
+(define (NIhE-clause NIhE-pre NIhE-post)
+  `(NIhE-clause ,NIhE-pre ,@NIhE-post))
 
 (define (NIhE-pre pre-clause NIhE)
   `(,@pre-clause ,@NIhE))
@@ -2673,14 +2761,14 @@
   `(NIhO-clause ,@(*-null sentence-sa*) ,@NIhO-pre ,@NIhO-post))
 
 (define (NIhO-pre pre-clause NIhO)
-  `(,@pre-clause ,NIhO))
+  `(,@pre-clause ,@NIhO))
 
 (define (NIhO-post su-clause* post-clause)
   `(,@(*-null su-clause*) ,@post-clause))
 
 
-(define (NOI-clause . rodasumti)
-  `(NOI-clause ,@rodasumti))
+(define (NOI-clause NOI-pre NOI-post)
+  `(NOI-clause ,NOI-pre ,@NOI-post))
 
 (define (NOI-pre pre-clause NOI)
   `(,@pre-clause ,@NOI))
@@ -2690,17 +2778,17 @@
 
 
 (define (NU-clause NU-pre NU-post)
-  `(NU-clause ,@NU-pre ,@NU-post))
+  `(NU-clause ,NU-pre ,@NU-post))
 
 (define (NU-pre pre-clause NU)
-  `(,@pre-clause ,NU))
+  `(,@pre-clause ,@NU))
 
 (define (NU-post post-clause)
   post-clause)
 
 
-(define (NUhA-clause . rodasumti)
-  `(NUhA-clause ,@rodasumti))
+(define (NUhA-clause NUhA-pre NUhA-post)
+  `(NUhA-clause ,NUhA-pre ,@NUhA-post))
 
 (define (NUhA-pre pre-clause NUhA)
   `(,@pre-clause ,@NUhA))
@@ -2709,8 +2797,8 @@
   post-clause)
 
 
-(define (NUhI-clause . rodasumti)
-  `(NUhI-clause ,@rodasumti))
+(define (NUhI-clause NUhI-pre NUhI-post)
+  `(NUhI-clause ,NUhI-pre ,@NUhI-post))
 
 (define (NUhI-pre pre-clause NUhI)
   `(,@pre-clause ,@NUhI))
@@ -2719,8 +2807,8 @@
   post-clause)
 
 
-(define (NUhU-clause . rodasumti)
-  `(NUhU-clause ,@rodasumti))
+(define (NUhU-clause NUhU-pre NUhU-post)
+  `(NUhU-clause ,NUhU-pre ,@NUhU-post))
 
 (define (NUhU-pre pre-clause NUhU)
   `(,@pre-clause ,@NUhU))
@@ -2729,8 +2817,8 @@
   post-clause)
 
 
-(define (PA-clause . rodasumti)
-  `(PA-clause ,@rodasumti))
+(define (PA-clause PA-pre PA-post)
+  `(PA-clause ,PA-pre ,@PA-post))
 
 (define (PA-pre pre-clause PA)
   `(,@pre-clause ,@PA))
@@ -2739,8 +2827,8 @@
   post-clause)
 
 
-(define (PEhE-clause . rodasumti)
-  `(PEhE-clause ,@rodasumti))
+(define (PEhE-clause PEhE-pre PEhE-post)
+  `(PEhE-clause ,PEhE-pre ,@PEhE-post))
 
 (define (PEhE-pre pre-clause PEhE)
   `(,@pre-clause ,@PEhE))
@@ -2749,8 +2837,8 @@
   post-clause)
 
 
-(define (PEhO-clause . rodasumti)
-  `(PEhO-clause ,@rodasumti))
+(define (PEhO-clause PEhO-pre PEhO-post)
+  `(PEhO-clause ,PEhO-pre ,@PEhO-post))
 
 (define (PEhO-pre pre-clause PEhO)
   `(,@pre-clause ,@PEhO))
@@ -2759,8 +2847,8 @@
   post-clause)
 
 
-(define (PU-clause . rodasumti)
-  `(PU-clause ,@rodasumti))
+(define (PU-clause PU-pre PU-post)
+  `(PU-clause ,PU-pre ,@PU-post))
 
 (define (PU-pre pre-clause PU)
   `(,@pre-clause ,@PU))
@@ -2769,8 +2857,8 @@
   post-clause)
 
 
-(define (RAhO-clause . rodasumti)
-  `(RAhO-clause ,@rodasumti))
+(define (RAhO-clause RAhO-pre RAhO-post)
+  `(RAhO-clause ,RAhO-pre ,@RAhO-post))
 
 (define (RAhO-pre pre-clause RAhO)
   `(,@pre-clause ,@RAhO))
@@ -2779,8 +2867,8 @@
   post-clause)
 
 
-(define (ROI-clause . rodasumti)
-  `(ROI-clause ,@rodasumti))
+(define (ROI-clause ROI-pre ROI-post)
+  `(ROI-clause ,ROI-pre ,@ROI-post))
 
 (define (ROI-pre pre-clause ROI)
   `(,@pre-clause ,@ROI))
@@ -2789,35 +2877,38 @@
   post-clause)
 
 
-(define (SA-clause pre-clause SA)
-  `(SA-clause ,@pre-clause ,SA))
+(define (SA-clause SA-pre)
+  `((SA-clause ,SA-pre)))
+
+(define (SA-pre pre-clause SA)
+  `(,@pre-clause ,@SA))
 
 
 (define (SE-clause SE-pre SE-post)
-  `(SE-clause ,@SE-pre ,@SE-post))
+  `(SE-clause ,SE-pre ,@SE-post))
 
 (define (SE-pre pre-clause SE)
-  `(,@pre-clause ,SE))
+  `(,@pre-clause ,@SE))
 
 (define (SE-post post-clause)
   post-clause)
 
 
 (define (SEI-clause SEI-pre SEI-post)
-  `(SEI-clause ,@SEI-pre ,@SEI-post))
+  `(SEI-clause ,SEI-pre ,@SEI-post))
 
 (define (SEI-pre pre-clause SEI)
-  `(,@pre-clause ,SEI))
+  `(,@pre-clause ,@SEI))
 
 (define (SEI-post post-clause)
   post-clause)
 
 
 (define (SEhU-clause SEhU-pre SEhU-post)
-  `(SEhU-clause ,@SEhU-pre ,@SEhU-post))
+  `(SEhU-clause ,SEhU-pre ,@SEhU-post))
 
 (define (SEhU-pre pre-clause SEhU)
-  `(,@pre-clause ,SEhU))
+  `(,@pre-clause ,@SEhU))
 
 (define (SEhU-post post-clause)
   post-clause)
@@ -2827,34 +2918,34 @@
   `(SI-clause ,SI))
 
 (define (SI-pre pre-clause SI)
-  `(,@pre-clause ,SI))
+  `(,@pre-clause ,@SI))
 
 (define (SI-post post-clause)
   post-clause)
 
 
 (define (SOI-clause SOI-pre SOI-post)
-  `(SOI-clause ,@SOI-pre ,@SOI-post))
+  `(SOI-clause ,SOI-pre ,@SOI-post))
 
 (define (SOI-pre pre-clause SOI)
-  `(,@pre-clause ,SOI))
+  `(,@pre-clause ,@SOI))
 
 (define (SOI-post post-clause)
   post-clause)
 
 
 (define (SU-clause SU-pre SU-post)
-  `(SU-clause ,@SU-pre ,@SU-post))
+  `(SU-clause ,SU-pre ,@SU-post))
 
 (define (SU-pre pre-clause SU)
-  `(,@pre-clause ,SU))
+  `(,@pre-clause ,@SU))
 
 (define (SU-post post-clause)
   post-clause)
 
 
-(define (TAhE-clause . rodasumti)
-  `(TAhE-clause ,@rodasumti))
+(define (TAhE-clause TAhE-pre TAhE-post)
+  `(TAhE-clause ,TAhE-pre ,@TAhE-post))
 
 (define (TAhE-pre pre-clause TAhE)
   `(,@pre-clause ,@TAhE))
@@ -2863,8 +2954,8 @@
   post-clause)
 
 
-(define (TEhU-clause . rodasumti)
-  `(TEhU-clause ,@rodasumti))
+(define (TEhU-clause TEhU-pre TEhU-post)
+  `(TEhU-clause ,TEhU-pre ,@TEhU-post))
 
 (define (TEhU-pre pre-clause TEhU)
   `(,@pre-clause ,@TEhU))
@@ -2873,8 +2964,8 @@
   post-clause)
 
 
-(define (TEI-clause . rodasumti)
-  `(TEI-clause ,@rodasumti))
+(define (TEI-clause TEI-pre TEI-post)
+  `(TEI-clause ,TEI-pre ,@TEI-post))
 
 (define (TEI-pre pre-clause TEI)
   `(,@pre-clause ,@TEI))
@@ -2884,27 +2975,27 @@
 
 
 (define (TO-clause TO-pre TO-post)
-  `(TO-clause ,@TO-pre ,@TO-post))
+  `(TO-clause ,TO-pre ,@TO-post))
 
 (define (TO-pre pre-clause TO)
-  `(,@pre-clause ,TO))
+  `(,@pre-clause ,@TO))
 
 (define (TO-post post-clause)
   post-clause)
 
 
 (define (TOI-clause TOI-pre TOI-post)
-  `(TOI-clause ,@TOI-pre ,@TOI-post))
+  `(TOI-clause ,TOI-pre ,@TOI-post))
 
 (define (TOI-pre pre-clause TOI)
-  `(,@pre-clause ,TOI))
+  `(,@pre-clause ,@TOI))
 
 (define (TOI-post post-clause)
   post-clause)
 
 
-(define (TUhE-clause . rodasumti)
-  `(TUhE-clause ,@rodasumti))
+(define (TUhE-clause TUhE-pre TUhE-post)
+  `(TUhE-clause ,TUhE-pre ,@TUhE-post))
 
 (define (TUhE-pre pre-clause TUhE)
   `(,@pre-clause ,@TUhE))
@@ -2913,8 +3004,8 @@
   post-clause)
 
 
-(define (TUhU-clause . rodasumti)
-  `(TUhU-clause ,@rodasumti))
+(define (TUhU-clause TUhU-pre TUhU-post)
+  `(TUhU-clause ,TUhU-pre TUhU-post))
 
 (define (TUhU-pre pre-clause TUhU)
   `(,@pre-clause ,@TUhU))
@@ -2924,17 +3015,17 @@
 
 
 (define (UI-clause UI-pre UI-post)
-  `(UI-clause ,@UI-pre ,@UI-post))
+  `(UI-clause ,UI-pre ,@UI-post))
 
 (define (UI-pre pre-clause UI)
-  `(,@pre-clause ,UI))
+  `(,@pre-clause ,@UI))
 
 (define (UI-post post-clause)
   post-clause)
 
 
-(define (VA-clause . rodasumti)
-  `(VA-clause ,@rodasumti))
+(define (VA-clause VA-pre VA-post)
+  `(VA-clause ,VA-pre ,@VA-post))
 
 (define (VA-pre pre-clause VA)
   `(,@pre-clause ,@VA))
@@ -2943,8 +3034,8 @@
   post-clause)
 
 
-(define (VAU-clause . rodasumti)
-  `(VAU-clause ,@rodasumti))
+(define (VAU-clause VAU-pre VAU-post)
+  `(VAU-clause ,VAU-pre ,@VAU-post))
 
 (define (VAU-pre pre-clause VAU)
   `(,@pre-clause ,@VAU))
@@ -2953,8 +3044,8 @@
   post-clause)
 
 
-(define (VEI-clause . rodasumti)
-  `(VEI-clause ,@rodasumti))
+(define (VEI-clause VEI-pre VEI-post)
+  `(VEI-clause ,VEI-pre ,@VEI-post))
 
 (define (VEI-pre pre-clause VEI)
   `(,@pre-clause ,@VEI))
@@ -2963,8 +3054,8 @@
   post-clause)
 
 
-(define (VEhO-clause . rodasumti)
-  `(VEhO-clause ,@rodasumti))
+(define (VEhO-clause VEhO-pre VEhO-post)
+  `(VEhO-clause ,VEhO-pre ,@VEhO-post))
 
 (define (VEhO-pre pre-clause VEhO)
   `(,@pre-clause ,@VEhO))
@@ -2973,8 +3064,8 @@
   post-clause)
 
 
-(define (VUhU-clause . rodasumti)
-  `(VUhU-clause ,@rodasumti))
+(define (VUhU-clause VUhU-pre VUhU-post)
+  `(VUhU-clause ,VUhU-pre ,@VUhU-post))
 
 (define (VUhU-pre pre-clause VUhU)
   `(,@pre-clause ,@VUhU))
@@ -2983,8 +3074,8 @@
   post-clause)
 
 
-(define (VEhA-clause . rodasumti)
-  `(VEhA-clause ,@rodasumti))
+(define (VEhA-clause VEhA-pre VEhA-post)
+  `(VEhA-clause ,VEhA-pre ,@VEhA-post))
 
 (define (VEhA-pre pre-clause VEhA)
   `(,@pre-clause ,@VEhA))
@@ -2993,8 +3084,8 @@
   post-clause)
 
 
-(define (VIhA-clause . rodasumti)
-  `(VIhA-clause ,@rodasumti))
+(define (VIhA-clause VEhA-pre VEhA-post)
+  `(VIhA-clause ,VEhA-pre ,@VEhA-post))
 
 (define (VIhA-pre pre-clause VIhA)
   `(,@pre-clause ,@VIhA))
@@ -3003,8 +3094,8 @@
   post-clause)
 
 
-(define (VUhO-clause . rodasumti)
-  `(VUhO-clause ,@rodasumti))
+(define (VUhO-clause VUhO-pre VUhO-post)
+  `(VUhO-clause ,VUhO-pre ,@VUhO-post))
 
 (define (VUhO-pre pre-clause VUhO)
   `(,@pre-clause ,@VUhO))
@@ -3013,8 +3104,8 @@
   post-clause)
 
 
-(define (XI-clause . rodasumti)
-  `(XI-clause ,@rodasumti))
+(define (XI-clause XI-pre XI-post)
+  `(XI-clause ,XI-pre ,@XI-post))
 
 (define (XI-pre pre-clause XI)
   `(,@pre-clause ,@XI))
@@ -3028,7 +3119,7 @@
 
 
 (define (ZAhO-clause ZAhO-pre ZAhO-post)
-  `(ZAhO-clause ,@ZAhO-pre ZAhO-post))
+  `(ZAhO-clause ,ZAhO-pre ZAhO-post))
 
 (define (ZAhO-pre pre-clause ZAhO)
   `(,@pre-clause ,@ZAhO))
@@ -3038,7 +3129,7 @@
 
 
 (define (ZEhA-clause ZEhA-pre ZEhA-post)
-  `(ZEhA-clause ,@ZEhA-pre ,@ZEhA-post))
+  `(ZEhA-clause ,ZEhA-pre ,@ZEhA-post))
 
 (define (ZEhA-pre pre-clause ZEhA)
   `(,@pre-clause ,@ZEhA))
@@ -3047,18 +3138,15 @@
   post-clause)
 
 
-(define (ZEI-clause ZEI-pre ZEI-post)
-  `(ZEI-clause ,@ZEI-pre ,@ZEI-post))
+(define (ZEI-clause ZEI-pre)
+  `(ZEI-clause ,ZEI-pre))
 
 (define (ZEI-pre pre-clause ZEI)
   `(,@pre-clause ,@ZEI))
 
-(define (ZEI-post post-clause)
-  post-clause)
-
 
 (define (ZI-clause ZI-pre ZI-post)
-  `(ZI-clause ,@ZI-pre ,@ZI-post))
+  `(ZI-clause ,ZI-pre ,@ZI-post))
 
 (define (ZI-pre pre-clause ZI)
   `(,@pre-clause ,@ZI))
@@ -3068,7 +3156,7 @@
 
 
 (define (ZIhE-clause ZIhE-pre ZIhE-post)
-  `(ZIhE-clause ,@ZIhE-pre ,@ZIhE-post))
+  `(ZIhE-clause ,ZIhE-pre ,@ZIhE-post))
 
 (define (ZIhE-pre pre-clause ZIhE)
   `(,@pre-clause ,@ZIhE))
@@ -3098,7 +3186,7 @@
 
 
 (define (ZOhU-clause ZOhU-pre ZOhU-post)
-  `(ZOhU-clause ,@ZOhU-pre ,@ZOhU-post))
+  `(ZOhU-clause ,ZOhU-pre ,@ZOhU-post))
 
 (define (ZOhU-pre pre-clause ZOhU)
   `(,@pre-clause ,@ZOhU))

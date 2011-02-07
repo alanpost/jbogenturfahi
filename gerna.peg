@@ -773,10 +773,13 @@ simple-tense-modal <- NAhE-clause?
                    -> simple-tense-modal-BAI
                     / NAhE-clause?
                       ( ( time space? / space time? ) CAhA-clause
+                     -> simple-tense-modal-time-space-CAhA
                       / ( time space? / space time? )
-                      / CAhA-clause )
+                     -> simple-tense-modal-time-space
+                      / CAhA-clause
+                     -> simple-tense-modal-CAhA )
                       KI-clause?
-                   -> simple-tense-modal-CAhA
+                   -> simple-tense-modal
                     / KI-clause
                    -> simple-tense-modal-KI
                     / CUhE-clause
@@ -834,11 +837,11 @@ space-offset <- FAhA-clause
                 VA-clause?
              -> space-offset
 
-space-interval <- ( VEhA-clause VIhA-clause?
-                  / VIhA-clause )
+space-interval <- ( VEhA-clause VIhA-clause? -> space-interval-VEhA
+                  / VIhA-clause              -> space-interval-VIhA )
                   ( FAhA-clause NAI-clause? )?
                   space-int-props?
-               -> space-interval-VEhA
+               -> space-interval-VEhA-VIhA
                 / space-int-props
                -> space-interval
 
@@ -929,11 +932,8 @@ zei-tail <- ( ZEI-clause any-word `spaces? )+
 bu-tail <- BU-clause+
         -> bu-tail
 
-pre-zei-bu <- ( !BU-clause
-                !ZEI-clause
-                !SI-clause
+pre-zei-bu <- ( !SI-clause
                 !SA-clause
-                !SU-clause
                 !FAhO-clause
                 any-word-SA )
               si-clause?
@@ -1010,7 +1010,7 @@ any-word-SA <- BRIVLA-pre
              / LAU-pre
              / LAhE-pre
              / LE-pre
-             / LEhU-clause
+             / LEhU-pre
              / LI-pre
              / LIhU-pre
              / LOhO-pre
@@ -1042,7 +1042,7 @@ any-word-SA <- BRIVLA-pre
              / PU-pre
              / RAhO-pre
              / ROI-pre
-             / SA-clause
+             / SA-pre
              / SE-pre
              / SEI-pre
              / SEhU-pre
@@ -1067,7 +1067,7 @@ any-word-SA <- BRIVLA-pre
              / VUhU-pre
              / XI-pre
              / ZAhO-pre
-             / ZEI-clause
+             / ZEI-pre
              / ZEhA-pre
              / ZI-pre
              / ZIhE-pre
@@ -1603,8 +1603,10 @@ LE-post     <- post-clause
             -> LE-post
 
 ;         possibly ungrammatical text right quote
-LEhU-clause <- pre-clause LEhU `spaces?
+LEhU-clause <- LEhU-pre
             -> LEhU-clause
+LEhU-pre    <- pre-clause LEhU `spaces?
+            -> LEhU-pre
 
 ;         convert number to sumti
 LI-clause   <- LI-pre LI-post
@@ -1851,8 +1853,10 @@ ROI-pre     <- pre-clause ROI `spaces?
 ROI-post    <- post-clause
             -> ROI-post
 
-SA-clause   <- pre-clause SA `spaces?
+SA-clause   <- SA-pre
             -> SA-clause
+SA-pre      <- pre-clause SA `spaces?
+            -> SA-pre
 
 ;         metalinguistic eraser to the beginning of
 ;           the current utterance
@@ -2009,7 +2013,9 @@ VUhU-post   <- post-clause
 VEhA-clause <- VEhA-pre VEhA-post
             -> VEhA-clause
 VEhA-pre    <- pre-clause VEhA `spaces?
+            -> VEhA-pre
 VEhA-post   <- post-clause
+            -> VEhA-post
 
 ;         space-time dimensionality marker
 VIhA-clause <- VIhA-pre VIhA-post
@@ -2058,8 +2064,10 @@ ZEhA-post   <- post-clause
             -> ZEhA-post
 
 ;         lujvo glue
-ZEI-clause  <- pre-clause ZEI `spaces?
+ZEI-clause  <- ZEI-pre
             -> ZEI-clause
+ZEI-pre     <- pre-clause ZEI `spaces?
+            -> ZEI-pre
 
 ;         time distance tense
 ZI-clause   <- ZI-pre ZI-post

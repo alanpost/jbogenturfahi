@@ -498,9 +498,12 @@
    tense-modal-FIhO
 
    simple-tense-modal-BAI
-   simple-tense-modal-CUhE
-   simple-tense-modal-KI
+   simple-tense-modal-time-space-CAhA
+   simple-tense-modal-time-space
    simple-tense-modal-CAhA
+   simple-tense-modal
+   simple-tense-modal-KI
+   simple-tense-modal-CUhE
 
    time-ZI
    time-offset
@@ -508,8 +511,10 @@
    space
    space-offset
 
-   space-interval
    space-interval-VEhA
+   space-interval-VIhA
+   space-interval-VEhA-VIhA
+   space-interval
 
    space-int-props
 
@@ -806,6 +811,7 @@
    LE-post
 
    LEhU-clause
+   LEhU-pre
 
    LI-clause
    LI-pre
@@ -928,6 +934,7 @@
    ROI-post
 
    SA-clause
+   SA-pre
 
    SE-clause
    SE-pre
@@ -1033,7 +1040,6 @@
 
    ZEI-clause
    ZEI-pre
-   ZEI-post
 
    ZI-clause
    ZI-pre
