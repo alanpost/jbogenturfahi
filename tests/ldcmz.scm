@@ -19,62 +19,57 @@
 
 (define (ldcmz-pamoi-pagbu)
   (mapti
-    (text (I-clause
-            (cmavo (I "i"))
-            (paragraphs
-              (paragraph
-                (sentence
-                  (term (sumti (KOhA-clause (cmavo (KOhA "ta")))))
-                  (selbri (GOhA-clause (cmavo (GOhA "mo")))))))))
+    '(text (I-clause (cmavo (I "i")))
+           (paragraphs
+             (paragraph
+               (sentence
+                 (term (sumti (KOhA-clause (cmavo (KOhA "ta")))))
+                 (selbri (GOhA-clause (cmavo (GOhA "mo"))))))))
     ".i ta mo")
 
   (mapti
-    (text (I-clause
-            (cmavo (I "i"))
-            (paragraphs
-              (paragraph
-                (sentence
-                  (term (sumti (KOhA-clause (cmavo (KOhA "ta")))))
-                  (selbri (BRIVLA-clause (gismu "rokci"))))))))
+    '(text (I-clause (cmavo (I "i")))
+           (paragraphs
+             (paragraph
+               (sentence
+                 (term (sumti (KOhA-clause (cmavo (KOhA "ta")))))
+                 (selbri (BRIVLA-clause (gismu "rokci")))))))
     ".i ta rokci")
 
   (mapti
-    (text (I-clause
-            (cmavo (I "i"))
-            (paragraphs
-              (paragraph
-                (sentence
-                  (term (sumti (KOhA-clause (cmavo (KOhA "ta")))))
-                  (selbri
-                    (BRIVLA-clause
-                      (gismu "rokci")
-                      (UI-clause (cmavo (UI "xu"))))))))))
+    '(text (I-clause (cmavo (I "i")))
+           (paragraphs
+             (paragraph
+               (sentence
+                 (term (sumti (KOhA-clause (cmavo (KOhA "ta")))))
+                 (selbri
+                   (BRIVLA-clause
+                     (gismu "rokci")
+                     (UI-clause (cmavo (UI "xu")))))))))
     ".i ta rokci xu")
 
   (mapti
-    (text (I-clause
-            (cmavo (I "i"))
-            (paragraphs
-              (paragraph
-                (sentence
-                  (term (sumti (KOhA-clause (cmavo (KOhA "ta")))))
-                  (selbri
-                    (NAhE-clause
-                      (cmavo (NAhE "je'a"))
-                      (BRIVLA-clause (gismu "rokci")))))))))
+    '(text (I-clause (cmavo (I "i")))
+           (paragraphs
+             (paragraph
+               (sentence
+                 (term (sumti (KOhA-clause (cmavo (KOhA "ta")))))
+                 (selbri
+                   (NAhE-clause
+                     (cmavo (NAhE "je'a"))
+                     (BRIVLA-clause (gismu "rokci"))))))))
     ".i ta je'a rokci")
 
   (mapti
-    (text (I-clause
-            (cmavo (I "i"))
-            (paragraphs
-              (paragraph
-                (sentence
-                  (term (sumti (KOhA-clause (cmavo (KOhA "ta")))))
-                  (selbri
-                    (NA-clause
-                      (cmavo (NA "na"))
-                      (selbri (BRIVLA-clause (gismu "grana"))))))))))
+    '(text (I-clause (cmavo (I "i")))
+           (paragraphs
+             (paragraph
+               (sentence
+                 (term (sumti (KOhA-clause (cmavo (KOhA "ta")))))
+                 (selbri
+                   (NA-clause
+                     (cmavo (NA "na"))
+                     (selbri (BRIVLA-clause (gismu "grana")))))))))
     ".i ta na grana")
   0)
 
