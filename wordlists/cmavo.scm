@@ -42,13 +42,15 @@ rafsi       <- [[:jbole'u:][:jboca'u:]]
                     #\.))}
 
 selmaho     <- [[:upper:]h]+
-               `#\*?
+               ,#\*?
                [[:digit:]]?
                canlu
-            -> {(lambda (selmaho series)
-                  `(,selmaho ,(if (char? series)
-                                  (string->number (string series))
-                                  0)))}
+            -> {(lambda (selmaho compound? series)
+                  `(,selmaho
+                    ,(and (char? compound?) (char=? #\* compound?))
+                    ,(if (char? series)
+                         (string->number (string series))
+                         0)))}
 
 short       <- (canlu-lerfu !canlu-lerfu / (!canlu-lerfu .))+
                canlu
@@ -75,6 +77,7 @@ EOS
 
   (cmavo:drop-table)
   (cmavo:create-table)
+  (cmavo:create-index)
 
   (call-with-values
     cmavo:gen-insert

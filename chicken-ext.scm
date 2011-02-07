@@ -31,8 +31,10 @@
 
    cmavo:drop-table
    cmavo:create-table
+   cmavo:create-index
    cmavo:gen-insert
    cmavo:gen-select-list
+   cmavo:gen-select-list-w/compound
    
    gismu:drop-table
    gismu:create-table

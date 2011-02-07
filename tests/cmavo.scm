@@ -208,7 +208,7 @@
       (secuxna-selmaho selmaho-db gerna))))
 
 (define (cmavo)
-  (let ((rodacmavo (cmavo:gen-select-list)))
+  (let ((rodacmavo (cmavo:gen-select-list-w/compound)))
     (map-apply test-selmaho (rodacmavo)))
   0)
 

@@ -41,9 +41,17 @@ EOS
 (define (cmavo:create-table)
   (sql:create-table jbogenturfahi-db #<<EOS
 create table if not exists
-cmavo(valsi varchar(9) primary key,
+cmavo(valsi varchar(9) primary key asc,
       selmaho varchar(6) not null,
+      compound boolean not null,
       series int);
+EOS
+))
+
+(define (cmavo:create-index)
+  (sql:create-index jbogenturfahi-db #<<EOS
+create index if not exists
+cmavo_compound on cmavo (compound asc);
 EOS
 ))
 
@@ -65,8 +73,8 @@ EOS
 
 (define (cmavo:gen-insert)
   (sql:gen-insert jbogenturfahi-db #<<EOS
-insert into cmavo('valsi', 'selmaho', 'series')
-values(?, ?, ?);
+insert into cmavo('valsi', 'selmaho', 'compound', 'series')
+values(?, ?, ?, ?);
 EOS
 ))
 
@@ -86,6 +94,16 @@ EOS
 
 
 (define (cmavo:gen-select-list)
+  (sql:gen-select-list jbogenturfahi-db #<<EOS
+select   selmaho,
+         valsi
+from     cmavo
+where    compound is 0
+order by valsi
+EOS
+))
+
+(define (cmavo:gen-select-list-w/compound)
   (sql:gen-select-list jbogenturfahi-db #<<EOS
 select   selmaho,
          valsi

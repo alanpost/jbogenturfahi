@@ -44,6 +44,16 @@
         ; XXX could be begin0
         (let ((r (create))) (cleanup) r)))))
 
+(define (sql:create-index db sql)
+  (let ((table (lambda (db stmt)
+                 (sqlite3#step! stmt))))
+    (call-with-values
+      (lambda ()
+        (sql:gen-stmt db sql table))
+      (lambda (create cleanup)
+        ; XXX could be begin0
+        (let ((r (create))) (cleanup) r)))))
+
 (define (sql:drop-table db sql)
   (let ((table (lambda (db stmt)
                  (sqlite3#step! stmt))))
