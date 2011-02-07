@@ -65,7 +65,7 @@
                        (SI-clause (cmavo (SI "si")))))))
                (term (sumti (LA-clause
                               (cmavo (LA "la"))
-                              (CMENE-clause cmene "bab")))))))
+                              (CMENE-clause (cmene "bab"))))))))
     "zo .bab. se cmene zo si si la bab.")
 
   ; 13.4
@@ -84,7 +84,7 @@
                                    (lujvo "speranto")
                                    (SI-clause (cmavo (SI "si"))))
                                  (SI-clause (cmavo (SI "si"))))
-                               (CMENE-clause cmene "esperanton")))))))
+                               (CMENE-clause (cmene "esperanton"))))))))
     "mi tavla fo la .esperanto si si .esperanton.")
 
   ; 13.5 (Errata: only one si is required to erase a zoi quotation

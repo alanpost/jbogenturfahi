@@ -22,7 +22,7 @@
   ;
   (mapti
     '(text
-       (DOI-clause (cmavo (DOI "doi")) (CMENE-clause cmene "lisas"))
+       (DOI-clause (cmavo (DOI "doi")) (CMENE-clause (cmene "lisas")))
        (paragraphs
          (paragraph
            (sentence
@@ -38,7 +38,7 @@
                               (cmavo (TO "to"))
                               (text (DOI-clause
                                       (cmavo (DOI "doi"))
-                                      (CMENE-clause cmene "frank"))
+                                      (CMENE-clause (cmene "frank")))
                                     (paragraphs
                                       (paragraph
                                         (sentence
@@ -66,7 +66,7 @@
   (mapti ('text (_ *** '(sentence
     (term (sumti (LA-clause
                    (cmavo (LA "la"))
-                   (CMENE-clause cmene "frank"))))
+                   (CMENE-clause (cmene "frank")))))
     (selbri (BRIVLA-clause (gismu "cusku")))
     (term
       (sumti
@@ -99,8 +99,7 @@
                                     (sumti
                                       (LA-clause
                                         (cmavo (LA "la"))
-                                        (CMENE-clause cmene
-                                                      "djein"))))))))
+                                        (CMENE-clause (cmene "djein")))))))))
                           (TOI-clause (cmavo (TOI "toi")))))))))))
           (LIhU-clause (cmavo (LIhU "li'u")))))))))
      "la frank. cusku lu mi prami do to'isa'a do du la djein. toi li'u")
@@ -111,7 +110,7 @@
     ('text (_ *** '(sentence
       (term (sumti (LA-clause
                      (cmavo (LA "la"))
-                     (CMENE-clause cmene "frank"))))
+                     (CMENE-clause (cmene "frank")))))
       (selbri
         (BRIVLA-clause
           (gismu "prami")
@@ -119,11 +118,11 @@
             (cmavo (SEI "sei"))
             (term (sumti (LA-clause
                            (cmavo (LA "la"))
-                           (CMENE-clause cmene "frank"))))
+                           (CMENE-clause (cmene "frank")))))
             (selbri (BRIVLA-clause (gismu "gleki"))))))
       (term (sumti (LA-clause
                      (cmavo (LA "la"))
-                     (CMENE-clause cmene "djein")))))))
+                     (CMENE-clause (cmene "djein"))))))))
     "la frank. prami sei la frank. gleki la djein.")
 
   ; 12.4
@@ -132,7 +131,7 @@
     ('text (_ *** '(sentence
       (term (sumti (LA-clause
                      (cmavo (LA "la"))
-                     (CMENE-clause cmene "frank"))))
+                     (CMENE-clause (cmene "frank")))))
       (selbri
         (BRIVLA-clause
           (gismu "prami")
@@ -141,7 +140,7 @@
             (selbri (BRIVLA-clause (gismu "gleki"))))))
       (term (sumti (LA-clause
                      (cmavo (LA "la"))
-                     (CMENE-clause cmene "djein")))))))
+                     (CMENE-clause (cmene "djein"))))))))
     "la frank. prami sei gleki la djein.")
 
   ; 12.5
@@ -150,7 +149,7 @@
     ('text (_ *** '(sentence
       (term (sumti (LA-clause
                      (cmavo (LA "la"))
-                     (CMENE-clause cmene "frank"))))
+                     (CMENE-clause (cmene "frank")))))
       (selbri
         (BRIVLA-clause
           (gismu "prami")
@@ -164,11 +163,12 @@
                   (term (FA-clause (cmavo (FA "fa")))
                         (sumti (LA-clause
                                  (cmavo (LA "la"))
-                                 (CMENE-clause cmene "suzn"))))))))))
+                                 (CMENE-clause (cmene "suzn")))))))))))
       (term (sumti (LA-clause
                      (cmavo (LA "la"))
-                     (CMENE-clause cmene "djein")))))))
+                     (CMENE-clause (cmene "djein"))))))))
     "la frank. prami sei gleki be fa la suzn. la djein.")
+
 
   ; 12.6
   ;
@@ -176,7 +176,7 @@
     ('text (_ *** `(sentence
       (term (sumti (LA-clause
                      (cmavo (LA "la"))
-                     (CMENE-clause cmene "djan"))))
+                     (CMENE-clause (cmene "djan")))))
       (selbri (BRIVLA-clause (gismu "cusku")))
       (term (sumti (LU-clause
                      (cmavo (LU "lu"))
@@ -214,7 +214,7 @@
                            (UI-clause (cmavo (UI "sa'a")))
                            (term (sumti (LA-clause
                                           (cmavo (LA "la"))
-                                          (CMENE-clause cmene "djan"))))
+                                          (CMENE-clause (cmene "djan")))))
                            (selbri
                              (BRIVLA-clause
                                (gismu "cusku")
@@ -239,7 +239,7 @@
                           (UI-clause (cmavo (UI "sa'a")))
                           (term (sumti (LA-clause
                                          (cmavo (LA "la"))
-                                         (CMENE-clause cmene "djan"))))
+                                         (CMENE-clause (cmene "djan")))))
                           (selbri
                             (BRIVLA-clause
                               (gismu "cusku")
@@ -283,7 +283,7 @@
                                (UI-clause (cmavo (UI "sa'a")))
                                (term (sumti (LA-clause
                                               (cmavo (LA "la"))
-                                              (CMENE-clause cmene "djan"))))
+                                              (CMENE-clause (cmene "djan")))))
                                (selbri (BRIVLA-clause (gismu "cusku"))))))
                          (term
                            (sumti (LE-clause

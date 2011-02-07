@@ -118,20 +118,21 @@
                 (term (sumti (LOhU-clause
                                (cmavo (LOhU "lo'u"))
                                (LEhU-clause (cmavo (LEhU "le'u")))))))))
-
     "lo'u zoi broda le'u broda lo'u le'u")
+
 
   ; 10.6
   ;
   (mapti
     ('text 
-      (_ *** (sentence
-               (term (sumti (ZO-clause (cmavo (ZO "zo")) (cmene "bab"))))
-               (selbri (BRIVLA-clause (gismu "cmene")))
-               (term (sumti (LA-clause
-                              (cmavo (LA "la"))
-                              (CMENE-clause cmene "bab")))))))
+      (_ *** '(sentence
+                (term (sumti (ZO-clause (cmavo (ZO "zo")) (cmene "bab"))))
+                (selbri (BRIVLA-clause (gismu "cmene")))
+                (term (sumti (LA-clause
+                               (cmavo (LA "la"))
+                               (CMENE-clause (cmene "bab"))))))))
     "zo .bab. cmene la bab.")
+
 
   ; 10.7
   ;
@@ -157,12 +158,13 @@
                                (cmavo (LAhE "lu'e"))
                                (sumti (LA-clause
                                         (cmavo (LA "la"))
-                                        (CMENE-clause cmene "bab"))))))
+                                        (CMENE-clause (cmene "bab")))))))
                 (selbri (BRIVLA-clause (gismu "cmene")))
                 (term (sumti (LA-clause
                                (cmavo (LA "la"))
-                               (CMENE-clause cmene "bab")))))))
+                               (CMENE-clause (cmene "bab"))))))))
     "lu'e la bab. cmene la bab.")
+
 
   ; 10.9
   ;
@@ -171,11 +173,11 @@
       (_ *** (sentence
                (term (sumti (LA-clause
                               (cmavo (LA "la"))
-                              (CMENE-clause cmene "bab"))))
+                              (CMENE-clause (cmene "bab")))))
                (selbri (BRIVLA-clause (gismu "cmene")))
                (term (sumti (LA-clause
                               (cmavo (LA "la"))
-                              (CMENE-clause cmene "bab")))))))
+                              (CMENE-clause (cmene "bab"))))))))
     "la bab. cmene la bab.")
 
   ; 10.10
