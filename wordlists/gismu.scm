@@ -41,32 +41,22 @@ lerpinsle     <- `canlu-lerfu
                  `CRLF?
               -> {(lambda lerpinsle (assq 'gismu lerpinsle))}
 
-gismu         <- [[:jbole'u:]]
-                 [[:jbole'u:]]
-                 [[:jbole'u:]]
-                 [[:jbole'u:]]
-                 [[:jbole'u:]]
-              -> {(lambda lerfu `(gismu ,(apply string lerfu)))}
+gismu         <- [[:jbole'u:]]{5} -> {(lambda (gismu) `(gismu ,gismu))}
 
-relerfu-rafsi <- [[:jbole'u:]] [[:jbole'u:]]
-              -> {(lambda lerfu `(rafsi ,(apply string lerfu)))}
+relerfu-rafsi <- [[:jbole'u:]]{2} -> {(lambda (rafsi) `(rafsi ,rafsi))}
 
-cilerfu-rafsi <- [[:jbole'u:]] [[:jbole'u:]] [[:jbole'u:]]
-              -> {(lambda lerfu `(rafsi ,(apply string lerfu)))}
+cilerfu-rafsi <- [[:jbole'u:]]{3} -> {(lambda (rafsi) `(rafsi ,rafsi))}
 
-volerfu-rafsi <- [[:jbole'u:]] [[:jbole'u:]] [[:jbole'u:]] [[:jbole'u:]]
-              -> {(lambda lerfu `(rafsi ,(apply string lerfu)))}
+volerfu-rafsi <- [[:jbole'u:]]{4} -> {(lambda (rafsi) `(rafsi ,rafsi))}
 
-short         <- . . . . . . . . . . . . . . . . . . . . .
-              -> {(lambda lerfu `(short ,(apply string lerfu)))}
+short         <- .{21} -> {(lambda (lerfu) `(short lerfu))}
 
-long          <- (!EOL .)+
-              -> {(lambda (lerfu) `(long ,(apply string lerfu)))}
+long          <- (!EOL .)+ -> {(lambda (lerfu) `(long ,lerfu))}
 
 canlu-lerfu   <- [[:space:]]
-recanlu-lerfu <- [[:space:]] [[:space:]]
-cicanlu-lerfu <- [[:space:]] [[:space:]] [[:space:]]
-vocanlu-lerfu <- [[:space:]] [[:space:]] [[:space:]] [[:space:]]
+recanlu-lerfu <- [[:space:]]{2}
+cicanlu-lerfu <- [[:space:]]{3}
+vocanlu-lerfu <- [[:space:]]{4}
 
 EOL           <- CRLF
                / &FAhO

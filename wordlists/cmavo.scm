@@ -25,21 +25,8 @@ cfari       <- `((!CRLF .)* CRLF) lerpinsle* `FAhO
 lerpinsle   <- rafsi selmaho short long `CRLF?
             -> {(lambda (rafsi selmaho short long) `(,rafsi ,@selmaho))}
 
-rafsi       <- [[:jbole'u:][:jboca'u:]]
-               [[:jbole'u:][:jboca'u:]]
-               [[:jbole'u:][:jboca'u:]]
-               [[:jbole'u:][:jboca'u:]]
-               [[:jbole'u:][:jboca'u:]]
-               [[:jbole'u:][:jboca'u:]]
-               [[:jbole'u:][:jboca'u:]]
-               [[:jbole'u:][:jboca'u:]]
-               [[:jbole'u:][:jboca'u:]]
-               [[:jbole'u:][:jboca'u:]]
-               [[:jboca'u:]]
-            -> {(lambda lerfu
-                  (string-trim-both
-                    (apply string (remove (curry char=? #\space) lerfu))
-                    #\.))}
+rafsi       <- [[:jbole'u:][:jboca'u:]]{10} `[[:jboca'u:]]
+            -> {(lambda (lerfu) (string-trim-both lerfu))}
 
 selmaho     <- [[:upper:]h]+
                ,#\*?
@@ -52,8 +39,7 @@ selmaho     <- [[:upper:]h]+
                          (string->number (string series))
                          0)))}
 
-short       <- (canlu-lerfu !canlu-lerfu / (!canlu-lerfu .))+
-               canlu
+short       <- .{42}
 
 long        <- (!EOL .)+
 
