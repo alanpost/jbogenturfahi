@@ -66,6 +66,7 @@
    cmavo-form
    cmavo-form-y
    lujvo
+   brivla-core
    fuhivla
    stressed-brivla-rafsi
    brivla-rafsi

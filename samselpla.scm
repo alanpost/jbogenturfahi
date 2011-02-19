@@ -234,6 +234,9 @@
 (define (lujvo initial-rafsi brivla-core)
   (string-append (apply string-append initial-rafsi) brivla-core))
 
+(define (brivla-core stressed-initial-rafsi short-final-rafsi )
+  (string-append stressed-initial-rafsi short-final-rafsi))
+
 
 ;; fu'ivla
 ;;

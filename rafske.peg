@@ -66,6 +66,7 @@ brivla-core <- fuhivla
              / gismu
              / CVV-final-rafsi
              / stressed-initial-rafsi short-final-rafsi 
+            -> brivla-core
 
 stressed-initial-rafsi <- stressed-extended-rafsi
                         / stressed-y-rafsi
