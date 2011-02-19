@@ -287,8 +287,8 @@
 (define (CVV-final-rafsi consonant stressed-vowel h vowel)
   (string-append consonant stressed-vowel h vowel))
 
-(define (short-final-rafsi rafsi)
-  (apply string-append rafsi))
+(define (short-final-rafsi initial vowel)
+  (string-append initial vowel))
 
 (define (stressed-y-rafsi rafsi y)
   (string-append rafsi y))
@@ -1151,7 +1151,7 @@
     ,@selbri
     ,@(?-null KU-clause?)
     ,@(*-null free*)
-    ,@(relative-clauses?)))
+    ,@(?-null relative-clauses?)))
 
 (define (sumti-6-ZO ZO-clause free*)
   `(,@ZO-clause ,@(*-null free*)))
@@ -1608,8 +1608,8 @@
 (define (operand-BOI . rodasumti)
   `(operand-BOI ,@rodasumti))
 
-(define (number . rodasumti)
-  `(number ,@rodasumti))
+(define (number PA-clause PA-clause-or-lerfu-word*)
+  `(,@PA-clause ,@(*-null PA-clause-or-lerfu-word*)))
 
 (define (lerfu-string lerfu-word PA-clause-or-lerfu-word*)
   `(,@lerfu-word ,@(*-null PA-clause-or-lerfu-word*)))
@@ -1684,11 +1684,11 @@
   `(gik ,@rodasumti))
 
 
-(define (tag tense-modal sumti*)
+(define (tag tense-modal tense*)
   (define (tense joik-jek tense-modal)
     `(,@joik-jek ,@tense-modal))
 
-  `(,@tense-modal ,@(map-apply tense sumti*)))
+  `(,@tense-modal ,@(map-apply tense tense*)))
 
 
 (define (stag-tense simple-tense-modal sumti*)
@@ -1746,11 +1746,23 @@
 (define (simple-tense-modal-CUhE CUhE-clause)
   CUhE-clause)
 
-(define (time-ZI . rodasumti)
-  `(time ,@rodasumti))
+(define (time-ZI ZI-clause?
+                 time-offset*
+                 ZEhA-clause?
+                 PU-clause?
+                 NAI-clause?
+                 interval-property*)
+  `(,@(?-null ZI-clause?)
+    ,@(*-null time-offset*)
+    ,@(?-null ZEhA-clause?)
+    ,@(?-null PU-clause?)
+    ,@(?-null NAI-clause?)
+    ,@(*-null interval-property*)))
 
-(define (time-offset . rodasumti)
-  `(time-offset ,@rodasumti))
+(define (time-offset PU-clause NAI-clause? ZI-clause?)
+  `(,@PU-clause
+    ,@(?-null NAI-clause?)
+    ,@(?-null ZI-clause?)))
 
 (define (space VA-clause?
                space-offset*
@@ -1759,7 +1771,7 @@
                space-offset?)
   `(,@(?-null VA-clause?)
     ,@(apply append space-offset*)
-    ,@(?-null space-interval?)
+    ,@(?*-null space-interval?)
     ,@(?-null MOhI-clause?)
     ,@(?-null space-offset?)))
 
@@ -1778,27 +1790,27 @@
                                   space-int-props?)
   `(,@VEhA-clause
     ,@(?-null FAhA-clause?)
-    ,@(?-null NAI-clause)
-    ,@(?-null space-int-props?)))
+    ,@(?-null NAI-clause?)
+    ,@(?*-null space-int-props?)))
 
 (define (space-interval space-int-props)
   space-int-props)
 
-(define (space-int-props sumti)
+(define (space-int-props prop+)
   (define (prop FEhE-clause interval-property)
     `(,@FEhE-clause ,@interval-property))
 
-  (map-apply prop sumti))
+  (map-apply prop prop+))
 
 
 (define (interval-property number ROI-clause NAI-clause?)
-  `(,number ,ROI-clause ,@(?-null NAI-clause?)))
+  `(,@number ,ROI-clause ,@(?-null NAI-clause?)))
 
 (define (interval-property-TAhE TAhE-clause NAI-clause?)
-  `(,TAhE-clause ,@(?-null NAI-clause)))
+  `(,@TAhE-clause ,@(?-null NAI-clause?)))
 
 (define (interval-property-ZAhO ZAhO-clause NAI-clause?)
-  `(,ZAhO-clause ,@(?-null NAI-clause)))
+  `(,@ZAhO-clause ,@(?-null NAI-clause?)))
 
 
 (define (free-SEI SEI-clause
@@ -3122,7 +3134,7 @@
 
 
 (define (ZAhO-clause ZAhO-pre ZAhO-post)
-  `(ZAhO-clause ,ZAhO-pre ZAhO-post))
+  `(ZAhO-clause ,ZAhO-pre ,@ZAhO-post))
 
 (define (ZAhO-pre pre-clause ZAhO)
   `(,@pre-clause ,@ZAhO))
