@@ -26,7 +26,8 @@ lerpinsle   <- rafsi selmaho short long `CRLF?
             -> {(lambda (rafsi selmaho short long) `(,rafsi ,@selmaho))}
 
 rafsi       <- [[:jbole'u:][:jboca'u:]]{10} `[[:jboca'u:]]
-            -> {(lambda (lerfu) (string-trim-both lerfu))}
+            -> {(lambda (lerfu)
+                  (string-trim-both lerfu (char-set #\. #\space)))}
 
 selmaho     <- [[:upper:]h]+
                ,#\*?
