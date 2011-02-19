@@ -34,19 +34,25 @@
        (test jufra jufra (cadr jalge))))))
 
 ;; this test is expected to succeed, so the input
-;; is fully consumed, leaving nothing after the
-;; parse.
+;; is fully consumed, unless the optional third
+;; variable is present, which specifies the text
+;; remaining after the parse.
 ;;
 (define-syntax mapti
   (syntax-rules ()
     ((_ gensuha jufra)
+     (mapti gensuha jufra ""))
+
+    ; the same, with some text after the parse.
+    ;
+    ((_ gensuha jufra stali)
             ; a list containing the parse tree and
             ; the remaining text.
             ;
      (let* ((jalge (jbogenturfahi* jufra))
             (mapti (match (car jalge) (gensuha #t) (_ #f))))
        (test jufra #t mapti)
-       (test jufra "" (cadr jalge))))))
+       (test jufra stali (cadr jalge))))))
 
 
 (include "../c0re.scm")
@@ -56,7 +62,10 @@
 
 (include "ldcmz.scm")
 
+(include "selmaho/bu.scm")
+(include "selmaho/si.scm")
 (include "selmaho/to.scm")  ; TO ... TOI
+(include "selmaho/zo.scm")
 (include "selmaho/zoi.scm")
 
 (include "cll/19/10.scm")
