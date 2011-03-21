@@ -3015,8 +3015,8 @@
 (define (TUhE-pre pre-clause TUhE)
   `(,@pre-clause ,@TUhE))
 
-(define (TUhE-post post-clause)
-  post-clause)
+(define (TUhE-post su-clause* post-clause)
+  `(,@(*-null su-clause*) ,@post-clause))
 
 
 (define (TUhU-clause TUhU-pre TUhU-post)
