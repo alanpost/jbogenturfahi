@@ -25,7 +25,11 @@ cfari       <- `((!CRLF .)* CRLF) lerpinsle* `FAhO
 lerpinsle   <- rafsi selmaho short long `CRLF?
             -> {(lambda (rafsi selmaho short long) `(,rafsi ,@selmaho))}
 
-rafsi       <- ([[:jbole'u:]] / `[[:jboca'u:]]){10} `[[:jboca'u:]]
+rafsi       <- `[[:jboca'u:]]
+               ( [[:jbole'u:]]
+               / ,#\.
+               / `[[:jboca'u:]] ){9}
+               `[[:jboca'u:]]
             -> {(lambda (lerfu) (apply string lerfu))}
 
 selmaho     <- [[:upper:]h]+
