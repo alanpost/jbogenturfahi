@@ -21,7 +21,7 @@
  (category parsing)
  (doc-from-wiki)
  (license "ISC")
- (needs genturfahi sqlite3 srfi-14 utils)
+ (needs genturfahi sqlite3)
  (test-depends data-structures matchable srfi-13 test)
  (synopsis "lo lojbo ke pe'a jajgau ratcu ke'e genturfa'i")
  (files "db.scm" "rafske_gumgau.peg" "main-srfi-37.scm" "chicken-ext-jbogensamselpla.scm" "chicken-db.scm" "jbogenturfahi.setup" "chicken-conf.scm" "tamgau.peg" "gerna.peg" "version.scm" "wordlists/rafsi.scm" "wordlists/cmavo.txt" "wordlists/cmavo.scm" "wordlists/rafsi.txt" "wordlists/00-tisetcidu" "wordlists/gismu.scm" "wordlists/gismu.txt" "jbogenturfahi.meta" "chicken-ext-jbogerna.scm" "chicken-declare.scm" "sql.scm" "c0re.scm" "LICENSE" "rafske.peg" "tests/rafsi.scm" "tests/ldcmz.scm" "tests/cmavo.scm" "tests/cll/19/12.scm" "tests/cll/19/10.scm" "tests/cll/19/13.scm" "tests/run.scm" "tests/gismu.scm" "tests/selmaho/zo.scm" "tests/selmaho/to.scm" "tests/selmaho/zoi.scm" "tests/selmaho/bu.scm" "tests/selmaho/si.scm" "chicken-ext.scm" "jbogenturfahi.scm" "jbogenturfahi.release-info" "chicken-cmd.scm" "samselpla.scm"))
