@@ -19,6 +19,7 @@
 
 (use genturfahi)
 (use genturfahi-peg)
+(use make)
 (use extras)
 
 (include "version.scm")
