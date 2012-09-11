@@ -32,9 +32,103 @@
            (paragraphs
              (paragraph
                (sentence
+                 (term (sumti (KOhA-clause (cmavo (KOhA "ti")))))
+                 (selbri (GOhA-clause (cmavo (GOhA "mo"))))))))
+    ".i ti mo")
+
+
+  (mapti
+    '(text (I-clause (cmavo (I "i")))
+           (paragraphs
+             (paragraph
+               (sentence
                  (term (sumti (KOhA-clause (cmavo (KOhA "ta")))))
                  (selbri (BRIVLA-clause (gismu "rokci")))))))
     ".i ta rokci")
+
+
+  (mapti
+    '(text (I-clause (cmavo (I "i")))
+           (paragraphs
+             (paragraph
+               (sentence
+                 (term (sumti (KOhA-clause (cmavo (KOhA "ti")))))
+                 (selbri
+                   (BRIVLA-clause
+                     (gismu "rokci")
+                     (UI-clause (cmavo (UI "xu")))))))))
+    ".i ti rokci xu")
+
+
+  (mapti
+    '(text (I-clause (cmavo (I "i")))
+           (paragraphs
+             (paragraph
+               (sentence
+                 (term (sumti (KOhA-clause (cmavo (KOhA "ta")))))
+                 (selbri
+                   (NA-clause
+                     (cmavo (NA "ja'a"))
+                     (selbri (BRIVLA-clause (gismu "rokci")))))))))
+    ".i ta ja'a rokci")
+
+
+  (mapti
+    '(text (I-clause (cmavo (I "i")))
+           (paragraphs
+             (paragraph
+               (sentence
+                 (term (sumti (KOhA-clause (cmavo (KOhA "mi")))))
+                 (selbri
+                   (BRIVLA-clause (gismu "ralte")
+																	(UI-clause (cmavo (UI "xu")))))
+                 (term
+									 (sumti (KOhA-clause (cmavo (KOhA "ti")))
+                          (NOI-clause
+                            (cmavo (NOI "poi"))
+                            (sentence
+                              (selbri (BRIVLA-clause (gismu "rokci")))))))))))
+    ".i mi ralte xu ti poi rokci")
+
+
+  (mapti
+    '(text (I-clause (cmavo (I "i")))
+           (paragraphs
+             (paragraph
+               (sentence
+                 (term (sumti (KOhA-clause (cmavo (KOhA "do")))))
+                 (selbri
+                   (NA-clause
+                     (cmavo (NA "ja'a"))
+                     (selbri (BRIVLA-clause (gismu "ralte")))))
+                 (term
+									 (sumti (KOhA-clause (cmavo (KOhA "ta")))
+                          (NOI-clause
+                            (cmavo (NOI "poi"))
+                            (sentence
+                              (selbri (BRIVLA-clause (gismu "rokci")))))))))))
+    ".i do ja'a ralte ta poi rokci")
+
+
+  (mapti
+    '(text (I-clause (cmavo (I "i")))
+           (paragraphs
+             (paragraph
+               (sentence
+                 (term (sumti (KOhA-clause (cmavo (KOhA "ta")))))
+                 (selbri (GOhA-clause (cmavo (GOhA "mo"))))))))
+    ".i ta mo")
+
+
+  (mapti
+    '(text (I-clause (cmavo (I "i")))
+           (paragraphs
+             (paragraph
+               (sentence
+                 (term (sumti (KOhA-clause (cmavo (KOhA "ti")))))
+                 (selbri (BRIVLA-clause (gismu "grana")))))))
+    ".i ti grana")
+
 
   (mapti
     '(text (I-clause (cmavo (I "i")))
@@ -48,17 +142,24 @@
                      (UI-clause (cmavo (UI "xu")))))))))
     ".i ta rokci xu")
 
+
   (mapti
     '(text (I-clause (cmavo (I "i")))
            (paragraphs
              (paragraph
                (sentence
-                 (term (sumti (KOhA-clause (cmavo (KOhA "ta")))))
+                 (term (sumti (KOhA-clause (cmavo (KOhA "ti")))))
                  (selbri
-                   (NAhE-clause
-                     (cmavo (NAhE "je'a"))
-                     (BRIVLA-clause (gismu "rokci"))))))))
-    ".i ta je'a rokci")
+                   (NA-clause
+                     (cmavo (NA "na"))
+                     (selbri (BRIVLA-clause (gismu "rokci"))))))
+               (I-clause
+                 (cmavo (I "i"))
+                 (sentence
+                    (term (sumti (KOhA-clause (cmavo (KOhA "ti")))))
+                    (selbri (BRIVLA-clause (gismu "grana"))))))))
+    ".i ti na rokci .i ti grana")
+
 
   (mapti
     '(text (I-clause (cmavo (I "i")))
@@ -67,10 +168,72 @@
                (sentence
                  (term (sumti (KOhA-clause (cmavo (KOhA "ta")))))
                  (selbri
+                   (BRIVLA-clause (gismu "grana")
+																	(UI-clause (cmavo (UI "xu")))))))))
+    ".i ta grana xu")
+
+
+  (mapti
+    '(text (I-clause (cmavo (I "i")))
+           (paragraphs
+             (paragraph
+               (sentence
+                 (term (sumti (KOhA-clause (cmavo (KOhA "ti")))))
+                 (selbri
+                   (NA-clause
+                     (cmavo (NA "ja'a"))
+                     (selbri (BRIVLA-clause (gismu "grana")))))))))
+    ".i ti ja'a grana")
+
+
+  (mapti
+    '(text (I-clause (cmavo (I "i")))
+           (paragraphs
+             (paragraph
+               (sentence
+                 (term (sumti (KOhA-clause (cmavo (KOhA "mi")))))
+                 (selbri
+                   (BRIVLA-clause (gismu "ralte")
+																	(UI-clause (cmavo (UI "xu")))))
+                 (term
+									 (sumti (KOhA-clause (cmavo (KOhA "ta")))
+                          (NOI-clause
+                            (cmavo (NOI "poi"))
+                            (sentence
+                              (selbri (BRIVLA-clause (gismu "grana")))))))))))
+    ".i mi ralte xu ta poi grana")
+
+
+  (mapti
+    '(text (I-clause (cmavo (I "i")))
+           (paragraphs
+             (paragraph
+               (sentence
+                 (term (sumti (KOhA-clause (cmavo (KOhA "do")))))
+                 (selbri
                    (NA-clause
                      (cmavo (NA "na"))
-                     (selbri (BRIVLA-clause (gismu "grana")))))))))
-    ".i ta na grana")
+                     (selbri (BRIVLA-clause (gismu "ralte")))))
+                 (term
+									 (sumti (KOhA-clause (cmavo (KOhA "ti")))
+                          (NOI-clause
+                            (cmavo (NOI "poi"))
+                            (sentence
+                              (selbri (BRIVLA-clause (gismu "grana"))))))))
+               (I-clause
+                 (cmavo (I "i"))
+                 (sentence
+                   (term (sumti (KOhA-clause (cmavo (KOhA "mi")))))
+                   (selbri (BRIVLA-clause (gismu "ralte")))
+                   (term
+                     (sumti
+											 (KOhA-clause (cmavo (KOhA "ti")))
+                       (NOI-clause
+                         (cmavo (NOI "poi"))
+                         (sentence
+                           (selbri (BRIVLA-clause (gismu "grana"))))))))))))
+    ".i do na ralte ti poi grana .i mi ralte ti poi grana")
+
   0)
 
 (test-group "lo do ckiku ma zvati"
