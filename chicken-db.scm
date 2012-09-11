@@ -1,5 +1,6 @@
-(use srfi-13)
-(use srfi-14)
+(use utf8)
+(use utf8-srfi-13)
+(use utf8-srfi-14)
 (use genturfahi)
 (use genturfahi-peg)
 (use data-structures)

@@ -24,12 +24,14 @@
 (import chicken)
 (import scheme)
 
-(require-extension srfi-14)
+(require-extension utf8)
+(require-extension utf8-srfi-14)
 (require-extension extras)
 (require-library genturfahi)
 (require-library jbogensamselpla)
 
-(import srfi-14)
+(import utf8)
+(import utf8-srfi-14)
 (import extras)
 
 (import genturfahi)

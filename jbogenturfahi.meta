@@ -22,5 +22,5 @@
  (doc-from-wiki)
  (license "ISC")
  (needs genturfahi make sqlite3)
- (test-depends data-structures matchable srfi-13 test)
+ (test-depends data-structures matchable utf8 utf8-srfi-13 test)
  (synopsis "lo lojbo ke pe'a jajgau ratcu ke'e genturfa'i"))
