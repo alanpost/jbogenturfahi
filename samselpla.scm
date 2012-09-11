@@ -784,17 +784,23 @@
 ;; NIhO-clause? is: ( NIhO-clause+ free* su-clause* paragraphs )?
 ;; ?-null handles + and *.
 ;;
-(define (paragraphs paragraph NIhO-clause+ free* su-clause* paragraphs)
+(define (paragraphs paragraph NIhO-clause+ free* su-clause* paragraphs-0)
   `(paragraphs
     ,@paragraph
     ,@(?*-null NIhO-clause+)
     ,@(?*-null free*)
     ,@(?*-null su-clause*)
-    ,@(?*-null paragraphs)))
+    ,@(?*-null paragraphs-0)))
 
 (define (paragraph statement-or-fragment I-clause*)
   (define (I I-clause free* statement-or-fragment?)
-    `(,@I-clause ,@(*-null free*) ,@(?-null statement-or-fragment?)))
+    ;
+    ; statement-or-fragment? uses ?*-null, rather than ?-null,
+    ; because an extra list is created in |statement|.  This
+    ; normalizes it to the same list structure everywhere it
+    ; is used.
+    ;
+    `(,@I-clause ,@(*-null free*) ,@(?*-null statement-or-fragment?)))
 
   `((paragraph ,@statement-or-fragment ,@(map-apply I I-clause*))))
 
@@ -816,7 +822,7 @@
                      stag?
                      BO-clause?
                      free*
-                     #!optional (statement-2? ""))
+                     statement-2?)
   `(,@statement-3
     ,@(?-null I-clause?)
     ,@(?-null jek-or-joik?)
@@ -1262,7 +1268,7 @@
                            free-1*)
   `(,@NOI-clause
     ,@(*-null free-0*)
-    ,@subsentence
+    ,subsentence
     ,@(?-null KUhO-clause?)
     ,@(*-null free-1*)))
 
