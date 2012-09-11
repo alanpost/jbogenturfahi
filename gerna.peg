@@ -56,7 +56,7 @@ paragraph <- ( statement
 statement <- statement-1
           -> statement
            / prenex statement
-          -> statement
+          -> statement-prenex
 
 statement-1 <- statement-2 ( I-clause joik-jek statement-2? )*
             -> statement-1

@@ -798,8 +798,11 @@
 
   `((paragraph ,@statement-or-fragment ,@(map-apply I I-clause*))))
 
-(define (statement . rodasumti)
-  rodasumti)
+(define (statement statement-1)
+  `(,statement-1))
+
+(define (statement-prenex prenex statement-1)
+  `(,prenex ,statement-1))
 
 (define (statement-1 statement-2 I-clause*)
   (define (I I-clause joik-jek statement-2?)
