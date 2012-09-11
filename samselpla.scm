@@ -1435,11 +1435,15 @@
 (define (links-start BEI-clause)
   BEI-clause)
 
-(define (quantifier-BOI . rodasumti)
-  `(quantifier-BOI ,@rodasumti))
+(define (quantifier-BOI number BOI-clause? free*)
+  `(,number ,@(?-null BOI-clause?) ,@(*-null free*)))
 
-(define (quantifier-VEI . rodasumti)
-  `(quantifier-VEI ,@rodasumti))
+(define (quantifier-VEI VEI-clause free-0* mex VEhO-clause? free-1*)
+  `(,@VEI-clause
+    ,@(*-null free-0*)
+    ,@mex
+    ,@(?-null VEhO-clause?)
+    ,@(*-null free-1*)))
 
 (define (mex . rodasumti)
   `(mex ,@rodasumti))
@@ -1629,29 +1633,44 @@
     ,@A-clause
     ,@(?-null NAI-clause?)))
 
-(define (gihek . rodasumti)
-  `(gihek ,@rodasumti))
+(define (gihek gihek-sa* gihek-1)
+  `(gihek ,@(*-null gihek-sa*) ,gihek-1))
 
-(define (gihek-sa . rodasumti)
-  `(gihek-sa ,@rodasumti))
+(define (gihek-sa gihek-1 sa-word* SA-clause)
+  `(sa-clause
+    ,@gihek-1
+    ,@(apply append (*-null sa-word*))
+    ,@SA-clause))
 
-(define (gihek-1 . rodasumti)
-  `(gihek-1 ,@rodasumti))
+(define (gihek-1 NA-clause? SE-clause? GIhA-clause NAI-clause?)
+  `(,@(?-null NA-clause?)
+    ,@(?-null SE-clause?)
+    ,@GIhA-clause
+    ,@(?-null NAI-clause?)))
 
-(define (jek . rodasumti)
-  `(jek ,@rodasumti))
+(define (jek NA-clause? SE-clause? JA-clause NAI-clause?)
+  `(jek ,@(?-null NA-clause?)
+        ,@(?-null SE-clause?)
+        ,@JA-clause
+        ,@(?-null NAI-clause?)))
 
-(define (joik-JOI . rodasumti)
-  `(joik-JOI ,@rodasumti))
+(define (joik-JOI SE-clause? JOI-clause NAI-clause?)
+  `(joik ,@(?-null SE-clause?)
+         ,@JOI-clause
+         ,@(?-null NAI-clause?)))
 
-(define (joik-interval . rodasumti)
-  `(joik-interval ,@rodasumti))
+(define (joik-interval interval)
+  `(joik ,@interval))
 
-(define (joik-GAhO . rodasumti)
-  `(joik-GAhO ,@rodasumti))
+(define (joik-GAhO GAhO-clause interval GAhO-clause)
+  `(joik ,@GAhO-clause
+         ,@interval
+         ,@GAhO-clause))
 
-(define (interval . rodasumti)
-  `(interval ,@rodasumti))
+(define (interval SE-clause? BIhI-clause NAI-clause?)
+  `(,@(?-null SE-clause?)
+    ,@BIhI-clause
+    ,@(?-null NAI-clause?)))
 
 (define (joik-ek . rodasumti)
   `(joik-ek ,@rodasumti))
