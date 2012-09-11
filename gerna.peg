@@ -698,14 +698,14 @@ ek <- NA-clause? SE-clause? A-clause NAI-clause?
 gihek <- gihek-sa* gihek-1
       -> gihek
 
-gihek-1 <- NA-clause? SE-clause? GIhA-clause NAI-clause?
-        -> gihek-1
-
 gihek-sa <- gihek-1
             ( !gihek-1 ( sa-word / SA-clause !gihek-1 ) )*
             SA-clause
             &gihek
          -> gihek-sa
+
+gihek-1 <- NA-clause? SE-clause? GIhA-clause NAI-clause?
+        -> gihek-1
 
 jek <- NA-clause? SE-clause? JA-clause NAI-clause?
     -> jek
