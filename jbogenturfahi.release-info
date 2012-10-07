@@ -1,0 +1,2 @@
+(repo git "git://github.com/alanpost/{egg-name}.git")
+(uri targz "https://github.com/alanpost/{egg-name}/tarball/{egg-release}")
