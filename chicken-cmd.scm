@@ -26,6 +26,7 @@
 (use jbogerna)
 (use jbogenturfahi)
 
+(include "license.scm")
 (include "main-srfi-37.scm")
 
 (main)

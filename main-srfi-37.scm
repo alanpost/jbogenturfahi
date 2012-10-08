@@ -35,6 +35,7 @@ usage: jbogenturfahi [-:?]
                      [-h | --help]
                      [-g | --grammar RULE]
                      [-i | --input-file NAME]
+                     [-L | --license]
                      [-m | --morphology RULE]
                      [-o | --output-file NAME]
                      [-p | --profile]
@@ -62,6 +63,10 @@ EOS
   (secuxna-profile #t)
   (or seed #f))
 
+(define (license option name arg seed)
+  (print jbogenturfahi-license)
+  (exit 0))
+
 (define (version option name arg seed)
   (print (format "jbogenturfa'i version ~a" jbogenturfahi-version))
   (exit 0))
@@ -79,6 +84,7 @@ EOS
         (option '(#\g "gerna"  "grammar")     #f #f grammar)
         (option '(#\h "sidju"  "help")        #f #f help)
         (option '(#\i          "input-file")  #t #f input-file)
+        (option '(#\L          "license")     #f #f license)
         (option '(#\o          "output-file") #t #f output-file)
         (option '(#\p "junla"  "profile")     #f #t profile)
         (option '(#\r "rafske" "morphology")  #f #f morphology)

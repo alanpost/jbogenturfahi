@@ -36,6 +36,7 @@
 (make (("jbogenturfahi" ("chicken-cmd.scm"
                          "chicken-conf.scm"
                          "chicken-declare.scm"
+                         "license.scm"
                          "main-srfi-37.scm"
                          "jbogenturfahi.meta"
                          "jbogenturfahi.setup"
@@ -192,6 +193,12 @@
                                           (read-all "rafske.peg"))))
                (for-each (lambda (form) (pretty-print form port))
                          (genturfahi-peg lefpoi)))))))
+       ("license.scm" ("LICENSE")
+        (call-with-output-file "license.scm"
+          (lambda (port)
+            (write
+              `(define jbogenturfahi-license ,(read-all "LICENSE"))
+              port)))))
 
       `("jbogenturfahi.db"
         "jbogenturfahi"

@@ -1,6 +1,7 @@
 jbogenturfahi
 jbogenturfahi.db
 jbogerna.scm
+license.scm
 path.scm
 *.import.scm
 *.o
