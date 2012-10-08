@@ -33,9 +33,12 @@
 usage: jbogenturfahi [-:?]
                      [-d | --debug]
                      [-h | --help]
+                     [-g | --grammar RULE]
                      [-i | --input-file NAME]
+                     [-m | --morphology RULE]
                      [-o | --output-file NAME]
                      [-p | --profile]
+                     [-w | --width N]
                      [-v | --version]
                      [file]*
 EOS
@@ -72,15 +75,15 @@ EOS
   (or seed #f))
 
 (define options
-  (list (option '(#\d "debug" "cfisisku")    #f #t debug)
-        (option '(#\g "grammar" "gerna")     #f #f grammar)
-        (option '(#\h "sidju" "help")        #f #f help)
-        (option '(#\i "input-file")          #t #f input-file)
-        (option '(#\o "output-file")         #t #f output-file)
-        (option '(#\p "profile" "junla")     #f #t profile)
-        (option '(#\r "morphology" "rafske") #f #f morphology)
-        (option '(#\w "width")               #t #f width)
-        (option '(#\v "version")             #f #f version)
+  (list (option '(#\d "debug"  "cfisisku")    #f #t debug)
+        (option '(#\g "gerna"  "grammar")     #f #f grammar)
+        (option '(#\h "sidju"  "help")        #f #f help)
+        (option '(#\i          "input-file")  #t #f input-file)
+        (option '(#\o          "output-file") #t #f output-file)
+        (option '(#\p "junla"  "profile")     #f #t profile)
+        (option '(#\r "rafske" "morphology")  #f #f morphology)
+        (option '(#\w          "width")       #t #f width)
+        (option '(#\v          "version")     #f #f version)
         (option '(#\:)                       #t #f runtime)))
 
 (define (usage option name args seed)
