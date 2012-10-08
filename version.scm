@@ -25,4 +25,4 @@
 ;                               jbogenturfahi-version-major
 ;                               jbogenturfahi-version-minor
 ;                               jbogenturfahi-version-patch))
-(define jbogenturfahi-version "trunk")
+(define jbogenturfahi-version "master")
