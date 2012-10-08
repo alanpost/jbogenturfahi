@@ -26,7 +26,6 @@
 ;(declare (fixnum-arithmetic))
 ;(declare (inline))
 ;(declare (inline-global))
-;(declare (lambda-lift))
 ;(declare (local))
 ;(declare (no-bound-checks))
 ;(declare (no-procedure-checks))
