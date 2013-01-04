@@ -192,7 +192,7 @@
                                           (read-all "rafske_gumgau.peg")
                                           (read-all "rafske.peg"))))
                (for-each (lambda (form) (pretty-print form port))
-                         (genturfahi-peg lefpoi)))))))
+                         (genturfahi-peg lefpoi))))))
        ("license.scm" ("LICENSE")
         (call-with-output-file "license.scm"
           (lambda (port)
